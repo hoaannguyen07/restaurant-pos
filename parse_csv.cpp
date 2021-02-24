@@ -7,6 +7,9 @@
 #include <cctype> // ::isspace used
 #include <algorithm>
 
+#include <set>
+#include <map>
+
 struct cust_info
 {
     std::string lastname;
@@ -87,16 +90,36 @@ std::vector<cust_info> create_customer_vector(std::vector<std::vector<std::strin
     // lastname, firstname, ID, Password, Payment Method = 0
     std::vector<cust_info> customer_table;
 
+    std::set<std::string> cust_names;
+
     for(int i = 0; i < csv_data.size(); i++)
     {
+        std::string cur_cust_name = csv_data[i][0] + " " + csv_data[i][1];
+        cust_names.insert(cur_cust_name);
+    }
+
+    int id_password = 0;
+    for(std::set<std::string>::iterator it = cust_names.begin(); it != cust_names.end(); it++)
+    {
+        std::stringstream name(*it);
+
+        // get last & first name of customer from set & trim strings before creating a cust_info with it
+        std::string last_name, first_name;
+        name >> last_name >> first_name;
+
+        last_name.erase(std::remove_if(last_name.begin(), last_name.end(), ::isspace), last_name.end()); // trim white spaces
+        first_name.erase(std::remove_if(first_name.begin(), first_name.end(), ::isspace), first_name.end()); // trim white spaces
+
         cust_info cur_customer;
-        cur_customer.lastname = csv_data[i][0];
-        cur_customer.firstname = csv_data[i][1];
-        cur_customer.id = i;
-        cur_customer.password = i;
+        cur_customer.lastname = last_name;
+        cur_customer.firstname = first_name;
+        cur_customer.id = id_password;
+        cur_customer.password = id_password;
         cur_customer.payment = 0;
 
         customer_table.push_back(cur_customer);
+
+        id_password++;
     }
 
     return customer_table;

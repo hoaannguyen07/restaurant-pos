@@ -1,14 +1,18 @@
 #include <iostream>
-#include <string>
+#include <vector>
+
+#include <string.h>
 #include <fstream>
 #include <sstream>
-#include <vector>
+#include <iomanip> // use setfill('0') to put preceding 0's when necessary
 
 #include <cctype> // ::isspace used
 #include <algorithm>
 
 #include <set>
 #include <map>
+
+#include <stdlib.h> // rand()
 
 struct cust_info
 {
@@ -83,6 +87,8 @@ void create_csv_only_names(std::string out_csv_name, std::vector<std::vector<std
            output_csv_file << csv_data[i][0] << ", " << csv_data[i][1] << std::endl;
        }
    }
+
+   output_csv_file.close();
 }
 
 std::vector<cust_info> create_customer_vector(std::vector<std::vector<std::string>> &csv_data)
@@ -98,7 +104,7 @@ std::vector<cust_info> create_customer_vector(std::vector<std::vector<std::strin
         cust_names.insert(cur_cust_name);
     }
 
-    int id_password = 0;
+    int id_password = 1;
     for(std::set<std::string>::iterator it = cust_names.begin(); it != cust_names.end(); it++)
     {
         std::stringstream name(*it);
@@ -139,7 +145,62 @@ void create_customer_csv(std::string customer_csv_name, std::vector<cust_info> &
     {
         output_csv_file << cur_cust.lastname << ", " << cur_cust.firstname << ", " << cur_cust.id << ", " << cur_cust.password << ", " << cur_cust.payment << std::endl;
     }
-   
+    
+    output_csv_file.close();
+}
+
+
+std::map<std::string, int> create_visitation_map(std::vector<std::vector<std::string>> &csv_data)
+{
+    std::map<std::string, int> visitation_map;
+
+    for(int i = 0; i < csv_data.size(); i++)
+    {
+        std::string cur_cust_name = csv_data[i][0] + " " + csv_data[i][1];
+        // if cur_cust_name is already in the map, increment the amount of visits the person has by 1.
+        // else, that person visits for the first time
+        if (visitation_map.find(cur_cust_name) != visitation_map.end())
+        {
+            visitation_map[cur_cust_name]++; // increment by 1 after the visit
+        }
+        else 
+        {
+            visitation_map[cur_cust_name] = 1;
+        }
+    }
+
+    int total_visits = 0;
+    for(std::map<std::string, int>::iterator i = visitation_map.begin(); i != visitation_map.end(); i++)
+    {
+        total_visits += i->second;
+    }
+
+    std::cout << "The restaurant was visited " << total_visits << " times\n";
+
+    return visitation_map;
+}
+
+
+void create_visitation_csv (std::string filename, std::map<std::string, int> &visitation_map)
+{
+    // create a stream for the output file and make sure that it is created
+    std::ofstream output_csv_file(filename);
+    if (!output_csv_file.is_open())
+    {
+        std::cerr << "Could not open file '" << filename << "'";
+        exit(1);
+    }
+
+
+    int cust_id = 1; // keep track of customer id affiliated with visitation (map is sorted like the set)
+    for(auto i = visitation_map.begin(); i != visitation_map.end(); i++)
+    {
+        output_csv_file << cust_id << ", " << i->second << std::endl;
+
+        cust_id++;
+    }
+
+    output_csv_file.close();
 }
 
 int main()
@@ -148,18 +209,18 @@ int main()
 
     std::cout << "There are " << csv_data.size() << " lines in this csv file" << std::endl;
     
-    std::cout << std::endl;
+    // std::cout << std::endl;
 
-    std::cout << "This is a sample of the data:" << std::endl;
-    for(int i = 0; i < 10; i++)
-    {
-        for(std::string s : csv_data[i])
-        {
-            std::cout << s << ' ';
-        }
+    // std::cout << "This is a sample of the data:" << std::endl;
+    // for(int i = 0; i < 10; i++)
+    // {
+    //     for(std::string s : csv_data[i])
+    //     {
+    //         std::cout << s << ' ';
+    //     }
 
-        std::cout << std::endl;
-    }
+    //     std::cout << std::endl;
+    // }
 
     // std::string only_names_csv = "onlyNames.csv";
     // create_csv_only_names(only_names_csv, csv_data);
@@ -168,6 +229,8 @@ int main()
     std::vector<cust_info> customer_data_table = create_customer_vector(csv_data);
     create_customer_csv("customer.csv", customer_data_table);
 
+    std::map<std::string, int> cust_visitation_map = create_visitation_map(csv_data);
+    create_visitation_csv("visitation.csv", cust_visitation_map);
 
     return 0;
 }

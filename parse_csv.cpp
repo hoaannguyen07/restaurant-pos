@@ -84,7 +84,7 @@ void create_csv_only_names(std::string out_csv_name, std::vector<std::vector<std
    {
        for(int j = 0; j < 2; j++)
        {
-           output_csv_file << csv_data[i][0] << ", " << csv_data[i][1] << std::endl;
+           output_csv_file << csv_data[i][0] << "," << csv_data[i][1] << std::endl;
        }
    }
 
@@ -104,7 +104,7 @@ std::vector<cust_info> create_customer_vector(std::vector<std::vector<std::strin
         cust_names.insert(cur_cust_name);
     }
 
-    int id_password = 1;
+    int id_password = 0;
     for(std::set<std::string>::iterator it = cust_names.begin(); it != cust_names.end(); it++)
     {
         std::stringstream name(*it);
@@ -143,7 +143,7 @@ void create_customer_csv(std::string customer_csv_name, std::vector<cust_info> &
     
     for(cust_info cur_cust : customer_data)
     {
-        output_csv_file << cur_cust.lastname << ", " << cur_cust.firstname << ", " << cur_cust.id << ", " << cur_cust.password << ", " << cur_cust.payment << std::endl;
+        output_csv_file << cur_cust.lastname << "," << cur_cust.firstname << "," << cur_cust.id << "," << cur_cust.password << "," << cur_cust.payment << std::endl;
     }
     
     output_csv_file.close();
@@ -192,10 +192,10 @@ void create_visitation_csv (std::string filename, std::map<std::string, int> &vi
     }
 
 
-    int cust_id = 1; // keep track of customer id affiliated with visitation (map is sorted like the set)
+    int cust_id = 0; // keep track of customer id affiliated with visitation (map is sorted like the set)
     for(auto i = visitation_map.begin(); i != visitation_map.end(); i++)
     {
-        output_csv_file << cust_id << ", " << i->second << std::endl;
+        output_csv_file << cust_id << "," << i->second << std::endl;
 
         cust_id++;
     }
@@ -226,8 +226,8 @@ int main()
     // create_csv_only_names(only_names_csv, csv_data);
 
     // create a customer info csv
-    std::vector<cust_info> customer_data_table = create_customer_vector(csv_data);
-    create_customer_csv("customer.csv", customer_data_table);
+    // std::vector<cust_info> customer_data_table = create_customer_vector(csv_data);
+    // create_customer_csv("customer.csv", customer_data_table);
 
     std::map<std::string, int> cust_visitation_map = create_visitation_map(csv_data);
     create_visitation_csv("visitation.csv", cust_visitation_map);

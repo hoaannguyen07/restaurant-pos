@@ -202,9 +202,9 @@ void create_card_csv(std::string filename, std::vector<card_info> &card_info_tab
 
     for(card_info cur_card : card_info_table)
     {
-        output_csv_file << cur_card.payment_type << ", " << cur_card.card_num << ", " 
-            << cur_card.card_comp << ", " << cur_card.exp_date << ", " 
-            << cur_card.ccv << ", " << cur_card.cust_id << std::endl;
+        output_csv_file << cur_card.payment_type << "," << cur_card.card_num << "," 
+            << cur_card.card_comp << "," << cur_card.exp_date << "," 
+            << cur_card.ccv << "," << cur_card.cust_id << std::endl;
     }
 
     output_csv_file.close();

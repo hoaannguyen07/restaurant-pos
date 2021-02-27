@@ -20,7 +20,6 @@ struct cust_info
     std::string firstname;
     int id;
     int password;
-    int payment;
 };
 
 std::vector<std::vector<std::string>> read_csv_to_vector (std::string filename)
@@ -121,7 +120,6 @@ std::vector<cust_info> create_customer_vector(std::vector<std::vector<std::strin
         cur_customer.firstname = first_name;
         cur_customer.id = id_password;
         cur_customer.password = id_password;
-        cur_customer.payment = 0;
 
         customer_table.push_back(cur_customer);
 
@@ -143,7 +141,7 @@ void create_customer_csv(std::string customer_csv_name, std::vector<cust_info> &
     
     for(cust_info cur_cust : customer_data)
     {
-        output_csv_file << cur_cust.lastname << "," << cur_cust.firstname << "," << cur_cust.id << "," << cur_cust.password << "," << cur_cust.payment << std::endl;
+        output_csv_file << cur_cust.lastname << "," << cur_cust.firstname << "," << cur_cust.id << "," << cur_cust.password << std::endl;
     }
     
     output_csv_file.close();
@@ -226,11 +224,11 @@ int main()
     // create_csv_only_names(only_names_csv, csv_data);
 
     // create a customer info csv
-    // std::vector<cust_info> customer_data_table = create_customer_vector(csv_data);
-    // create_customer_csv("customer.csv", customer_data_table);
+    std::vector<cust_info> customer_data_table = create_customer_vector(csv_data);
+    create_customer_csv("customer.csv", customer_data_table);
 
-    std::map<std::string, int> cust_visitation_map = create_visitation_map(csv_data);
-    create_visitation_csv("visitation.csv", cust_visitation_map);
+    // std::map<std::string, int> cust_visitation_map = create_visitation_map(csv_data);
+    // create_visitation_csv("visitation.csv", cust_visitation_map);
 
     return 0;
 }

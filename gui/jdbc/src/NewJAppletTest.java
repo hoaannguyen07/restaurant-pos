@@ -1,19 +1,68 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 
-/**
- *
- * @author spiraljr
- */
-public class NewJAppletTest extends javax.swing.JApplet {
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-    /**
-     * Initializes the applet NewJAppletTest
-     */
-    @Override
+import java.sql.*;
+
+public class NewJAppletTest extends javax.swing.JFrame {
+
+    private static final long serialVersionUID = 1L; //removes warning
+    
+    //Launch the application.
+    public static void main(String[] args) {
+        Connection conn = null;
+        try {
+            //Class.forName("org.postgresql.Driver");
+            conn = DriverManager.getConnection(
+                "jdbc:postgresql://csce-315-db.engr.tamu.edu/db907_group9_project2",
+                dbSetup.user, dbSetup.pswd);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }//end try catch
+
+            System.out.println("Opened database successfully");
+
+            EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    try {
+                        Statement stmt; //create a statement object
+                        stmt = conn.createStatement();
+                        String sqlStatement = "SELECT lastname FROM customer"; //create an SQL statement
+                        ResultSet result = stmt.executeQuery(sqlStatement); //send statement to DBMS
+
+                        //OUTPUT
+                        System.out.println("Customer Last names from the Database.");
+                        System.out.println("______________________________________");
+                        while (result.next()) {
+                          System.out.println(result.getString("lastname"));
+                        } //end while
+                    } catch (Exception e) {
+                        System.out.println("Error accessing Database.");
+                        e.printStackTrace();
+                    } //end try-catch
+                } //end run()
+            }); //end EventQueue
+
+        //closing the connection
+        try {
+            conn.close();
+            System.out.println("Connection Closed.");
+        } catch(Exception e) {
+            System.out.println("Connection NOT Closed.");
+        }//end try catch
+
+    }
+    
+    //initializes the frame
     public void init() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

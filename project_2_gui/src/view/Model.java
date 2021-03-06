@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 public class Model extends DefaultTableModel {
  
     public Model() {
-        super(Constants.CART, Constants.TABLE_HEADER);
+        super(MenuQuery.MENU, MenuQuery.TABLE_HEADER);
     }
  
 }

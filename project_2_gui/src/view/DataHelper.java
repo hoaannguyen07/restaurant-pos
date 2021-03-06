@@ -19,7 +19,7 @@ public class DataHelper {
 	     try {
 	        //Class.forName("org.postgresql.Driver");
 	        conn = DriverManager.getConnection(
-	          "jdbc:postgresql://csce-315-db.engr.tamu.edu/sthomas_demo",
+	          "jdbc:postgresql://csce-315-db.engr.tamu.edu/db907_project2_group9",
 	           dbSetup.user, dbSetup.pswd);
 	     } catch (Exception e) {
 	        e.printStackTrace();
@@ -46,7 +46,7 @@ public class DataHelper {
 			Statement stmt = conn.createStatement(); // statement object
 			// create the actual statement to populate the statement object
 			String sql_stmt = "INSERT INTO customer(lastname, firstname, id, password) VALUES (\"" + l_name.getText() + "\", \""
-								+ f_name.getText() + "\", \"" + cust_id.getText() + "\", \"" + password.getText() + "\");";
+								+ f_name.getText() + "\", \"" + cust_id.getText() + "\", \"" + password.getText() + "\")";
 			
 			System.out.println("Executing Statement: " + sql_stmt);
 			
@@ -102,7 +102,7 @@ public class DataHelper {
 			 "LEFT JOIN menu m4 ON o.desserts = m4.id " +
 			 "WHERE customer.lastname LIKE '" + this.last_name + "%' " +
 			 "AND customer.firstname LIKE '" + this.first_name + "%' " +
-			 "ORDER BY o.date DESC LIMIT 5;";
+			 "ORDER BY o.date DESC LIMIT 5";
 					
 			
 			System.out.println("Executing Statement: " + sql_stmt);
@@ -137,7 +137,7 @@ public class DataHelper {
 			Statement stmt = conn.createStatement(); // statement object
 			// create the actual statement to populate the statement object
 			String sql_stmt = "SELECT manager.username, manager.password FROM manager WHERE manager.username LIKE '" + username.getText() 
-									+ "' AND manager.password LIKE '" + password.getText() + "' LIMIT 1;";
+									+ "' AND manager.password LIKE '" + password.getText() + "' LIMIT 1";
 			
 			System.out.println("Executing Statement: " + sql_stmt);
 			
@@ -161,7 +161,7 @@ public class DataHelper {
 				 */
 				
 				String find_first_last_name_stmt = "SELECT manager.firstname, manager.lastname FROM manager WHERE username LIKE '" + username.getText() + 
-						"' AND password LIKE '" + password.getText() + "';";
+						"' AND password LIKE '" + password.getText();
 				
 				ResultSet first_last_name_result = stmt.executeQuery(find_first_last_name_stmt);
 				
@@ -200,7 +200,7 @@ public class DataHelper {
 			Statement stmt = conn.createStatement(); // statement object
 			// create the actual statement to populate the statement object
 			String sql_stmt = "SELECT customer.username, customer.password FROM customer WHERE customer.username LIKE '" + username.getText() 
-									+ "' AND customer.password LIKE '" + password.getText() + "' LIMIT 1;";
+									+ "' AND customer.password LIKE '" + password.getText() + "' LIMIT 1";
 			
 			System.out.println("Executing Statement: " + sql_stmt);
 			
@@ -224,7 +224,7 @@ public class DataHelper {
 				 */
 				
 				String find_first_last_name_stmt = "SELECT customer.firstname, customer.lastname FROM customer WHERE id LIKE '" + username.getText() + 
-						"' AND password LIKE '" + password.getText() + "';";
+						"' AND password LIKE '" + password.getText();
 				
 				ResultSet first_last_name_result = stmt.executeQuery(find_first_last_name_stmt);
 				
@@ -259,7 +259,7 @@ public class DataHelper {
 		{
 			Statement stmt = conn.createStatement(); // statement object
 			// create the actual statement to populate the statement object
-			String sql_stmt = "SELECT \"Rewards\".visit_num FROM \"Rewards\" WHERE \"Rewards\".customerid LIKE '" + this.id + "%';";
+			String sql_stmt = "SELECT \"Rewards\".visit_num FROM \"Rewards\" WHERE \"Rewards\".customerid LIKE '" + this.id + "%'";
 			
 			System.out.println("Executing Statement: " + sql_stmt);
 			
@@ -290,8 +290,8 @@ public class DataHelper {
 		{
 			Statement stmt = conn.createStatement(); // statement object
 			// create the actual statement to populate the statement object
-			String check_visits_sql_stmt = "SELECT \"Rewards\".visit_num FROM \"Rewards\" WHERE \"Rewards\".customerid LIKE '" + this.id + "%';";
-			String update_visits_sql_stmt = "UPDATE \"Rewards\" SET visit_num = visit_num + 1 WHERE \"Rewards\".customerid LIKE '" + this.id + "';";
+			String check_visits_sql_stmt = "SELECT \"Rewards\".visit_num FROM \"Rewards\" WHERE \"Rewards\".customerid LIKE '" + this.id + "%'";
+			String update_visits_sql_stmt = "UPDATE \"Rewards\" SET visit_num = visit_num + 1 WHERE \"Rewards\".customerid LIKE '" + this.id + "'";
 			
 			System.out.println("Executing Statement: " + check_visits_sql_stmt);
 			System.out.println("Executing Statement: " + update_visits_sql_stmt);
@@ -338,7 +338,7 @@ public class DataHelper {
 		{
 			Statement stmt = conn.createStatement(); // statement object
 			// create the actual statement to populate the statement object
-			String sql_stmt = "SELECT * from menu;";
+			String sql_stmt = "SELECT * from menu";
 			
 			String name, id, type = "Other", price, menu_line;
 			

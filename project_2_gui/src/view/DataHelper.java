@@ -322,7 +322,7 @@ public class DataHelper {
 		return true;
 	}
 	
-	Boolean get_menu()
+	ResultSet get_menu()
 	{
 		/* 
 		 * create & execute a sql statement (first object then the statement that will be put into that object)
@@ -332,6 +332,7 @@ public class DataHelper {
 		 * 
 		 * 
 		 */
+		ResultSet result;
 		
 		try
 		{
@@ -340,16 +341,14 @@ public class DataHelper {
 			String sql_stmt = "SELECT menu.name, menu.price from menu;";
 			
 			System.out.println("Executing Statement: " + sql_stmt);
-			ResultSet result = stmt.executeQuery(sql_stmt);
-			
+			result = stmt.executeQuery(sql_stmt);
 			
 		} catch (Exception e)
 		{
 			System.out.println("Error adding to manager Datatable.");
-			return false; // tells GUI that it was unsuccessful in putting customer in database
 		}
 		
-		return true;
+		return result;
 	}
 	
 }

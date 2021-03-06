@@ -1,6 +1,7 @@
 package view;
 
 import java.sql.*; // to do all SQL commands
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -14,14 +15,12 @@ public class DataHelper {
 	
 	DataHelper()
 	{
-		//dbSetup hides my username and password
-	    dbSetup my = new dbSetup();
-	    //Building the connection
+		//Building the connection
 	     try {
 	        //Class.forName("org.postgresql.Driver");
 	        conn = DriverManager.getConnection(
 	          "jdbc:postgresql://csce-315-db.engr.tamu.edu/sthomas_demo",
-	           my.user, my.pswd);
+	           dbSetup.user, dbSetup.pswd);
 	     } catch (Exception e) {
 	        e.printStackTrace();
 	        System.err.println(e.getClass().getName()+": "+e.getMessage());
@@ -322,33 +321,55 @@ public class DataHelper {
 		return true;
 	}
 	
-	ResultSet get_menu()
+	public ArrayList<String> get_menu()
 	{
 		/* 
 		 * create & execute a sql statement (first object then the statement that will be put into that object)
 		 * sql stmt:
-		 * SELECT menu.name, menu.price from menu;
+		 * SELECT * from menu;
 		 * done in try/catch statement in case database cannot be accessed and errors present itself
 		 * 
 		 * 
 		 */
 		ResultSet result;
+		ArrayList<String> menu_list = new ArrayList<String>();
 		
 		try
 		{
 			Statement stmt = conn.createStatement(); // statement object
 			// create the actual statement to populate the statement object
-			String sql_stmt = "SELECT menu.name, menu.price from menu;";
+			String sql_stmt = "SELECT * from menu;";
+			
+			String name, id, type = "Other", price, menu_line;
 			
 			System.out.println("Executing Statement: " + sql_stmt);
 			result = stmt.executeQuery(sql_stmt);
+			
+			while (result.next()) {
+				id = result.getString("id");
+				name = result.getString("name");
+				price = result.getString("price");
+				
+				if (id.charAt(0) == 'E') {
+					type = "Entree";
+				} else if (id.charAt(0) == 'B') {
+					type = "Beverage";
+				} else if (id.charAt(0) == 'D') {
+					type = "Dessert";
+				} else if (id.charAt(0) == 'S') {
+					type = "Side";
+				}
+				
+				menu_line = name + " " + type + " " + price;
+				menu_list.add(menu_line);
+			}
 			
 		} catch (Exception e)
 		{
 			System.out.println("Error adding to manager Datatable.");
 		}
 		
-		return result;
+		return menu_list;
 	}
 	
 }

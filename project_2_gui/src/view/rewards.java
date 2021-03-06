@@ -25,15 +25,8 @@ import java.beans.PropertyChangeEvent;
 public class rewards extends JFrame {
 
 	private JPanel contentPane;
-	private final JLabel eligible_text = new JLabel("Eligible rewards:");
-	private final JLabel visits_25_text = new JLabel("25 visits");
-	private final JLabel free_entree_text = new JLabel("Free entree");
-	private final JLabel free_shake_text = new JLabel("Free milkshake");
+	private final JLabel eligible_text = new JLabel("Eligible reward:");
 	private final JLabel free_med_text = new JLabel("Free medium drink/side");
-	private final JLabel add_to_cart_1 = new JLabel("Add to cart");
-	private final JPanel visits_25_panel = new JPanel();
-	private final JPanel visits_10_panel = new JPanel();
-	private final JLabel visits_10_text = new JLabel("10 visits");
 	private final JPanel visits_5_panel = new JPanel();
 	private final JLabel visits_5_text = new JLabel("5 visits");
 	private final JPanel view_cart_panel = new JPanel();
@@ -72,42 +65,8 @@ public class rewards extends JFrame {
 		eligible_text.setBounds(24, 93, 116, 26);
 		contentPane.add(eligible_text);
 		
-		free_entree_text.setBounds(130, 134, 85, 26);
-		contentPane.add(free_entree_text);
-
-		free_shake_text.setBounds(130, 172, 110, 26);
-		contentPane.add(free_shake_text);
-		
-		free_med_text.setBounds(130, 210, 162, 26);
+		free_med_text.setBounds(132, 147, 162, 26);
 		contentPane.add(free_med_text);
-		
-		JPanel add_cart_panel_1 = new JPanel();
-		add_cart_panel_1.setBackground(new Color(30, 144, 255));
-		add_cart_panel_1.setBounds(318, 124, 95, 34);
-		contentPane.add(add_cart_panel_1);
-		add_cart_panel_1.add(add_to_cart_1);
-		
-		add_to_cart_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		add_to_cart_1.setHorizontalAlignment(SwingConstants.CENTER);
-		add_to_cart_1.setBackground(new Color(30, 144, 255));
-		
-		JPanel add_cart_panel_2 = new JPanel();
-		add_cart_panel_2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		add_cart_panel_2.setBackground(new Color(30, 144, 255));
-		add_cart_panel_2.setBounds(318, 165, 95, 34);
-		contentPane.add(add_cart_panel_2);
-		JLabel add_to_cart_2 = new JLabel("Add to cart");
-		add_to_cart_2.setHorizontalAlignment(SwingConstants.CENTER);
-		add_to_cart_2.setBackground(new Color(30, 144, 255));
-		add_cart_panel_2.add(add_to_cart_2);
 		
 		JPanel add_cart_panel_3 = new JPanel();
 		add_cart_panel_3.addMouseListener(new MouseAdapter() {
@@ -116,7 +75,7 @@ public class rewards extends JFrame {
 			}
 		});
 		add_cart_panel_3.setBackground(new Color(30, 144, 255));
-		add_cart_panel_3.setBounds(318, 203, 95, 34);
+		add_cart_panel_3.setBounds(316, 147, 95, 34);
 		contentPane.add(add_cart_panel_3);
 		
 		JLabel add_to_cart_3 = new JLabel("Add to cart");
@@ -128,19 +87,8 @@ public class rewards extends JFrame {
 		add_to_cart_3.setHorizontalAlignment(SwingConstants.CENTER);
 		add_to_cart_3.setBackground(new Color(30, 144, 255));
 		add_cart_panel_3.add(add_to_cart_3);
-		visits_25_panel.setBackground(new Color(128, 128, 128));
-		visits_25_panel.setBounds(24, 124, 85, 33);
-		
-		contentPane.add(visits_25_panel);
-		visits_25_panel.add(visits_25_text);
-		visits_10_panel.setBackground(Color.GRAY);
-		visits_10_panel.setBounds(24, 165, 85, 33);
-		
-		contentPane.add(visits_10_panel);
-		
-		visits_10_panel.add(visits_10_text);
 		visits_5_panel.setBackground(Color.GRAY);
-		visits_5_panel.setBounds(24, 203, 85, 33);
+		visits_5_panel.setBounds(24, 147, 85, 33);
 		
 		contentPane.add(visits_5_panel);
 		

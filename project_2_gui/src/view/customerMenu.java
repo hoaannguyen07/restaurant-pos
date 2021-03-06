@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.SwingUtilities;
 
 public class customerMenu extends JFrame {
+	public customerMenu() {
+	}
 	
 	private static final long serialVersionUID = 1L;
 

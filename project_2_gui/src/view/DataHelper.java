@@ -343,6 +343,19 @@ public class DataHelper {
 			ResultSet result = stmt.executeQuery(sql_stmt);
 			
 			
+			//code in lines 346-360 from MenuQuery
+//			String menu_item, item_price; 
+//	    	String[][] menu_vect;
+//	    	int i = 0;
+	    	
+//	    	while (result.next()) {
+//	            menu_item = result.getString("name");
+//	            item_price = result.getString("price");
+//	            menu_vect[i][0] = menu_item;
+//	            menu_vect[i][1] = item_price;
+//	            i++;    
+//	        }	
+			
 		} catch (Exception e)
 		{
 			System.out.println("Error adding to manager Datatable.");

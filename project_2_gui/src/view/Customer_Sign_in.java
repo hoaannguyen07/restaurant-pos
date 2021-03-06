@@ -35,8 +35,9 @@ public class Customer_Sign_in extends javax.swing.JFrame {
     }
     
     public Customer_Sign_in(DataHelper api) {
-        initComponents();
-        this.api_connection = api;
+    	this.api_connection = api;
+    	
+    	initComponents();
     }
 
     /**

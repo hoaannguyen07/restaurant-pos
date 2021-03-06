@@ -37,7 +37,7 @@ public class DataHelper {
 	}
 	
 	// add new person to the system
-	int add_new_person(JLabel l_name, JLabel f_name, JLabel cust_id, JLabel password)
+	int add_new_person(JTextField l_name, JTextField f_name, JTextField cust_id, JPasswordField password)
 	{
 		// create & execute a sql statement (first object then the statement that will be put into that object)
 		// sql stmt: INSERT INTO customer(lastname, firstname, id, password) VALUES ("last_name", "first_name", "cust_id", "cust_password");
@@ -109,6 +109,7 @@ public class DataHelper {
 			System.out.println("Executing Statement: " + sql_stmt);
 			
 			ResultSet result = stmt.executeQuery(sql_stmt);
+			
 			System.out.println("Successfully retrieved " + this.first_name + " " + this.last_name + "'s 5 most recent orders!");
 		} catch (Exception e)
 		{
@@ -119,7 +120,7 @@ public class DataHelper {
 	}
 	
 	// account verification for manager sign in
-	int verify_manager(JLabel username, JLabel password)
+	int verify_manager(JTextField username, JPasswordField password)
 	{
 		/* 
 		 * create & execute a sql statement (first object then the statement that will be put into that object)
@@ -182,7 +183,7 @@ public class DataHelper {
 	}
 	
 	// account verification for customer
-	int verify_customer(JLabel username, JLabel password)
+	int verify_customer(JTextField username, JPasswordField password)
 	{
 		/* 
 		 * create & execute a sql statement (first object then the statement that will be put into that object)

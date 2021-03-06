@@ -1,6 +1,8 @@
 import java.sql.*;
 //import javax.swing.JOptionPane;
 
+import view.dbSetup;
+
 /*
 CSCE 315
 9-25-2019 Original
@@ -47,6 +49,6 @@ public class jdbcpostgreSQL {
       System.out.println("Connection Closed.");
     } catch(Exception e) {
       System.out.println("Connection NOT Closed.");
-    }//end try catch
-  }//end main
-}//end Class
+    } //end try catch
+  } //end main
+} //end Class

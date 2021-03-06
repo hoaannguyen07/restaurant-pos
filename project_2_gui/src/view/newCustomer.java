@@ -15,6 +15,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
+import javax.swing.JPasswordField;
 
 public class newCustomer extends JFrame {
 
@@ -26,8 +27,8 @@ public class newCustomer extends JFrame {
 	private final JLabel lblUsername = new JLabel("Username:");
 	private final JLabel lblPassword = new JLabel("Password:");
 	private final JTextField username_textfield = new JTextField("Click here to enter your username.");
-	private final JTextField password_textfield = new JTextField("Click here to enter your password.");
 	private final JButton btnConfirm = new JButton("Confirm");
+	private final JPasswordField passwordField = new JPasswordField();
 
 	/**
 	 * Launch the application.
@@ -49,14 +50,6 @@ public class newCustomer extends JFrame {
 	 * Create the frame.
 	 */
 	public newCustomer() {
-		password_textfield.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				password_textfield.setText("");
-			}
-		});
-		password_textfield.setBounds(157, 177, 238, 19);
-		password_textfield.setColumns(10);
 		username_textfield.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -106,14 +99,12 @@ public class newCustomer extends JFrame {
 		contentPane.add(lblPassword);
 		
 		contentPane.add(username_textfield);
-		
-		contentPane.add(password_textfield);
 		btnConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String first_name = firstname_text_field.getText();
 				String last_name = lastname_text_field.getText();
 				String username = username_textfield.getText();
-				String password = password_textfield.getText(); 
+				String password = String.valueOf(passwordField.getPassword());
 				
 				if(arg0.getSource() == btnConfirm) { 
 					if(first_name.isEmpty() || last_name.isEmpty() || username.isEmpty() || password.isEmpty()) { 
@@ -129,5 +120,8 @@ public class newCustomer extends JFrame {
 		btnConfirm.setBounds(168, 226, 117, 25);
 		
 		contentPane.add(btnConfirm);
+		passwordField.setBounds(157, 177, 238, 19);
+		
+		contentPane.add(passwordField);
 	}
 }

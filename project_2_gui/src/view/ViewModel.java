@@ -3,13 +3,13 @@ package view;
 import java.awt.Dimension;
  
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
+//import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
+//import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
  
 //@author ashraf

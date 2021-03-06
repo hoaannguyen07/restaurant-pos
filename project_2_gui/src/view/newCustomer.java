@@ -119,8 +119,9 @@ public class newCustomer extends JFrame {
 					if(first_name.isEmpty() || last_name.isEmpty() || username.isEmpty() || password.isEmpty()) { 
 						JOptionPane.showMessageDialog(null, "You missed some pane, please make sure every box was filled.");
 					} else { 
-						// add the functionality to open the next window 
-						// needs to be added later
+						customerOptionMenu gen_options = new customerOptionMenu(first_name, last_name, username, password);
+						gen_options.setVisible(true);
+						dispose();
 					}
 				}
 			}

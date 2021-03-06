@@ -7,21 +7,40 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
+import javax.swing.SpinnerListModel;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+
 import java.awt.Button;
+import java.awt.Color;
+import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Font;
+import javax.swing.JSpinner;
+import javax.swing.JProgressBar;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class rewards extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField earn_reward_text;
-	private JTextField more_visits_text;
-	private JTextField eligible_text;
-	private JTextField visits_25_text;
-	private JTextField visits_10_text;
-	private JTextField visits_5_text;
-	private JTextField free_entree_text;
-	private JTextField free_shake_text;
-	private JTextField free_med_text;
+	private final JLabel eligible_text = new JLabel("Eligible rewards:");
+	private final JLabel visits_25_text = new JLabel("25 visits");
+	private final JLabel free_entree_text = new JLabel("Free entree");
+	private final JLabel free_shake_text = new JLabel("Free milkshake");
+	private final JLabel free_med_text = new JLabel("Free medium drink/side");
+	private final JLabel add_to_cart_1 = new JLabel("Add to cart");
+	private final JPanel panel_3 = new JPanel();
+	private final JPanel panel_3_1 = new JPanel();
+	private final JLabel visits_25_text_1 = new JLabel("10 visits");
+	private final JPanel panel_3_1_1 = new JPanel();
+	private final JLabel visits_25_text_1_1 = new JLabel("5 visits");
+	private final JPanel panel_4 = new JPanel();
+	private final JLabel view_cart = new JLabel("VIEW CART");
+	private final JLabel lblNewLabel = new JLabel("Earn a reward with");
+	private final JLabel lblNewLabel_1 = new JLabel("more visit(s).");
+	private final JLabel lblNewLabel_2 = new JLabel("0");
 
 	/**
 	 * Launch the application.
@@ -38,6 +57,10 @@ public class rewards extends JFrame {
 			}
 		});
 	}
+	
+//	public void set_value_of_visits() {
+//		initComponents();
+//	}
 
 	/**
 	 * Create the frame.
@@ -50,49 +73,112 @@ public class rewards extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		earn_reward_text = new JTextField("Earn a reward with");
-		earn_reward_text.setBounds(60, 19, 130, 26);
-		contentPane.add(earn_reward_text);
-		earn_reward_text.setColumns(10);
-		
-		more_visits_text = new JTextField("more visit(s).");
-		more_visits_text.setColumns(10);
-		more_visits_text.setBounds(243, 19, 95, 26);
-		contentPane.add(more_visits_text);
-		
-		eligible_text = new JTextField("Eligible rewards:");
-		eligible_text.setColumns(10);
-		eligible_text.setBounds(60, 94, 116, 26);
+		eligible_text.setBounds(24, 93, 116, 26);
 		contentPane.add(eligible_text);
 		
-		visits_25_text = new JTextField("25 visits");
-		visits_25_text.setColumns(10);
-		visits_25_text.setBounds(70, 131, 67, 26);
-		contentPane.add(visits_25_text);
-		
-		visits_10_text = new JTextField("10 visits");
-		visits_10_text.setColumns(10);
-		visits_10_text.setBounds(70, 169, 67, 26);
-		contentPane.add(visits_10_text);
-		
-		visits_5_text = new JTextField("5 visits");
-		visits_5_text.setColumns(10);
-		visits_5_text.setBounds(70, 210, 67, 26);
-		contentPane.add(visits_5_text);
-		
-		free_entree_text = new JTextField("Free entree");
-		free_entree_text.setColumns(10);
-		free_entree_text.setBounds(166, 131, 85, 26);
+		free_entree_text.setBounds(130, 134, 85, 26);
 		contentPane.add(free_entree_text);
-		
-		free_shake_text = new JTextField("Free milkshake");
-		free_shake_text.setColumns(10);
-		free_shake_text.setBounds(166, 169, 110, 26);
+
+		free_shake_text.setBounds(130, 172, 110, 26);
 		contentPane.add(free_shake_text);
 		
-		free_med_text = new JTextField("Free medium drink/side");
-		free_med_text.setColumns(10);
-		free_med_text.setBounds(166, 210, 162, 26);
+		free_med_text.setBounds(130, 210, 162, 26);
 		contentPane.add(free_med_text);
+		
+		String[] visits = {"0", "1", "2", "3", "4"};
+		SpinnerListModel visitslist = new SpinnerListModel(visits);
+		
+		String rewards = "3";
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(30, 144, 255));
+		panel.setBounds(318, 124, 95, 34);
+		contentPane.add(panel);
+		panel.add(add_to_cart_1);
+		
+		add_to_cart_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		add_to_cart_1.setHorizontalAlignment(SwingConstants.CENTER);
+		add_to_cart_1.setBackground(new Color(30, 144, 255));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		panel_1.setBackground(new Color(30, 144, 255));
+		panel_1.setBounds(318, 165, 95, 34);
+		contentPane.add(panel_1);
+		
+		JLabel add_to_cart_2 = new JLabel("Add to cart");
+		add_to_cart_2.setHorizontalAlignment(SwingConstants.CENTER);
+		add_to_cart_2.setBackground(new Color(30, 144, 255));
+		panel_1.add(add_to_cart_2);
+		JPanel panel_2 = new JPanel();
+		panel_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		panel_2.setBackground(new Color(30, 144, 255));
+		panel_2.setBounds(318, 203, 95, 34);
+		contentPane.add(panel_2);
+		
+		JLabel add_to_cart_3 = new JLabel("Add to cart");
+		add_to_cart_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		add_to_cart_3.setHorizontalAlignment(SwingConstants.CENTER);
+		add_to_cart_3.setBackground(new Color(30, 144, 255));
+		panel_2.add(add_to_cart_3);
+		panel_3.setBackground(new Color(128, 128, 128));
+		panel_3.setBounds(24, 124, 85, 33);
+		
+		contentPane.add(panel_3);
+		panel_3.add(visits_25_text);
+		panel_3_1.setBackground(Color.GRAY);
+		panel_3_1.setBounds(24, 165, 85, 33);
+		
+		contentPane.add(panel_3_1);
+		
+		panel_3_1.add(visits_25_text_1);
+		panel_3_1_1.setBackground(Color.GRAY);
+		panel_3_1_1.setBounds(24, 203, 85, 33);
+		
+		contentPane.add(panel_3_1_1);
+		
+		panel_3_1_1.add(visits_25_text_1_1);
+		panel_4.setBackground(new Color(30, 144, 255));
+		panel_4.setBounds(336, 6, 95, 34);
+		
+		contentPane.add(panel_4);
+		view_cart.setForeground(new Color(255, 255, 255));
+		view_cart.setHorizontalAlignment(SwingConstants.CENTER);
+		view_cart.setBackground(new Color(30, 144, 255));
+		
+		panel_4.add(view_cart);
+		
+		JLabel label = new JLabel("New label");
+		label.setBounds(179, 98, 61, 16);
+		contentPane.add(label);
+		lblNewLabel.setBounds(48, 39, 116, 16);
+		
+		contentPane.add(lblNewLabel);
+		lblNewLabel_1.setBounds(208, 39, 116, 16);
+		
+		contentPane.add(lblNewLabel_1);
+		lblNewLabel_2.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setBounds(173, 34, 23, 26);
+		
+		String num_visits = "3"; //will change depending on API query
+		lblNewLabel_2.setText(num_visits);
+		contentPane.add(lblNewLabel_2);
 	}
 }

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
@@ -12,15 +13,15 @@ import javax.swing.JTextArea;
 
 public class cardtype extends JFrame {
 
-	private JTextField card_type_text;
+	private final JLabel card_type_text = new JLabel("Choose card type");
 	private JPanel contentPane;
-	private JTextField card_carrier_text;
+	private final JLabel card_carrier_text = new JLabel("Choose card carrier");
 	private JComboBox card_carrier_combobox;
-	private JTextField card_number_text;
-	private JTextField expr_date_text;
+	private final JLabel card_number_text = new JLabel("Enter card number");
+	private final JLabel expr_date_text = new JLabel("Choose expiration date");
 	private JComboBox month_combobox;
 	private JComboBox year_combobox;
-	private JTextField textField;
+	private final JLabel security_code_text = new JLabel("Enter security code");
 	private JTextArea textArea_1;
 	/**
 	 * Launch the application.
@@ -52,52 +53,42 @@ public class cardtype extends JFrame {
 		
 		String[] card_types = { "Credit", "Debit"};
 		JComboBox comboBox = new JComboBox(card_types);
-		comboBox.setBounds(6, 26, 130, 40);
+		comboBox.setBounds(53, 96, 130, 40);
 		contentPane.add(comboBox);
 		
-		card_type_text = new JTextField("Choose card type");
-		card_type_text.setBounds(6, 6, 130, 26);
+		card_type_text.setBounds(43, 69, 130, 26);
 		contentPane.add(card_type_text);
-		card_type_text.setColumns(10);
 		
-		card_carrier_text = new JTextField("Choose card carrier");
-		card_carrier_text.setColumns(10);
-		card_carrier_text.setBounds(6, 65, 140, 26);
+		card_carrier_text.setBounds(44, 138, 140, 26);
 		contentPane.add(card_carrier_text);
 		
 		card_carrier_combobox = new JComboBox(new Object[]{"Mastercard", "Visa"});
-		card_carrier_combobox.setBounds(6, 89, 130, 40);
+		card_carrier_combobox.setBounds(53, 164, 130, 40);
 		contentPane.add(card_carrier_combobox);
 		
-		card_number_text = new JTextField("Enter card number");
-		card_number_text.setBounds(196, 6, 130, 26);
+		card_number_text.setBounds(196, 45, 130, 26);
 		contentPane.add(card_number_text);
-		card_number_text.setColumns(10);
 		
 		JTextArea textArea = new JTextArea();
-		textArea.setBounds(206, 37, 168, 16);
+		textArea.setBounds(206, 74, 168, 16);
 		contentPane.add(textArea);
 		
-		expr_date_text = new JTextField("Choose expiration date");
-		expr_date_text.setColumns(10);
-		expr_date_text.setBounds(196, 65, 158, 26);
+		expr_date_text.setBounds(196, 102, 158, 26);
 		contentPane.add(expr_date_text);
 		
 		month_combobox = new JComboBox(new Object[]{"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"});
-		month_combobox.setBounds(196, 89, 72, 40);
+		month_combobox.setBounds(196, 121, 72, 40);
 		contentPane.add(month_combobox);
 		
 		year_combobox = new JComboBox(new Object[]{"2021", "2022", "2023", "2024", "2025"});
-		year_combobox.setBounds(261, 89, 91, 40);
+		year_combobox.setBounds(263, 121, 91, 40);
 		contentPane.add(year_combobox);
 		
-		textField = new JTextField("Enter security code");
-		textField.setColumns(10);
-		textField.setBounds(196, 128, 140, 26);
-		contentPane.add(textField);
+		security_code_text.setBounds(196, 161, 140, 26);
+		contentPane.add(security_code_text);
 		
 		textArea_1 = new JTextArea();
-		textArea_1.setBounds(206, 166, 72, 16);
+		textArea_1.setBounds(206, 188, 72, 16);
 		contentPane.add(textArea_1);
 		
 	}

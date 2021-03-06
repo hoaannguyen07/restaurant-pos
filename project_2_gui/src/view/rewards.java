@@ -31,20 +31,18 @@ public class rewards extends JFrame {
 	private final JLabel free_shake_text = new JLabel("Free milkshake");
 	private final JLabel free_med_text = new JLabel("Free medium drink/side");
 	private final JLabel add_to_cart_1 = new JLabel("Add to cart");
-	private final JPanel panel_3 = new JPanel();
-	private final JPanel panel_3_1 = new JPanel();
-	private final JLabel visits_25_text_1 = new JLabel("10 visits");
-	private final JPanel panel_3_1_1 = new JPanel();
-	private final JLabel visits_25_text_1_1 = new JLabel("5 visits");
-	private final JPanel panel_4 = new JPanel();
+	private final JPanel visits_25_panel = new JPanel();
+	private final JPanel visits_10_panel = new JPanel();
+	private final JLabel visits_10_text = new JLabel("10 visits");
+	private final JPanel visits_5_panel = new JPanel();
+	private final JLabel visits_5_text = new JLabel("5 visits");
+	private final JPanel view_cart_panel = new JPanel();
 	private final JLabel view_cart = new JLabel("VIEW CART");
-	private final JLabel lblNewLabel = new JLabel("Earn a reward with");
-	private final JLabel lblNewLabel_1 = new JLabel("more visit(s).");
-	private final JLabel lblNewLabel_2 = new JLabel("0");
+	private final JLabel earn_reward_label = new JLabel("Earn a reward with");
+	private final JLabel more_visits_label = new JLabel("more visit(s).");
+	private final JLabel visits_num_label = new JLabel("0");
 
-	/**
-	 * Launch the application.
-	 */
+	//Launch the application.
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -62,9 +60,7 @@ public class rewards extends JFrame {
 //		initComponents();
 //	}
 
-	/**
-	 * Create the frame.
-	 */
+	//Create the frame.
 	public rewards() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -85,16 +81,11 @@ public class rewards extends JFrame {
 		free_med_text.setBounds(130, 210, 162, 26);
 		contentPane.add(free_med_text);
 		
-		String[] visits = {"0", "1", "2", "3", "4"};
-		SpinnerListModel visitslist = new SpinnerListModel(visits);
-		
-		String rewards = "3";
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(30, 144, 255));
-		panel.setBounds(318, 124, 95, 34);
-		contentPane.add(panel);
-		panel.add(add_to_cart_1);
+		JPanel add_cart_panel_1 = new JPanel();
+		add_cart_panel_1.setBackground(new Color(30, 144, 255));
+		add_cart_panel_1.setBounds(318, 124, 95, 34);
+		contentPane.add(add_cart_panel_1);
+		add_cart_panel_1.add(add_to_cart_1);
 		
 		add_to_cart_1.addMouseListener(new MouseAdapter() {
 			@Override
@@ -104,29 +95,29 @@ public class rewards extends JFrame {
 		add_to_cart_1.setHorizontalAlignment(SwingConstants.CENTER);
 		add_to_cart_1.setBackground(new Color(30, 144, 255));
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.addMouseListener(new MouseAdapter() {
+		JPanel add_cart_panel_2 = new JPanel();
+		add_cart_panel_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
-		panel_1.setBackground(new Color(30, 144, 255));
-		panel_1.setBounds(318, 165, 95, 34);
-		contentPane.add(panel_1);
-		
+		add_cart_panel_2.setBackground(new Color(30, 144, 255));
+		add_cart_panel_2.setBounds(318, 165, 95, 34);
+		contentPane.add(add_cart_panel_2);
 		JLabel add_to_cart_2 = new JLabel("Add to cart");
 		add_to_cart_2.setHorizontalAlignment(SwingConstants.CENTER);
 		add_to_cart_2.setBackground(new Color(30, 144, 255));
-		panel_1.add(add_to_cart_2);
-		JPanel panel_2 = new JPanel();
-		panel_2.addMouseListener(new MouseAdapter() {
+		add_cart_panel_2.add(add_to_cart_2);
+		
+		JPanel add_cart_panel_3 = new JPanel();
+		add_cart_panel_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
-		panel_2.setBackground(new Color(30, 144, 255));
-		panel_2.setBounds(318, 203, 95, 34);
-		contentPane.add(panel_2);
+		add_cart_panel_3.setBackground(new Color(30, 144, 255));
+		add_cart_panel_3.setBounds(318, 203, 95, 34);
+		contentPane.add(add_cart_panel_3);
 		
 		JLabel add_to_cart_3 = new JLabel("Add to cart");
 		add_to_cart_3.addMouseListener(new MouseAdapter() {
@@ -136,49 +127,45 @@ public class rewards extends JFrame {
 		});
 		add_to_cart_3.setHorizontalAlignment(SwingConstants.CENTER);
 		add_to_cart_3.setBackground(new Color(30, 144, 255));
-		panel_2.add(add_to_cart_3);
-		panel_3.setBackground(new Color(128, 128, 128));
-		panel_3.setBounds(24, 124, 85, 33);
+		add_cart_panel_3.add(add_to_cart_3);
+		visits_25_panel.setBackground(new Color(128, 128, 128));
+		visits_25_panel.setBounds(24, 124, 85, 33);
 		
-		contentPane.add(panel_3);
-		panel_3.add(visits_25_text);
-		panel_3_1.setBackground(Color.GRAY);
-		panel_3_1.setBounds(24, 165, 85, 33);
+		contentPane.add(visits_25_panel);
+		visits_25_panel.add(visits_25_text);
+		visits_10_panel.setBackground(Color.GRAY);
+		visits_10_panel.setBounds(24, 165, 85, 33);
 		
-		contentPane.add(panel_3_1);
+		contentPane.add(visits_10_panel);
 		
-		panel_3_1.add(visits_25_text_1);
-		panel_3_1_1.setBackground(Color.GRAY);
-		panel_3_1_1.setBounds(24, 203, 85, 33);
+		visits_10_panel.add(visits_10_text);
+		visits_5_panel.setBackground(Color.GRAY);
+		visits_5_panel.setBounds(24, 203, 85, 33);
 		
-		contentPane.add(panel_3_1_1);
+		contentPane.add(visits_5_panel);
 		
-		panel_3_1_1.add(visits_25_text_1_1);
-		panel_4.setBackground(new Color(30, 144, 255));
-		panel_4.setBounds(336, 6, 95, 34);
+		visits_5_panel.add(visits_5_text);
+		view_cart_panel.setBackground(new Color(30, 144, 255));
+		view_cart_panel.setBounds(336, 6, 95, 34);
 		
-		contentPane.add(panel_4);
+		contentPane.add(view_cart_panel);
 		view_cart.setForeground(new Color(255, 255, 255));
 		view_cart.setHorizontalAlignment(SwingConstants.CENTER);
 		view_cart.setBackground(new Color(30, 144, 255));
 		
-		panel_4.add(view_cart);
+		view_cart_panel.add(view_cart);
+		earn_reward_label.setBounds(48, 39, 116, 16);
 		
-		JLabel label = new JLabel("New label");
-		label.setBounds(179, 98, 61, 16);
-		contentPane.add(label);
-		lblNewLabel.setBounds(48, 39, 116, 16);
+		contentPane.add(earn_reward_label);
+		more_visits_label.setBounds(208, 39, 116, 16);
 		
-		contentPane.add(lblNewLabel);
-		lblNewLabel_1.setBounds(208, 39, 116, 16);
+		contentPane.add(more_visits_label);
+		visits_num_label.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
+		visits_num_label.setHorizontalAlignment(SwingConstants.CENTER);
+		visits_num_label.setBounds(173, 34, 23, 26);
 		
-		contentPane.add(lblNewLabel_1);
-		lblNewLabel_2.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(173, 34, 23, 26);
-		
-		String num_visits = "3"; //will change depending on API query
-		lblNewLabel_2.setText(num_visits);
-		contentPane.add(lblNewLabel_2);
+		String num_visits = "0"; //will change depending on API query
+		visits_num_label.setText(num_visits);
+		contentPane.add(visits_num_label);
 	}
 }

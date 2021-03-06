@@ -6,9 +6,20 @@ import javax.swing.table.DefaultTableModel;
 
 @SuppressWarnings("serial")
 public class Model extends DefaultTableModel {
- 
+	
+
     public Model() {
-        super(MenuQuery.MENU, MenuQuery.TABLE_HEADER);
+        super(DataHelper.get_menu, TABLE_HEADER);
     }
+    
+	/*
+	 * Variables:
+	 * Item name: the name of a food item
+	 * Item type: entree, beverage, side, or dessert
+	 * Price: how much the item costs
+	 */
+    public static final Object[] TABLE_HEADER = { 
+    		"Item Name", "Item Type", "Price"
+    };
  
 }

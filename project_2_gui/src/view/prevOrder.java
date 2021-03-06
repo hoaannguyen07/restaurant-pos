@@ -90,23 +90,32 @@ public class prevOrder extends JFrame {
 		Vector<String> beverages = new Vector<String>();
 		Vector<String> desserts = new Vector<String>();
 		
+		String entree, side, beverage, dessert;
+		
 		try { 
 			Statement stmnt = conn.createStatement();
 			String sqlStatement = 
-					"SELECT orders.entrees, orders.sides, orders.beverages, orders.desserts " + 
-					"FROM orders " + 
+					"SELECT orders.entrees, orders.sides, orders.beverages, orders.desserts FROM orders " + 
 					"FULL OUTER JOIN customer ON orders.customerid = customer.id " + 
 					"WHERE customer.lastname LIKE 'SMITH%' " + 
 					"AND customer.firstname LIKE 'MARY%' " + 
 					"ORDER BY orders.date DESC " + 
-					"LIMIT 1";
+					"LIMIT 5";
 			ResultSet result = stmnt.executeQuery(sqlStatement);
-			System.out.println(result.getString("entrees"));
-//				entrees.add(result.getString("orders.entrees"));
-//				sides.add(result.getString("orders.sides"));
-//				beverages.add(result.getString("orders.beverages"));
-//				desserts.add(result.getString("orders.desserts"));
+			while (result.next()) {
+				entree = result.getString("entrees");
+				entrees.add(entree);
+				
+				side = result.getString("sides");
+				sides.add(side);
+				
+				beverage = result.getString("beverages");
+				beverages.add(beverage);
+				
+				dessert = result.getString("desserts");
+				desserts.add(dessert);
 			}
+		}
 		 catch (Exception e) { 
 			System.out.println("failed to access database");
 		}

@@ -17,7 +17,6 @@ import java.util.Vector;
 
 import javax.swing.Action;
 import javax.swing.ListSelectionModel;
-import javax.swing.JScrollPane;
 
 public class managerMenu extends JFrame {
 
@@ -64,7 +63,6 @@ public class managerMenu extends JFrame {
 		Vector<String> items = helper.get_menu_vect().elementAt(0);
 		
 		item_list = new JList(items);
-		item_list.setVisibleRowCount(20);
 		item_list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		item_list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		item_list.setFont(new Font("Tahoma", Font.PLAIN, 18));

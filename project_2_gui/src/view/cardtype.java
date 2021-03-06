@@ -100,8 +100,5 @@ public class cardtype extends JFrame {
 		textArea_1.setBounds(206, 166, 72, 16);
 		contentPane.add(textArea_1);
 		
-		panel = new JPanel();
-		panel.setBounds(149, 139, -144, -132);
-		contentPane.add(panel);
 	}
 }

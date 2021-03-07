@@ -34,7 +34,7 @@ public class Manager_Menu extends JFrame {
 	
 	JTable table_menu;
 	JScrollPane pane_menu;
-	private final JLabel label_menu_title = new JLabel("A.N.G.S.T MENU");
+	private final JLabel lblManagerMenu = new JLabel("MANAGER MENU");
 
 	/**
 	 * Launch the application.
@@ -100,11 +100,11 @@ public class Manager_Menu extends JFrame {
 //		table_menu.setPreferredSize(568,374)
 		contentPane.add(pane_menu);
 		pane_menu.setViewportView(table_menu);
-		label_menu_title.setFont(new Font("Segoe UI Black", Font.PLAIN, 55));
-		label_menu_title.setHorizontalAlignment(SwingConstants.CENTER);
-		label_menu_title.setBounds(10, 11, 568, 73);
+		lblManagerMenu.setFont(new Font("Segoe UI Black", Font.PLAIN, 55));
+		lblManagerMenu.setHorizontalAlignment(SwingConstants.CENTER);
+		lblManagerMenu.setBounds(10, 11, 568, 73);
 		
-		contentPane.add(label_menu_title);
+		contentPane.add(lblManagerMenu);
 	}
 	
 	void show_data_in_table()

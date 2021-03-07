@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import java.sql.*;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -26,12 +28,15 @@ public class prevOrder extends JFrame {
 
 	private JPanel contentPane;
 	private final JButton btnBack = new JButton("Back");
-	private JList item_list;
 	protected static String first;
 	protected static String last;
 	protected static String user;
 	protected static String pass;
 	Vector vec = new Vector<String>();
+	private JList list_entree;
+	private JList list_sides;
+	private JList list_beverages;
+	private JList list_dessert;
 
 	/**
 	 * Launch the application.
@@ -65,6 +70,7 @@ public class prevOrder extends JFrame {
 		pass = password;
 		initGUI();
 	}
+	@SuppressWarnings("unchecked")
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 609, 610);
@@ -84,7 +90,7 @@ public class prevOrder extends JFrame {
 		}
 		
 		System.out.println("database opened correctly");
-		String hold = "";
+		String entree, side, beverage, dessert;
 		Vector<String> entrees = new Vector<String>();
 		Vector<String> sides = new Vector<String>();
 		Vector<String> beverages = new Vector<String>();
@@ -95,14 +101,39 @@ public class prevOrder extends JFrame {
 		try { 
 			Statement stmnt = conn.createStatement();
 			String sqlStatement = 
+<<<<<<< HEAD
+					"SELECT m1.name AS entree, m2.name AS side, m3.name AS beverage, m4.name AS dessert " + 
+					"FROM orders " + 
+=======
 					"SELECT orders.entrees, orders.sides, orders.beverages, orders.desserts FROM orders " + 
+>>>>>>> 874c45d396bd0f32539a69e1e2e3a95a2cf48fb9
 					"FULL OUTER JOIN customer ON orders.customerid = customer.id " + 
+					"FULL OUTER JOIN menu m1 ON orders.entrees = m1.id " + 
+					"FULL OUTER JOIN menu m2 ON orders.sides = m2.id " + 
+					"FULL OUTER JOIN menu m3 ON orders.beverages = m3.id " + 
+					"FULL OUTER JOIN menu m4 ON orders.desserts = m4.id " + 
 					"WHERE customer.lastname LIKE 'SMITH%' " + 
 					"AND customer.firstname LIKE 'MARY%' " + 
 					"ORDER BY orders.date DESC " + 
 					"LIMIT 5";
 			ResultSet result = stmnt.executeQuery(sqlStatement);
 			while (result.next()) {
+<<<<<<< HEAD
+				entree = result.getString("entree");
+				entrees.add(entree);
+				
+				side = result.getString("side");
+				sides.add(side);
+				
+				beverage = result.getString("beverage");
+				beverages.add(beverage);
+				
+				dessert = result.getString("dessert");
+				desserts.add(dessert);
+			}
+		}
+			
+=======
 				entree = result.getString("entrees");
 				entrees.add(entree);
 				
@@ -116,6 +147,7 @@ public class prevOrder extends JFrame {
 				desserts.add(dessert);
 			}
 		}
+>>>>>>> 874c45d396bd0f32539a69e1e2e3a95a2cf48fb9
 		 catch (Exception e) { 
 			System.out.println("failed to access database");
 		}
@@ -126,11 +158,11 @@ public class prevOrder extends JFrame {
 			System.out.println("Database not closed");
 		}
 		
-		item_list = new JList(entrees);
-		item_list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		item_list.setBounds(47, 54, 332, 358);
-		contentPane.add(item_list);
-		
+		list_entree = new JList(entrees);
+		list_sides = new JList(sides);
+		list_beverages = new JList(beverages);
+		list_dessert = new JList(desserts);
+				
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnBack) { 
@@ -142,6 +174,22 @@ public class prevOrder extends JFrame {
 		});
 		btnBack.setBounds(12, 12, 117, 25);
 		contentPane.add(btnBack);
+		list_entree.setBounds(89, 62, 130, 163);
 		
+		contentPane.add(list_entree);
+		list_sides.setBounds(316, 62, 130, 163);
+		
+		contentPane.add(list_sides);
+		list_beverages.setBounds(89, 265, 130, 163);
+		
+		contentPane.add(list_beverages);
+		list_dessert.setBounds(316, 265, 130, 163);
+		
+		contentPane.add(list_dessert);
+		contentPane.add(btnBack);
+		
+		
+		
+	
 	}
 }

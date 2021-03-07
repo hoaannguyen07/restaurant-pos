@@ -19,11 +19,11 @@ public class DataHelper {
 	     try {
 	        //Class.forName("org.postgresql.Driver");
 	        conn = DriverManager.getConnection(
-	          "jdbc:postgresql://csce-315-db.engr.tamu.edu/db907_project2_group9",
+	          "jdbc:postgresql://csce-315-db.engr.tamu.edu/db907_group9_project2",
 	           dbSetup.user, dbSetup.pswd);
 	     } catch (Exception e) {
 	        e.printStackTrace();
-	        System.err.println(e.getClass().getName()+": "+e.getMessage());
+	        System.err.println(e.getClass().getName() + ": " + e.getMessage());
 	        System.exit(0);
 	     }//end try catch
 	     System.out.println("Opened database successfully");

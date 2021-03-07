@@ -53,8 +53,6 @@ public class customerOptionMenu extends JFrame {
 	public customerOptionMenu(String first_name, String last_name, String username, String password) {
 		first = first_name;
 		last = last_name;
-		System.out.println(first);
-		System.out.println(last);
 		user = username;
 		pass = password;
 		initGUI();
@@ -73,7 +71,7 @@ public class customerOptionMenu extends JFrame {
 		btnViewMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnViewMenu) {
-					Customer_Menu view_menu = new Customer_Menu();
+					Customer_Menu view_menu = new Customer_Menu(first, last, user, pass);
 					view_menu.setVisible(true);
 					dispose();
 				}
@@ -109,7 +107,7 @@ public class customerOptionMenu extends JFrame {
 		btnRewards.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnRewards) { 
-					rewards view_rewards = new rewards();
+					rewards view_rewards = new rewards(first, last, user, pass);
 					view_rewards.setVisible(true);
 					dispose();
 				}

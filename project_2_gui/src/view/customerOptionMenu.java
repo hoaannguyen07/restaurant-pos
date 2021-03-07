@@ -1,4 +1,4 @@
-package src.view;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -18,12 +18,14 @@ public class customerOptionMenu extends JFrame {
 	private final JButton btnViewLastMeal = new JButton("View Last Meal");
 	private final JButton btnPaymentInformation = new JButton("Payment Information");
 	private final JButton btnRewards = new JButton("Reward Tier");
-	protected static String first;
-	protected static String last;
-	protected static String user;
-	protected static String pass;
+	public static String first;
+	public static String last;
+	public static String user;
+	public static String pass;
 	private final JLabel lblUser = new JLabel("User:");
 	private final JLabel labelUserGivenName = new JLabel("");
+	private final JLabel lblFirstName = new JLabel("First Name: ");
+	private final JLabel lblLastName = new JLabel("Last Name:");
 
 	/**
 	 * Launch the application.
@@ -51,6 +53,8 @@ public class customerOptionMenu extends JFrame {
 	public customerOptionMenu(String first_name, String last_name, String username, String password) {
 		first = first_name;
 		last = last_name;
+		System.out.println(first);
+		System.out.println(last);
 		user = username;
 		pass = password;
 		initGUI();
@@ -63,6 +67,9 @@ public class customerOptionMenu extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		labelUserGivenName.setText(user);
+		lblFirstName.setText(first);
+		lblLastName.setText(last);
+		
 		btnViewMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnViewMenu) {
@@ -76,7 +83,9 @@ public class customerOptionMenu extends JFrame {
 		btnViewLastMeal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnViewLastMeal) { 
-					System.out.println("here");
+					prevOrder2 view_prev = new prevOrder2(first, last, user, pass); 
+					view_prev.setVisible(true);
+					dispose();
 				}
 			}
 		});
@@ -96,7 +105,9 @@ public class customerOptionMenu extends JFrame {
 		btnRewards.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnRewards) { 
-					System.out.println("here");
+					rewards view_rewards = new rewards();
+					view_rewards.setVisible(true);
+					dispose();
 				}
 			}
 		});
@@ -106,9 +117,15 @@ public class customerOptionMenu extends JFrame {
 		lblUser.setBounds(12, 3, 70, 15);
 		
 		contentPane.add(lblUser);
-		labelUserGivenName.setBounds(71, 3, 70, 15);
+		labelUserGivenName.setBounds(73, 9, 135, 9);
 		
 		contentPane.add(labelUserGivenName);
+		lblFirstName.setBounds(197, 3, 118, 15);
+		
+		contentPane.add(lblFirstName);
+		lblLastName.setBounds(327, 3, 98, 15);
+		
+		contentPane.add(lblLastName);
 	}
 
 }

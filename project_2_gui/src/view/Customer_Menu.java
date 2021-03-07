@@ -94,8 +94,6 @@ public class Customer_Menu extends JFrame {
 	void show_data_in_table()
 	{
 		Vector<Vector<String>> displaying_list = get_menu_data();
-		System.out.println("printing menu onto screen");
-		System.out.println(displaying_list);
 //		DefaultTableModel model = (DefaultTableModel) table_menu.getModel();
 		
 //		DefaultTableModel model = new DefaultTableModel(MENU_HEADER, 0);
@@ -107,7 +105,6 @@ public class Customer_Menu extends JFrame {
 		System.out.println(row);
 		for(int i = 0; i < displaying_list.size(); i++)
 		{
-			System.out.println(displaying_list.elementAt(i));
 			model.addRow(displaying_list.elementAt(i));
 		}
 		
@@ -145,7 +142,6 @@ public class Customer_Menu extends JFrame {
 		{
 			System.out.println("Error adding to manager Datatable.");
 		}
-		System.out.println(menu_list);
 		return menu_list;
 	}
 }

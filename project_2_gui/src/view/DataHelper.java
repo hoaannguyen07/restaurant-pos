@@ -1,4 +1,4 @@
-package view;
+package src.view;
 
 import java.sql.*; // to do all SQL commands
 import java.util.ArrayList;

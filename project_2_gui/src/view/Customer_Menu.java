@@ -22,6 +22,9 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Customer_Menu extends JFrame {
 	
@@ -35,6 +38,12 @@ public class Customer_Menu extends JFrame {
 	JTable table_menu;
 	JScrollPane pane_menu;
 	private final JLabel label_menu_title = new JLabel("A.N.G.S.T MENU");
+	private JButton btnNewButton;
+	
+	public static String first;
+	public static String last;
+	public static String user;
+	public static String pass;
 
 	/**
 	 * Launch the application.
@@ -43,7 +52,7 @@ public class Customer_Menu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Customer_Menu frame = new Customer_Menu();
+					Customer_Menu frame = new Customer_Menu(first, last, user, pass);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,12 +64,23 @@ public class Customer_Menu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+<<<<<<< HEAD
+	public Customer_Menu(String first_name, String last_name, String username, String password) {
+=======
 	public Customer_Menu() {
+>>>>>>> 899b9dde27260f9b053dbf30017ed22a6aab7baa
 		if (MENU_HEADER.size() == 0)
 		{
 			MENU_HEADER.addElement("Name");
 			MENU_HEADER.addElement("Price");
 		}
+<<<<<<< HEAD
+		first = first_name;
+		last = last_name;
+		user = username;
+		pass = password;
+=======
+>>>>>>> 899b9dde27260f9b053dbf30017ed22a6aab7baa
 		initGUI();
 		show_data_in_table();
 	}
@@ -111,6 +131,29 @@ public class Customer_Menu extends JFrame {
 		label_menu_title.setBounds(10, 11, 568, 73);
 		
 		contentPane.add(label_menu_title);
+		
+		btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(arg0.getSource() == btnNewButton) { 
+					customerOptionMenu view_cust = new customerOptionMenu(first, last, user, pass);
+					view_cust.setVisible(true);
+					dispose();
+				}
+			}
+		});
+		btnNewButton.setBounds(22, 11, 44, 25);
+		contentPane.add(btnNewButton);
+	}
+	
+	void delete_all_rows_in_table()
+	{
+		int row_count = model.getRowCount();
+		// remove one row at a time
+		for(int i = row_count - 1; i >= 0; i--)
+		{
+			model.removeRow(i);
+		}
 	}
 	
 	void delete_all_rows_in_table()

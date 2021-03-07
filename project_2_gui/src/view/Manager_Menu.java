@@ -56,15 +56,21 @@ public class Manager_Menu extends JFrame {
 	 * Create the frame.
 	 */
 	public Manager_Menu() {
-		MENU_HEADER.addElement("Name");
-		MENU_HEADER.addElement("Price");
+		if (MENU_HEADER.size() == 0)
+		{
+			MENU_HEADER.addElement("Name");
+			MENU_HEADER.addElement("Price");
+		}
 		initGUI();
 		show_data_in_table();
 	}
 	
 	public Manager_Menu(DataHelper api) {
-		MENU_HEADER.addElement("Name");
-		MENU_HEADER.addElement("Price");
+		if (MENU_HEADER.size() == 0)
+		{
+			MENU_HEADER.addElement("Name");
+			MENU_HEADER.addElement("Price");
+		}
 		this.api_connection = api;
 		initGUI();
 		show_data_in_table();
@@ -111,8 +117,21 @@ public class Manager_Menu extends JFrame {
 		contentPane.add(lblManagerMenu);
 	}
 	
+	void delete_all_rows_in_table()
+	{
+		int row_count = model.getRowCount();
+		// remove one row at a time
+		for(int i = row_count - 1; i >= 0; i--)
+		{
+			model.removeRow(i);
+		}
+	}
+	
 	void show_data_in_table()
 	{
+		// first make sure there is nothing in the table before adding stuff in
+		this.delete_all_rows_in_table();
+		
 		Vector<Vector<String>> displaying_list = get_menu_data();
 //		DefaultTableModel model = (DefaultTableModel) table_menu.getModel();
 

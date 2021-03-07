@@ -34,6 +34,8 @@ public class cardtype extends JFrame {
 	private final JLabel lblNewLabel = new JLabel("PAYMENT INFORMATION");
 	private final JTextField textField = new JTextField();
 	private final JTextField textField_1 = new JTextField();
+	
+	DataHelper api_connection;
 	/**
 	 * Launch the application.
 	 */
@@ -58,6 +60,17 @@ public class cardtype extends JFrame {
 		textField_1.setColumns(10);
 		textField.setBounds(299, 130, 130, 20);
 		textField.setColumns(16);
+		
+		initGUI();
+	}
+	
+	public cardtype(DataHelper api) {
+		textField_1.setBounds(299, 237, 46, 20);
+		textField_1.setColumns(10);
+		textField.setBounds(299, 130, 130, 20);
+		textField.setColumns(16);
+		
+		this.api_connection = api;
 		
 		initGUI();
 	}

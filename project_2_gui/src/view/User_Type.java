@@ -22,8 +22,15 @@ public class User_Type extends javax.swing.JFrame {
     /**
      * Creates new form User_Type
      */
+	DataHelper api_connection;
+	
     public User_Type() {
         initComponents();
+    }
+    
+    public User_Type(DataHelper api) {
+    	this.api_connection = api;
+    	initComponents();
     }
 
     /**

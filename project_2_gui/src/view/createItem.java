@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
+import java.awt.Color;
 
 public class createItem extends JFrame {
 
@@ -23,6 +24,8 @@ public class createItem extends JFrame {
 	private JTextField textField_2;
 	private final Action action = new SwingAction();
 	private final Action action_1 = new SwingAction_1();
+	
+	DataHelper api_connection;
 
 	/**
 	 * Launch the application.
@@ -43,7 +46,20 @@ public class createItem extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public createItem() {
+	public createItem() 
+	{
+		initComponents();
+	}
+	
+	public createItem(DataHelper api) 
+	{
+		this.api_connection = api;
+		
+		initComponents();
+	}
+	
+	private void initComponents()
+	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -51,16 +67,16 @@ public class createItem extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Add New Item to Menu");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(117, 11, 197, 33);
-		contentPane.add(lblNewLabel);
+		JLabel label_title = new JLabel("Add New Item to Menu");
+		label_title.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label_title.setHorizontalAlignment(SwingConstants.CENTER);
+		label_title.setBounds(117, 11, 197, 33);
+		contentPane.add(label_title);
 		
-		JLabel lblNewLabel_1 = new JLabel("Name:");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1.setBounds(92, 104, 49, 27);
-		contentPane.add(lblNewLabel_1);
+		JLabel label_name = new JLabel("Name:");
+		label_name.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label_name.setBounds(92, 104, 49, 27);
+		contentPane.add(label_name);
 		
 		textField = new JTextField();
 		textField.setBounds(151, 109, 143, 20);
@@ -72,31 +88,33 @@ public class createItem extends JFrame {
 		textField_1.setBounds(151, 73, 143, 20);
 		contentPane.add(textField_1);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("ID:");
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_1.setBounds(92, 68, 49, 27);
-		contentPane.add(lblNewLabel_1_1);
+		JLabel label_id = new JLabel("ID:");
+		label_id.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label_id.setBounds(92, 68, 49, 27);
+		contentPane.add(label_id);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("Price:");
-		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_2.setBounds(92, 142, 49, 27);
-		contentPane.add(lblNewLabel_1_2);
+		JLabel label_price = new JLabel("Price:");
+		label_price.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label_price.setBounds(92, 142, 49, 27);
+		contentPane.add(label_price);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
 		textField_2.setBounds(151, 147, 143, 20);
 		contentPane.add(textField_2);
 		
-		JButton btnNewButton = new JButton("Submit");
-		btnNewButton.setAction(action);
-		btnNewButton.setBounds(171, 193, 89, 23);
-		contentPane.add(btnNewButton);
+		JButton button_submit = new JButton("Submit");
+		button_submit.setBackground(new Color(255, 255, 255));
+		button_submit.setAction(action);
+		button_submit.setBounds(171, 193, 89, 23);
+		contentPane.add(button_submit);
 		
-		JButton btnNewButton_1 = new JButton("Back");
-		btnNewButton_1.setAction(action_1);
-		btnNewButton_1.setBounds(23, 227, 89, 23);
-		contentPane.add(btnNewButton_1);
+		JButton button_back = new JButton("Back");
+		button_back.setAction(action_1);
+		button_back.setBounds(23, 227, 89, 23);
+		contentPane.add(button_back);
 	}
+	
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {
 			putValue(NAME, "Submit");

@@ -31,8 +31,8 @@ public class Manager_Sign_In extends javax.swing.JFrame {
     }
     
     public Manager_Sign_In(DataHelper api) {
-        initComponents();
-        this.api_connection = api;
+    	this.api_connection = api;
+    	initComponents();
     }
 
     /**

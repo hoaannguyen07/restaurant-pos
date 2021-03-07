@@ -322,6 +322,72 @@ public class DataHelper {
 		return true;
 	}
 	
+	double get_price(String item_name)
+	{
+		/* 
+		 * create & execute a sql statement (first object then the statement that will be put into that object)
+		 * sql stmt:
+		 * "SELECT menu.price FROM public.menu WHERE menu.name='" + item_name + "'";
+		 * done in try/catch statement in case database cannot be accessed and errors present itself
+		 * 
+		 * 
+		 */
+		double price = 0;
+		try
+		{
+			Statement stmt = conn.createStatement(); // statement object
+			// create the actual statement to populate the statement object
+			String sqlStatement = "SELECT menu.price FROM public.menu WHERE menu.name='" + item_name + "'";
+			
+			System.out.println("Executing Statement: " + item_name);
+			
+	        //send statement to DBMS
+	        ResultSet result = stmt.executeQuery(sqlStatement);
+	        while (result.next()) {
+	        	price = result.getDouble("price");
+	        }
+		} catch (Exception e)
+		{
+			System.out.println("Error getting price");
+		}
+		
+		//return successfully
+		return price;
+	}
+	
+	void change_price(String item_name, String price_change_txt)
+	{
+		/* 
+		 * create & execute a sql statement (first object then the statement that will be put into that object)
+		 * sql stmt:
+		 * "UPDATE menu SET price=" + price_chagne + "WHERE name='" + itemName + "'";
+		 * done in try/catch statement in case database cannot be accessed and errors present itself
+		 * 
+		 * 
+		 */
+		
+		double price_change = Double.valueOf(price_change_txt);
+		
+		try
+		{
+			
+			Statement stmt = conn.createStatement(); // statement object
+			// create the actual statement to populate the statement object
+			String sql_stmt = "UPDATE menu SET price=" + price_change + "WHERE name='" + item_name + "'";
+			
+			System.out.println("Executing Statement: " + sql_stmt);
+			
+			stmt.executeQuery(sql_stmt);
+			System.out.println("Updated item " + item_name + " in database to " + price_change_txt);
+		} catch (Exception e)
+		{
+			System.out.println("Error changing price");
+		}
+		
+		//return successfully
+		return;
+	}
+	
 	public Vector<Vector<String>> get_menu_data()
 	{
 		Vector<Vector<String>> menu_list = new Vector<Vector<String>>();

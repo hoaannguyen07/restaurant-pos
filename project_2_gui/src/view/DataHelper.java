@@ -322,14 +322,15 @@ public class DataHelper {
 		return true;
 	}
 	
-	public Vector<Vector<String>> get_menu_data()
+	Vector<Vector<String>> get_menu_data()
 	{
 		Vector<Vector<String>> menu_list = new Vector<Vector<String>>();
+		DataHelper api_connection = new DataHelper();
 
 		try
 		{
 			
-			Statement stmt = this.conn.createStatement(); // statement object
+			Statement stmt = api_connection.conn.createStatement(); // statement object
 			// create the actual statement to populate the statement object
 			String sql_stmt = "SELECT * from menu";
 			
@@ -353,7 +354,6 @@ public class DataHelper {
 		{
 			System.out.println("Error adding to manager Datatable.");
 		}
-		System.out.println(menu_list);
 		return menu_list;
 	}
 	

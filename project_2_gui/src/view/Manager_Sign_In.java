@@ -24,12 +24,15 @@ public class Manager_Sign_In extends javax.swing.JFrame {
     /**
      * Creates new form Manager_Sign_In
      */
+	DataHelper api_connection;
+	
     public Manager_Sign_In() {
         initComponents();
     }
     
     public Manager_Sign_In(DataHelper api) {
-        initComponents();
+    	this.api_connection = api;
+    	initComponents();
     }
 
     /**
@@ -269,16 +272,17 @@ public class Manager_Sign_In extends javax.swing.JFrame {
         // change color of panel when clicked
         panel_login.setBackground(new Color (0,35,34));
 
-        // correct username and password means go to main screen with all customer functionality
-        if (label_username.getText().equals("admin") && label_pass.getText().equals("admin"))
-        {
-            label_login_msg.setText("Successful Sign In");
-        }
+        
         // haven't entered one or both of the fields
-        else if (label_username.getText().equals("") || label_username.getText().equals("Username") ||
+        if (label_username.getText().equals("") || label_username.getText().equals("Username") ||
                     label_pass.getText().equals("") || label_pass.getText().equals("Password"))
         {
             label_login_msg.setText("Please input all requirements!");
+        }
+        // correct username and password means go to main screen with all customer functionality
+        else if (api_connection.verify_manager(label_username, label_pass) == 2)
+        {
+            label_login_msg.setText("Successful Sign In");
         }
         // incorrect username/password
         else

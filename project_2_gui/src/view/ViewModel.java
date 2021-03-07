@@ -11,6 +11,8 @@ import javax.swing.JSplitPane;
 import javax.swing.JTable;
 //import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import javax.swing.table.DefaultTableModel;
  
 //@author ashraf
 
@@ -21,8 +23,12 @@ public class ViewModel {
         JTable table = new JTable();
  
         // Create table model
-        Model model = new Model();
-        table.setModel(model);
+
+        public static final Object[] TABLE_HEADER = { 
+        		"Item Name", "Item Type", "Price"
+        };
+
+        table.setModel(DataHelper.get_menu_data, TABLE_HEADER);
  
         // Set the view layout
         JPanel ctrlPane = new JPanel();

@@ -1,29 +1,31 @@
 package view;
 
-import java.awt.BorderLayout;
+//import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import javax.swing.SpinnerListModel;
-import javax.swing.JInternalFrame;
+//import javax.swing.JTextField;
+//import javax.swing.SpinnerListModel;
+//import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 
-import java.awt.Button;
+//import java.awt.Button;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
-import javax.swing.JSpinner;
-import javax.swing.JProgressBar;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
+//import javax.swing.JSpinner;
+//import javax.swing.JProgressBar;
+//import java.beans.PropertyChangeListener;
+//import java.beans.PropertyChangeEvent;
 
 public class rewards extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
 	private final JLabel eligible_text = new JLabel("Eligible reward:");
 	private final JLabel free_med_text = new JLabel("Free medium drink/side");

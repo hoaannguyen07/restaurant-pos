@@ -22,8 +22,16 @@ public class Customer_Type extends javax.swing.JFrame {
     /**
      * Creates new form Customer_Type
      */
+	
+	DataHelper api_connection;
+	
     public Customer_Type() {
         initComponents();
+    }
+    
+    public Customer_Type(DataHelper api) {
+    	this.api_connection = api;
+    	initComponents();
     }
 
     /**

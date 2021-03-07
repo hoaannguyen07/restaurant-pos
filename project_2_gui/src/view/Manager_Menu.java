@@ -23,7 +23,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Customer_Menu extends JFrame {
+public class Manager_Menu extends JFrame {
 	
 	DataHelper api_connection;
 	
@@ -43,7 +43,7 @@ public class Customer_Menu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Customer_Menu frame = new Customer_Menu();
+					Manager_Menu frame = new Manager_Menu();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,14 +55,14 @@ public class Customer_Menu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Customer_Menu() {
+	public Manager_Menu() {
 		MENU_HEADER.addElement("Name");
 		MENU_HEADER.addElement("Price");
 		initGUI();
 		show_data_in_table();
 	}
 	
-	public Customer_Menu(DataHelper api) {
+	public Manager_Menu(DataHelper api) {
 		MENU_HEADER.addElement("Name");
 		MENU_HEADER.addElement("Price");
 		this.api_connection = api;

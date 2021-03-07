@@ -23,7 +23,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Manager_Menu extends JFrame {
+public class Ingredients extends JFrame {
 	
 	DataHelper api_connection;
 	
@@ -34,7 +34,9 @@ public class Manager_Menu extends JFrame {
 	
 	JTable table_menu;
 	JScrollPane pane_menu;
-	private final JLabel lblManagerMenu = new JLabel("MANAGER MENU");
+	private final JLabel lblCustomizationOptions = new JLabel("CUSTOMIZATION OPTIONS");
+	private final JLabel lblNewLabel = new JLabel("Click on the ingredient that you want to customize.");
+	private final JLabel lblNewLabel_1 = new JLabel("* Note that any customization will be finalized and cannot be changed");
 
 	/**
 	 * Launch the application.
@@ -43,7 +45,7 @@ public class Manager_Menu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Manager_Menu frame = new Manager_Menu();
+					Ingredients frame = new Ingredients();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,20 +57,20 @@ public class Manager_Menu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Manager_Menu() {
+	public Ingredients() {
 		if (MENU_HEADER.size() == 0)
 		{
-			MENU_HEADER.addElement("Name");
+			MENU_HEADER.addElement("Ingredient Name");
 			MENU_HEADER.addElement("Price");
 		}
 		initGUI();
 		show_data_in_table();
 	}
 	
-	public Manager_Menu(DataHelper api) {
+	public Ingredients(DataHelper api) {
 		if (MENU_HEADER.size() == 0)
 		{
-			MENU_HEADER.addElement("Name");
+			MENU_HEADER.addElement("Ingredient Name");
 			MENU_HEADER.addElement("Price");
 		}
 		this.api_connection = api;
@@ -78,7 +80,7 @@ public class Manager_Menu extends JFrame {
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 515);
+		setBounds(100, 100, 600, 582);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 139, 139));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -98,23 +100,29 @@ public class Manager_Menu extends JFrame {
 				String price = table_model.getValueAt(index, 1).toString();
 				
 				System.out.println(name + "\t" + price);
-				
-				EditItem openItem = new EditItem(api_connection,"1234", name);
-				openItem.setVisible(true);
-				dispose();
 			}
 		});
 		JScrollPane pane_menu = new JScrollPane(table_menu);
 		model = (DefaultTableModel)table_menu.getModel();
-		pane_menu.setBounds(10, 95, 568, 374);
+		pane_menu.setBounds(10, 138, 568, 374);
 //		table_menu.setPreferredSize(568,374)
 		contentPane.add(pane_menu);
 		pane_menu.setViewportView(table_menu);
-		lblManagerMenu.setFont(new Font("Segoe UI Black", Font.PLAIN, 55));
-		lblManagerMenu.setHorizontalAlignment(SwingConstants.CENTER);
-		lblManagerMenu.setBounds(10, 11, 568, 73);
+		lblCustomizationOptions.setFont(new Font("Segoe UI Black", Font.PLAIN, 40));
+		lblCustomizationOptions.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCustomizationOptions.setBounds(10, 11, 568, 73);
 		
-		contentPane.add(lblManagerMenu);
+		contentPane.add(lblCustomizationOptions);
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		lblNewLabel.setForeground(new Color(128, 0, 0));
+		lblNewLabel.setBounds(10, 105, 491, 32);
+		
+		contentPane.add(lblNewLabel);
+		lblNewLabel_1.setForeground(new Color(165, 42, 42));
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_1.setBounds(10, 523, 466, 14);
+		
+		contentPane.add(lblNewLabel_1);
 	}
 	
 	void delete_all_rows_in_table()
@@ -132,7 +140,7 @@ public class Manager_Menu extends JFrame {
 		// first make sure there is nothing in the table before adding stuff in
 		this.delete_all_rows_in_table();
 		
-		Vector<Vector<String>> menu_list = get_menu_data(); // [0] = id || [1] = name || [2] = price
+		Vector<Vector<String>> menu_list = get_menu_data(); // [0] = key || [1] = name || [2] = price
 //		DefaultTableModel model = (DefaultTableModel) table_menu.getModel();
 		
 		// only display item name and price
@@ -156,21 +164,22 @@ public class Manager_Menu extends JFrame {
 			
 			Statement stmt = api_connection.conn.createStatement(); // statement object
 			// create the actual statement to populate the statement object
-			String sql_stmt = "SELECT * from menu";
+			String sql_stmt = "SELECT * from ingredients";
 			
 			System.out.println("Executing Statement: " + sql_stmt);
 			ResultSet result = stmt.executeQuery(sql_stmt);
 			
 			while(result.next())
 			{
-				Vector<String> cur_item = new Vector<String>(); // [0] = id || [1] = name || [2] = price
+				Vector<String> cur_item = new Vector<String>(); // [0] = key || [1] = name || [2] = price
 				// get name and price of food item
-				String food_id = result.getString("id");
-				String food_name = result.getString("name");
-				String food_price = result.getString("price");
-				cur_item.addElement(food_id);
-				cur_item.addElement(food_name);
-				cur_item.addElement(food_price);
+				String ingredient_key = result.getString("key");
+				String ingredient_name = result.getString("name");
+				String ingredient_price = result.getString("price");
+				
+				cur_item.addElement(ingredient_key);
+				cur_item.addElement(ingredient_name);
+				cur_item.addElement(ingredient_price);
 				// put all info pertaining to item into the menu list
 				menu_list.addElement(cur_item);
 			
@@ -178,7 +187,7 @@ public class Manager_Menu extends JFrame {
 			
 		} catch (Exception e)
 		{
-			System.out.println("Error adding to manager Datatable.");
+			System.out.println("Error querying information from Ingredients Data Table.");
 		}
 		System.out.println(menu_list);
 		return menu_list;

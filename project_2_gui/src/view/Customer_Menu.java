@@ -128,12 +128,16 @@ public class Customer_Menu extends JFrame {
 		// first make sure there is nothing in the table before adding stuff in
 		this.delete_all_rows_in_table();
 		
-		Vector<Vector<String>> displaying_list = get_menu_data();
+		Vector<Vector<String>> menu_list = get_menu_data(); // [0] = id || [1] = name || [2] = price
 //		DefaultTableModel model = (DefaultTableModel) table_menu.getModel();
-
-		for(int i = 0; i < displaying_list.size(); i++)
+		
+		// only display item name and price
+		for(int i = 0; i < menu_list.size(); i++)
 		{
-			model.addRow(displaying_list.elementAt(i));
+			Vector<String> displaying_list = new Vector<String>();
+			displaying_list.addElement(menu_list.elementAt(i).elementAt(1));
+			displaying_list.addElement(menu_list.elementAt(i).elementAt(2));
+			model.addRow(displaying_list);
 		}
 		
 	}
@@ -155,10 +159,12 @@ public class Customer_Menu extends JFrame {
 			
 			while(result.next())
 			{
-				Vector<String> cur_item = new Vector<String>();
+				Vector<String> cur_item = new Vector<String>(); // [0] = id || [1] = name || [2] = price
 				// get name and price of food item
+				String food_id = result.getString("id");
 				String food_name = result.getString("name");
 				String food_price = result.getString("price");
+				cur_item.addElement(food_id);
 				cur_item.addElement(food_name);
 				cur_item.addElement(food_price);
 				// put all info pertaining to item into the menu list
@@ -170,6 +176,7 @@ public class Customer_Menu extends JFrame {
 		{
 			System.out.println("Error adding to manager Datatable.");
 		}
+		System.out.println(menu_list);
 		return menu_list;
 	}
 }

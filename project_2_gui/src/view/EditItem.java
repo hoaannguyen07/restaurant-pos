@@ -25,6 +25,9 @@ import javax.swing.UIManager;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
+
+/****************						FIX THE SQL STATEMENT TO MAKE IT WORK BECAUSE IT AIN'T						 *****************/
+
 public class EditItem extends JFrame {
 	protected static String managerID, itemPrice, itemName;
 	private JPanel contentPane;
@@ -48,6 +51,8 @@ public class EditItem extends JFrame {
 	private final JLabel lblNewLabel_1 = new JLabel("Entree:");
 	private final JLabel lblEntreeName = new JLabel("");
 	private final JPanel panel = new JPanel();
+	
+	DataHelper api_connection;
 
 	/**
 	 * Launch the application.
@@ -73,6 +78,17 @@ public class EditItem extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	public EditItem(DataHelper api,String _managerID, String _itemName) {
+		this.api_connection = api;
+		txtPrice.setText("$");
+		txtPrice.setColumns(10);
+		
+		managerID = _managerID;
+		itemName = _itemName;
+		
+		initGUI();
+	}
+	
 	public EditItem(String _managerID, String _itemName) {
 		txtPrice.setText("$");
 		txtPrice.setColumns(10);
@@ -211,11 +227,12 @@ public class EditItem extends JFrame {
 					try {
 						Statement stmt = conn.createStatement(); // statement object
 						// create the actual statement to populate the statement object
-						String sql_stmt = "UPDATE menu SET price=" + priceChange + "WHERE name='" + itemName + "'";
+						String sql_stmt = "UPDATE menu SET price=" + priceChange + " WHERE name='" + itemName + "'";
 						
 						System.out.println("Executing Statement: " + sql_stmt);
 						
 						stmt.executeQuery(sql_stmt);
+						System.out.println("Successfully update price of " + itemName + " to " + priceChange);
 						System.out.println("Updated item " + itemName + " in database to " + priceChange);
 					} catch (Exception e) {
 						System.out.println("Error updating database");

@@ -25,11 +25,10 @@ import javax.swing.UIManager;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-
-/****************						FIX THE SQL STATEMENT TO MAKE IT WORK BECAUSE IT AIN'T						 *****************/
-
 public class EditItem extends JFrame {
-	protected static String managerID, itemPrice, itemName;
+	static DataHelper api_connection;
+	protected static String managerID, itemName;
+	
 	private JPanel contentPane;
 	private final JLabel lblNewLabel = new JLabel("Manager ID: ");
 	private final JLabel lblManagerID = new JLabel("");
@@ -51,8 +50,6 @@ public class EditItem extends JFrame {
 	private final JLabel lblNewLabel_1 = new JLabel("Entree:");
 	private final JLabel lblEntreeName = new JLabel("");
 	private final JPanel panel = new JPanel();
-	
-	DataHelper api_connection;
 
 	/**
 	 * Launch the application.
@@ -61,7 +58,7 @@ public class EditItem extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EditItem frame = new EditItem("1234", "Chicken Sandwich");
+					EditItem frame = new EditItem(api_connection, "1234", "Chicken Sandwich");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -69,35 +66,22 @@ public class EditItem extends JFrame {
 			}
 		});
 	}
-	
-	public final class dbSetup  {
-		  public static final String user = "nikolai11";
-		  public static final String pswd = "Ang_022800";
-	}//end class
 
 	/**
 	 * Create the frame.
 	 */
-	public EditItem(DataHelper api,String _managerID, String _itemName) {
-		this.api_connection = api;
+	public EditItem(DataHelper api, String _managerID, String _itemName) {
 		txtPrice.setText("$");
 		txtPrice.setColumns(10);
 		
+		
+		EditItem.api_connection = api;
 		managerID = _managerID;
 		itemName = _itemName;
 		
 		initGUI();
 	}
 	
-	public EditItem(String _managerID, String _itemName) {
-		txtPrice.setText("$");
-		txtPrice.setColumns(10);
-		
-		managerID = _managerID;
-		itemName = _itemName;
-		
-		initGUI();
-	}
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 450);
@@ -157,45 +141,8 @@ public class EditItem extends JFrame {
 		
 		btnSaveChanges.setBackground(new Color(0, 102, 255));
 		btnSaveChanges.setBounds(133, 323, 164, 40);
-		
-		
-		dbSetup my = new dbSetup();
-	    //Building the connection
-	    Connection conn = null;
-	    try {
-	    	//Class.forName("org.postgresql.Driver");
-	        conn = DriverManager.getConnection(
-	          "jdbc:postgresql://csce-315-db.engr.tamu.edu/db907_group9_project2",
-	           my.user, my.pswd);
-	    } catch (Exception e) {
-	    	e.printStackTrace();
-	        System.err.println(e.getClass().getName()+": "+e.getMessage());
-	        System.exit(0);
-	    }//end try catch
-	    System.out.println("Opened database successfully");
 	    
-	    double price = 0;
-	    try {
-	    	//create a statement object
-	    	Statement stmt = conn.createStatement();
-	        //create an SQL statement
-	        String sqlStatement = "SELECT menu.price FROM public.menu WHERE menu.name='" + itemName + "'";
-	        //send statement to DBMS
-	        ResultSet result = stmt.executeQuery(sqlStatement);
-	        while (result.next()) {
-	        	price = result.getDouble("price");
-	        }
-	    } catch (Exception e){
-	    	System.out.println("Error accessing Database.");
-	    }
-	    
-	    //closing the connection
-	    try {
-	      conn.close();
-	      System.out.println("Connection Closed.");
-	    } catch(Exception e) {
-	      System.out.println("Connection NOT Closed.");
-	    }//end try catch
+	    double price = api_connection.get_price(itemName);
 		
 		/* If button is pressed, changes are made to the database */
 		btnSaveChanges.addActionListener(new ActionListener() {
@@ -207,44 +154,7 @@ public class EditItem extends JFrame {
 						priceChangeTxt = priceChangeTxt.substring(1);
 					}
 					
-					double priceChange = Double.valueOf(priceChangeTxt);
-					
-					dbSetup my = new dbSetup();
-				    //Building the connection
-				    Connection conn = null;
-				    try {
-				    	//Class.forName("org.postgresql.Driver");
-				        conn = DriverManager.getConnection(
-				          "jdbc:postgresql://csce-315-db.engr.tamu.edu/db907_group9_project2",
-				           my.user, my.pswd);
-				    } catch (Exception e) {
-				    	e.printStackTrace();
-				        System.err.println(e.getClass().getName()+": "+e.getMessage());
-				        System.exit(0);
-				    }//end try catch
-				    System.out.println("Opened database successfully");
-					
-					try {
-						Statement stmt = conn.createStatement(); // statement object
-						// create the actual statement to populate the statement object
-						String sql_stmt = "UPDATE menu SET price=" + priceChange + " WHERE name='" + itemName + "'";
-						
-						System.out.println("Executing Statement: " + sql_stmt);
-						
-						stmt.executeQuery(sql_stmt);
-						System.out.println("Successfully update price of " + itemName + " to " + priceChange);
-						System.out.println("Updated item " + itemName + " in database to " + priceChange);
-					} catch (Exception e) {
-						System.out.println("Error updating database");
-					}
-				    
-				    //closing the connection
-				    try {
-				      conn.close();
-				      System.out.println("Connection Closed.");
-				    } catch(Exception e) {
-				      System.out.println("Connection NOT Closed.");
-				    }//end try catch
+					api_connection.change_price(itemName, priceChangeTxt);
 					
 					Manager_Menu please_work = new Manager_Menu();
 					please_work.setVisible(true);

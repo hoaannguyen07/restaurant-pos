@@ -73,7 +73,9 @@ public class customerOptionMenu extends JFrame {
 		btnViewMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnViewMenu) {
-					System.out.println("here");
+					Customer_Menu view_menu = new Customer_Menu();
+					view_menu.setVisible(true);
+					dispose();
 				}
 			}
 		});
@@ -95,7 +97,9 @@ public class customerOptionMenu extends JFrame {
 		btnPaymentInformation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnPaymentInformation) { 
-					System.out.println("here");
+					cardtype view_card = new cardtype();
+					view_card.setVisible(true);
+					dispose();
 				}
 			}
 		});

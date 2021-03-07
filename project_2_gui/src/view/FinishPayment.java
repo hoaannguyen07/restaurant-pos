@@ -1,7 +1,7 @@
 /*
  * Author: Adryn G
  */
-package view;
+package src.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

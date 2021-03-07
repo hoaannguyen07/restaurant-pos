@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.BorderLayout;
+//import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
-import javax.swing.JTextArea;
-import javax.swing.JButton;
+//import javax.swing.JTextArea;
+//import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.SwingConstants;
@@ -18,6 +18,8 @@ import javax.swing.border.MatteBorder;
 
 public class cardtype extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+	
 	private final JLabel card_type_text = new JLabel("Choose card type");
 	private JPanel contentPane;
 	private final JLabel card_carrier_text = new JLabel("Choose card carrier");

@@ -7,11 +7,11 @@ import java.util.Vector;
 import javax.swing.*;
 
 public class DataHelper {
-	public Connection conn;
-	public String last_name;
-	public String first_name;
-	public String id;
-	public Vector<Vector<String>> cart;
+	Connection conn;
+	String last_name;
+	String first_name;
+	String id;
+	Vector<Vector<String>> cart;
 	
 	DataHelper()
 	{
@@ -19,11 +19,11 @@ public class DataHelper {
 	     try {
 	        //Class.forName("org.postgresql.Driver");
 	        conn = DriverManager.getConnection(
-	        	"jdbc:postgresql://csce-315-db.engr.tamu.edu/db907_group9_project2",
+	          "jdbc:postgresql://csce-315-db.engr.tamu.edu/db907_group9_project2",
 	           dbSetup.user, dbSetup.pswd);
 	     } catch (Exception e) {
 	        e.printStackTrace();
-	        System.err.println(e.getClass().getName()+": "+e.getMessage());
+	        System.err.println(e.getClass().getName() + ": " + e.getMessage());
 	        System.exit(0);
 	     }//end try catch
 	     System.out.println("Opened database successfully");

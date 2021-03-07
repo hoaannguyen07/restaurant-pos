@@ -96,11 +96,17 @@ public class prevOrder extends JFrame {
 		Vector<String> beverages = new Vector<String>();
 		Vector<String> desserts = new Vector<String>();
 		
+		String entree, side, beverage, dessert;
+		
 		try { 
 			Statement stmnt = conn.createStatement();
 			String sqlStatement = 
+<<<<<<< HEAD
 					"SELECT m1.name AS entree, m2.name AS side, m3.name AS beverage, m4.name AS dessert " + 
 					"FROM orders " + 
+=======
+					"SELECT orders.entrees, orders.sides, orders.beverages, orders.desserts FROM orders " + 
+>>>>>>> 874c45d396bd0f32539a69e1e2e3a95a2cf48fb9
 					"FULL OUTER JOIN customer ON orders.customerid = customer.id " + 
 					"FULL OUTER JOIN menu m1 ON orders.entrees = m1.id " + 
 					"FULL OUTER JOIN menu m2 ON orders.sides = m2.id " + 
@@ -112,6 +118,7 @@ public class prevOrder extends JFrame {
 					"LIMIT 5";
 			ResultSet result = stmnt.executeQuery(sqlStatement);
 			while (result.next()) {
+<<<<<<< HEAD
 				entree = result.getString("entree");
 				entrees.add(entree);
 				
@@ -126,6 +133,21 @@ public class prevOrder extends JFrame {
 			}
 		}
 			
+=======
+				entree = result.getString("entrees");
+				entrees.add(entree);
+				
+				side = result.getString("sides");
+				sides.add(side);
+				
+				beverage = result.getString("beverages");
+				beverages.add(beverage);
+				
+				dessert = result.getString("desserts");
+				desserts.add(dessert);
+			}
+		}
+>>>>>>> 874c45d396bd0f32539a69e1e2e3a95a2cf48fb9
 		 catch (Exception e) { 
 			System.out.println("failed to access database");
 		}

@@ -83,7 +83,6 @@ public class ItemOption extends JFrame {
 					please_work.setVisible(true);
 					dispose();
 				}
-						
 			}
 		});
 		

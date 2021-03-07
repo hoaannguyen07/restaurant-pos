@@ -92,6 +92,10 @@ public class Manager_Menu extends JFrame {
 				String price = table_model.getValueAt(index, 1).toString();
 				
 				System.out.println(name + "\t" + price);
+				
+				EditItem openItem = new EditItem("1234", name);
+				openItem.setVisible(true);
+				dispose();
 			}
 		});
 		JScrollPane pane_menu = new JScrollPane(table_menu);

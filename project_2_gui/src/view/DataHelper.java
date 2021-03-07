@@ -322,54 +322,38 @@ public class DataHelper {
 		return true;
 	}
 	
-	public ArrayList<String> get_menu()
+	Vector<Vector<String>> get_menu_data()
 	{
-		/* 
-		 * create & execute a sql statement (first object then the statement that will be put into that object)
-		 * sql stmt:
-		 * SELECT * from menu;
-		 * done in try/catch statement in case database cannot be accessed and errors present itself
-		 * 
-		 * 
-		 */
-		ResultSet result;
-		ArrayList<String> menu_list = new ArrayList<String>();
-		
+		Vector<Vector<String>> menu_list = new Vector<Vector<String>>();
+		DataHelper api_connection = new DataHelper();
+
 		try
 		{
-			Statement stmt = conn.createStatement(); // statement object
+			
+			Statement stmt = api_connection.conn.createStatement(); // statement object
 			// create the actual statement to populate the statement object
 			String sql_stmt = "SELECT * from menu";
 			
-			String name, id, type = "Other", price, menu_line;
-			
 			System.out.println("Executing Statement: " + sql_stmt);
-			result = stmt.executeQuery(sql_stmt);
+			ResultSet result = stmt.executeQuery(sql_stmt);
 			
-			while (result.next()) {
-				id = result.getString("id");
-				name = result.getString("name");
-				price = result.getString("price");
-				
-				if (id.charAt(0) == 'E') {
-					type = "Entree";
-				} else if (id.charAt(0) == 'B') {
-					type = "Beverage";
-				} else if (id.charAt(0) == 'D') {
-					type = "Dessert";
-				} else if (id.charAt(0) == 'S') {
-					type = "Side";
-				}
-				
-				menu_line = name + " " + type + " " + price;
-				menu_list.add(menu_line);
+			while(result.next())
+			{
+				Vector<String> cur_item = new Vector<String>();
+				// get name and price of food item
+				String food_name = result.getString("name");
+				String food_price = result.getString("price");
+				cur_item.addElement(food_name);
+				cur_item.addElement(food_price);
+				// put all info pertaining to item into the menu list
+				menu_list.addElement(cur_item);
+			
 			}
 			
 		} catch (Exception e)
 		{
 			System.out.println("Error adding to manager Datatable.");
 		}
-		
 		return menu_list;
 	}
 	

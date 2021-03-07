@@ -9,7 +9,7 @@ public class Model extends DefaultTableModel {
 	
 
     public Model() {
-        super(DataHelper.get_menu, TABLE_HEADER);
+        super(DataHelper.get_menu_data, TABLE_HEADER);
     }
     
 	/*

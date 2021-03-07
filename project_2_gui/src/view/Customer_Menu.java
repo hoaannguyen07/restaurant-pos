@@ -16,6 +16,9 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.Color;
 import javax.swing.JScrollPane;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class Customer_Menu extends JFrame {
 	
@@ -28,6 +31,7 @@ public class Customer_Menu extends JFrame {
 	
 	JTable table_menu;
 	JScrollPane pane_menu;
+	private final JLabel lblAngstMenu = new JLabel("A.N.G.S.T MENU");
 
 	/**
 	 * Launch the application.
@@ -67,7 +71,7 @@ public class Customer_Menu extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 515);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.WHITE);
+		contentPane.setBackground(new Color(0, 139, 139));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -80,6 +84,11 @@ public class Customer_Menu extends JFrame {
 //		table_menu.setPreferredSize(568,374)
 		contentPane.add(pane_menu);
 		pane_menu.setViewportView(table_menu);
+		lblAngstMenu.setFont(new Font("Segoe UI Black", Font.PLAIN, 55));
+		lblAngstMenu.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAngstMenu.setBounds(10, 11, 568, 73);
+		
+		contentPane.add(lblAngstMenu);
 	}
 	
 	void show_data_in_table()
@@ -139,5 +148,4 @@ public class Customer_Menu extends JFrame {
 		System.out.println(menu_list);
 		return menu_list;
 	}
-	
 }

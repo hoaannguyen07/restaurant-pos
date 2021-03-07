@@ -11,13 +11,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
+import javax.swing.JButton;
 
 public class FinishPayment extends JFrame {
-
+	String first, last, user, pass;
 	private JPanel contentPane;
 	private final JPanel panel = new JPanel();
 	private final JLabel lblNewLabel = new JLabel("Orders");
@@ -25,12 +29,8 @@ public class FinishPayment extends JFrame {
 	private final JLabel lblNewLabel_1 = new JLabel("New label");
 	private final JPanel panel_2 = new JPanel();
 	private final JPanel panel_3 = new JPanel();
-	private final JPanel panel_4 = new JPanel();
 	private final JLabel lblNewLabel_2 = new JLabel("New label");
 	private final JLabel lblNewLabel_3 = new JLabel("New label");
-	private final JLabel lblNewLabel_4 = new JLabel("New label");
-	private final JPanel panel_5 = new JPanel();
-	private final JLabel lblNewLabel_5 = new JLabel("New label");
 	private final JPanel panel_6 = new JPanel();
 	private final JLabel lblTotalCost = new JLabel("Total Cost");
 	private final JPanel panel_7 = new JPanel();
@@ -43,6 +43,7 @@ public class FinishPayment extends JFrame {
 	private final JLabel lblNewLabel_8 = new JLabel("Thank you for your patronage.");
 	private final JPanel panel_11 = new JPanel();
 	private final JLabel lblNewLabel_9 = new JLabel("Enjoy your meal!");
+	private final JButton btnHome = new JButton("Return Home");
 
 	/**
 	 * Launch the application.
@@ -51,7 +52,8 @@ public class FinishPayment extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FinishPayment frame = new FinishPayment();
+					/* Change to inputed values */
+					FinishPayment frame = new FinishPayment("Joe", "Smith", "user", "pass");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -63,7 +65,12 @@ public class FinishPayment extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FinishPayment() {
+	public FinishPayment(String _first, String _last, String _user, String _pass) {
+		first = _first;
+		last = _last;
+		user = _user;
+		pass = _pass;
+		
 		initGUI();
 	}
 	private void initGUI() {
@@ -99,52 +106,51 @@ public class FinishPayment extends JFrame {
 		contentPane.add(panel_3);
 		
 		panel_3.add(lblNewLabel_3);
-		panel_4.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_4.setBounds(10, 112, 416, 24);
-		
-		contentPane.add(panel_4);
-		
-		panel_4.add(lblNewLabel_4);
-		panel_5.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_5.setBounds(10, 136, 416, 24);
-		
-		contentPane.add(panel_5);
-		
-		panel_5.add(lblNewLabel_5);
-		panel_6.setBounds(10, 200, 416, 24);
+		panel_6.setBounds(10, 136, 416, 24);
 		
 		contentPane.add(panel_6);
 		lblTotalCost.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		panel_6.add(lblTotalCost);
 		panel_7.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_7.setBounds(10, 229, 416, 24);
+		panel_7.setBounds(10, 167, 416, 24);
 		
 		contentPane.add(panel_7);
 		
 		panel_7.add(lblNewLabel_6);
-		panel_8.setBounds(10, 288, 416, 24);
+		panel_8.setBounds(10, 213, 416, 24);
 		
 		contentPane.add(panel_8);
-		paymentMethodInfo.setFont(new Font("Tahoma", Font.BOLD, 14));
-		
 		panel_8.add(paymentMethodInfo);
+		paymentMethodInfo.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panel_9.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_9.setBounds(10, 317, 416, 24);
+		panel_9.setBounds(10, 240, 416, 24);
 		
 		contentPane.add(panel_9);
 		
 		panel_9.add(lblNewLabel_7);
-		panel_10.setBounds(10, 351, 416, 24);
+		panel_10.setBounds(10, 289, 416, 24);
 		
 		contentPane.add(panel_10);
 		
 		panel_10.add(lblNewLabel_8);
-		panel_11.setBounds(10, 375, 416, 28);
+		panel_11.setBounds(10, 311, 416, 28);
 		
 		contentPane.add(panel_11);
 		
 		panel_11.add(lblNewLabel_9);
+		btnHome.setBackground(new Color(0, 102, 255));
+		btnHome.setBounds(160, 361, 116, 24);
+		
+		contentPane.add(btnHome);
+		btnHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(arg0.getSource() == btnHome) { 
+					customerOptionMenu frame = new customerOptionMenu(first, last, user, pass); 
+					frame.setVisible(true);
+					dispose();
+				}
+			}
+		});
 	}
-
 }

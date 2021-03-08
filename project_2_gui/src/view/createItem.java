@@ -116,6 +116,7 @@ public class createItem extends JFrame {
 	}
 	
 	private class SwingAction extends AbstractAction {
+		private static final long serialVersionUID = 1L;
 		public SwingAction() {
 			putValue(NAME, "Submit");
 			putValue(SHORT_DESCRIPTION, "Some short description");
@@ -124,6 +125,7 @@ public class createItem extends JFrame {
 		}
 	}
 	private class SwingAction_1 extends AbstractAction {
+		private static final long serialVersionUID = 1L;
 		public SwingAction_1() {
 			putValue(NAME, "Back");
 			putValue(SHORT_DESCRIPTION, "Some short description");

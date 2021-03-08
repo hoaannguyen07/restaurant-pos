@@ -18,10 +18,10 @@ public class prevOrder2 extends JFrame {
 	private final JLabel lblSides = new JLabel("Sides");
 	private final JLabel lblBeverage = new JLabel("Beverage");
 	private final JLabel lblDesserts = new JLabel("Desserts");
-	private  JList entreeList;
-	private  JList bevList;
-	private  JList sideList;
-	private  JList dessList;
+	private JList entreeList;
+	private JList bevList;
+	private JList sideList;
+	private JList dessList;
 	protected static String first;
 	protected static String last;
 	protected static String user;
@@ -76,8 +76,8 @@ public class prevOrder2 extends JFrame {
 		try { 
 			Statement stmnt = conn.createStatement();
 
-			String where = "WHERE customer.lastname LIKE '" + "SMITH" + "%' ";
-			String and_str = "AND customer.firstname LIKE '" + "MARY"+ "%' ";
+			String where = "WHERE customer.lastname LIKE '" + first + "%' ";
+			String and_str = "AND customer.firstname LIKE '" + last + "%' ";
 			String sqlStatement = 
 					"SELECT m1.name AS entree, m2.name AS side, m3.name AS beverage, m4.name AS dessert " + 
 					"FROM orders " + 

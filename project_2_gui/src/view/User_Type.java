@@ -2,10 +2,15 @@ package src.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -25,6 +30,7 @@ public class User_Type extends javax.swing.JFrame {
 	DataHelper api_connection;
 	
     public User_Type() {
+    	this.api_connection = new DataHelper();
         initComponents();
     }
     
@@ -65,6 +71,7 @@ public class User_Type extends javax.swing.JFrame {
 
         panel_customer.setBackground(new java.awt.Color(0, 102, 102));
         panel_customer.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        
 
         label_customer.setFont(new java.awt.Font("Tahoma", 1, 40)); // NOI18N
         label_customer.setForeground(new java.awt.Color(255, 255, 255));
@@ -72,6 +79,15 @@ public class User_Type extends javax.swing.JFrame {
         label_customer.setText("CUSTOMER");
         label_customer.setToolTipText("");
         label_customer.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        label_customer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Customer_Type cust_type = new Customer_Type(api_connection);
+				cust_type.setVisible(true);
+				dispose();
+				//System.out.println("customer");
+			}
+		});
 
         javax.swing.GroupLayout panel_customerLayout = new javax.swing.GroupLayout(panel_customer);
         panel_customer.setLayout(panel_customerLayout);
@@ -99,6 +115,15 @@ public class User_Type extends javax.swing.JFrame {
         label_manager.setText("MANAGER");
         label_manager.setToolTipText("");
         label_manager.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        label_manager.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Manager_Menu manager_menu = new Manager_Menu(api_connection);
+				manager_menu.setVisible(true);
+				dispose();
+				//System.out.println("manager");
+			}
+		});
 
         javax.swing.GroupLayout panel_managerLayout = new javax.swing.GroupLayout(panel_manager);
         panel_manager.setLayout(panel_managerLayout);
@@ -176,6 +201,7 @@ public class User_Type extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
+        
     }// </editor-fold>                        
 
     /**

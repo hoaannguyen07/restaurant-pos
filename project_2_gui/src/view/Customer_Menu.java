@@ -163,11 +163,6 @@ public class Customer_Menu extends JFrame {
 				
 				int selected_item_orders_id = -1;
 				
-				char E = 'E';
-				Character S = 'S';
-				Character B = 'B';
-				Character D = 'D';
-				
 				Character first_char = item_id.charAt(0);
 				// find type of food item it is and code it using the orders code (to later pass onto the ingredients frame)
 				if (first_char.equals('E')) {

@@ -7,10 +7,11 @@ import java.util.Vector;
 import javax.swing.*;
 
 public class DataHelper {
-	Connection conn;
-	String last_name;
-	String first_name;
-	String id;
+	public Connection conn;
+	public String last_name;
+	public String first_name;
+	public String id;
+	public String password;
 	Vector<Vector<String>> cart;
 	
 	DataHelper()
@@ -62,7 +63,7 @@ public class DataHelper {
 		this.last_name = l_name.getText();
 		this.first_name = f_name.getText();
 		this.id = cust_id.getText();
-		
+		this.password = password.getText();
 		return 1; // query was successful
 	}
 	
@@ -169,7 +170,7 @@ public class DataHelper {
 				this.first_name = first_last_name_result.getString("firstname");
 				this.last_name = first_last_name_result.getString("lastname");
 				this.id = username.getText();
-				
+				this.password = password.getText();
 				System.out.println("Manager " + this.first_name + " " + this.last_name + " has logged into the system!");
 				return 2;
 			}
@@ -232,7 +233,7 @@ public class DataHelper {
 				this.first_name = first_last_name_result.getString("firstname");
 				this.last_name = first_last_name_result.getString("lastname");
 				this.id = username.getText();
-				
+				this.password = password.getText();
 				System.out.println("Manager " + this.first_name + " " + this.last_name + " has logged into the system!");
 				return 2;
 			}

@@ -147,20 +147,6 @@ public class Cust_Sign_In extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-//				if (tf_username.getText().equals("Username") || tf_username.getText().equals("")
-//						|| pf_password.getText().equals("Password") || pf_password.getText().equals(""))
-//				{
-//					
-//				}
-//				else if (tf_username.getText().equals("admin") && pf_password.getText().equals("admin123"))
-//				{
-//					label_log_in_msg.setText("User: " + tf_username.getText() + " and Pass: " + pf_password.getText());
-//				}
-//				else
-//				{
-//					label_log_in_msg.setText("Invalid username or password");
-//				}
-				
 				if (tf_username.getText().equals("Username") || tf_username.getText().equals("")
 						|| pf_password.getText().equals("Password") || pf_password.getText().equals(""))
 				{

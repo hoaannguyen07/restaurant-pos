@@ -191,7 +191,7 @@ public class DataHelper {
 		/* 
 		 * create & execute a sql statement (first object then the statement that will be put into that object)
 		 * sql stmt:
-		 * SELECT customer.username, customer.password FROM customer WHERE customer.username LIKE 'username' AND customer.password LIKE 'password' LIMIT 1;
+		 * SELECT * FROM customer WHERE customer.id LIKE 'id' AND customer.password LIKE 'password';
 		 * done in try/catch statement in case database cannot be accessed and errors present itself
 		 * 
 		 * return values:
@@ -208,38 +208,29 @@ public class DataHelper {
 //			String sql_stmt = "SELECT customer.id, customer.password FROM customer WHERE customer.id LIKE '" + username.getText() 
 //									+ "' AND customer.password LIKE '" + password.getText() + "' LIMIT 1";
 			
-			String sql_stmt = "SELECT customer.id, customer.password FROM customer WHERE customer.id LIKE '135039%' AND customer.password LIKE '135039%' LIMIT 1";
+			String sql_stmt = "SELECT * FROM customer WHERE customer.id LIKE '" + username.getText() + "' AND customer.password LIKE '" + password.getText() + "'";
 			System.out.println("Executing Statement: " + sql_stmt);
 			
 			ResultSet result = stmt.executeQuery(sql_stmt);
 			
-			String id_pass = result.getString("username") + result.getString("password");
-			
+			String user_first_name = "";
+			String user_last_name = "";
+			while(result.next())
+			{
+				user_first_name = result.getString("firstname");
+				user_last_name = result.getString("lastname"); 
+			}
+			System.out.println("Finished Executing Statement: " + sql_stmt);
 			// if there is nothing in the string, then there are no username and password that matches.
-			// if it matches, then id_pass != "" meaning that there is a match and 
-			if (id_pass.equals(""))
+			if (user_first_name.equals("") && user_last_name.equals(""))
 			{
 				return 1;
 			} else // username & password match so we have a customer
 			{
 				// update name and id of person (using SQL queries)
-				/* 
-				 * create & execute a sql statement (first object then the statement that will be put into that object)
-				 * sql stmt:
-				 * SELECT customer.firstname, customer.lastname FROM customer WHERE username LIKE 'username' AND password LIKE 'password';
-				 * done in try/catch statement in case database cannot be accessed and errors present itself
-				 */
-				
-//				String find_first_last_name_stmt = "SELECT customer.firstname, customer.lastname FROM customer WHERE id LIKE '" + username.getText() + 
-//						"' AND password LIKE '" + password.getText();
-				
-				String find_first_last_name_stmt = "SELECT customer.firstname, customer.lastname FROM customer WHERE id LIKE '" + "135039" + 
-						"' AND password LIKE '" + "135039%";
-				
-				ResultSet first_last_name_result = stmt.executeQuery(find_first_last_name_stmt);
-				
-				this.first_name = first_last_name_result.getString("firstname");
-				this.last_name = first_last_name_result.getString("lastname");
+							
+				this.first_name = user_first_name;
+				this.last_name = user_last_name;
 				this.id = username.getText();
 				this.password = password.getText();
 //				this.password = String.valueOf(password.getPassword());
@@ -249,7 +240,8 @@ public class DataHelper {
 
 		} catch (Exception e)
 		{
-			System.out.println("Error adding to customer Datatable.");
+//			System.out.println("Error finding customer in  customer data table.");
+			System.out.println(e);
 			return 0; // tells GUI that it was unsuccessful in putting customer in database
 		}
 	}

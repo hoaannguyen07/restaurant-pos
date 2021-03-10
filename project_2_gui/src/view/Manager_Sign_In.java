@@ -26,7 +26,7 @@ public class Manager_Sign_In extends JFrame {
 	private final JTextField tf_username = new JTextField();
 	private final JPanel panel_password = new JPanel();
 	private final JPasswordField pf_password = new JPasswordField();
-	private final JPanel panel = new JPanel();
+	private final JPanel panel_log_in = new JPanel();
 	private final JLabel label_log_in = new JLabel("LOG IN");
 	private final JLabel label_log_in_msg = new JLabel("");
 
@@ -143,7 +143,7 @@ public class Manager_Sign_In extends JFrame {
 		pf_password.setBounds(10, 0, 182, 25);
 		
 		panel_password.add(pf_password);
-		panel.addMouseListener(new MouseAdapter() {
+		panel_log_in.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (tf_username.getText().equals("Username") || tf_username.getText().equals("")
@@ -161,22 +161,25 @@ public class Manager_Sign_In extends JFrame {
 					}
 					else if (sign_in_status == 2)
 					{
-						label_log_in_msg.setText("User: " + tf_username.getText() + " and Pass: " + pf_password.getText());
+//						label_log_in_msg.setText("User: " + tf_username.getText() + " and Pass: " + pf_password.getText());
+						Manager_Menu manager_menu = new Manager_Menu(api);
+						manager_menu.setVisible(true);
+						dispose();
 					}
 				}
 			}
 		});
-		panel.setBackground(new Color(0, 51, 51));
-		panel.setBounds(191, 263, 202, 54);
+		panel_log_in.setBackground(new Color(0, 51, 51));
+		panel_log_in.setBounds(191, 263, 202, 54);
 		
-		contentPane.add(panel);
-		panel.setLayout(null);
+		contentPane.add(panel_log_in);
+		panel_log_in.setLayout(null);
 		label_log_in.setForeground(Color.WHITE);
 		label_log_in.setFont(new Font("Arial Black", Font.BOLD, 20));
 		label_log_in.setHorizontalAlignment(SwingConstants.CENTER);
 		label_log_in.setBounds(62, 11, 85, 32);
 		
-		panel.add(label_log_in);
+		panel_log_in.add(label_log_in);
 		label_log_in_msg.setForeground(new Color(139, 0, 0));
 		label_log_in_msg.setHorizontalAlignment(SwingConstants.CENTER);
 		label_log_in_msg.setFont(new Font("Tahoma", Font.PLAIN, 15));

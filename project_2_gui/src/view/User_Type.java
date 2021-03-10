@@ -119,8 +119,8 @@ public class User_Type extends javax.swing.JFrame {
         label_manager.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Manager_Menu manager_menu = new Manager_Menu(api_connection);
-				manager_menu.setVisible(true);
+				Manager_Sign_In manager_sign_in = new Manager_Sign_In(api_connection);
+				manager_sign_in.setVisible(true);
 				dispose();
 				//System.out.println("manager");
 			}

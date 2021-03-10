@@ -161,7 +161,7 @@ public class customerOptionMenu extends JFrame {
 		btnRewards.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnRewards) { 
-					rewards view_rewards = new rewards(first, last, user, pass, api_connection);
+					rewards view_rewards = new rewards(first, last, user, pass);
 					view_rewards.setVisible(true);
 					dispose();
 				}

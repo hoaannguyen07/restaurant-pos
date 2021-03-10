@@ -273,30 +273,34 @@ public class DataHelper {
 
 
 	// find number of visits % 25 (b/c 25 is our max 
-	int num_visits_left_to_reward()
+	int get_num_visits()
 	{
 		/* 
 		 * create & execute a sql statement (first object then the statement that will be put into that object)
 		 * sql stmt:
-		 * SELECT "Rewards".visit_num FROM "Rewards" WHERE "Rewards".customerid LIKE 'id%';
+		 * SELECT "Rewards".visit_num FROM "Rewards" WHERE "Rewards".customerid='id';
 		 * done in try/catch statement in case database cannot be accessed and errors present itself
 		 * 
 		 * 
 		 */
+		int num_visits = 0;
 		
 		try
 		{
 			Statement stmt = conn.createStatement(); // statement object
 			// create the actual statement to populate the statement object
-			String sql_stmt = "SELECT \"Rewards\".visit_num FROM \"Rewards\" WHERE \"Rewards\".customerid LIKE '" + this.id + "%'";
+			String sql_stmt = "SELECT \"Rewards\".visit_num FROM \"Rewards\" WHERE \"Rewards\".customerid='" + this.id + "'";
 			
 			System.out.println("Executing Statement: " + sql_stmt);
 			
 			ResultSet result = stmt.executeQuery(sql_stmt);
 			
-			int num_visits = Integer.parseInt(result.getString("visit_num"));
+			if (result.next())
+			{
+				num_visits = result.getInt("visit_num");
+			}
 			
-			return 5 - (num_visits % 5);
+			return num_visits;
 		} catch (Exception e)
 		{
 			System.out.println(e);

@@ -145,9 +145,32 @@ public class Manager_Menu extends JFrame {
 		
 		menu_list = api_connection.get_menu_data(); // [0] = id || [1] = name || [2] = price || [3] = availability
 		
+		String id = "";
+		String name = "";
+		String price = "";
+		String available = "";
+		
 		for(int i = 0; i < menu_list.size(); i++)
 		{
-			model.addRow(menu_list.elementAt(i));
+Vector<String> displaying_list = new Vector<String>();
+			
+			id = menu_list.elementAt(i).elementAt(0);
+			name = menu_list.elementAt(i).elementAt(1);
+			price = "$ " + menu_list.elementAt(i).elementAt(2);
+			
+			if (menu_list.elementAt(i).elementAt(3).equals("t")) {
+				available = "Available";
+			}
+			else {
+				available = "Not Available";
+			}
+			
+			displaying_list.addElement(id);
+			displaying_list.addElement(name);
+			displaying_list.addElement(price);
+			displaying_list.addElement(available);
+			model.addRow(displaying_list);
+			//model.addRow(menu_list.elementAt(i));
 		}
 		
 	}

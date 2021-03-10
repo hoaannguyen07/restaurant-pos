@@ -367,8 +367,8 @@ public class DataHelper {
 			
 			while(result.next())
 			{
-				DecimalFormat df2 = new DecimalFormat("#.##");
-				df2.setRoundingMode(RoundingMode.UP);
+//				DecimalFormat df2 = new DecimalFormat("#.##");
+//				df2.setRoundingMode(RoundingMode.UP);
 				
 				// create vector to record information on one row to then be added to menu_list [0] = id || [1] = name || [2] = price || [3] = availability
 				Vector<String> cur_item = new Vector<String>(); 
@@ -378,9 +378,17 @@ public class DataHelper {
 				String food_price = result.getString("price"); 
 				String availability = result.getString("available");
 				
+				if (food_price.length() > 4) {
+					food_price = food_price.substring(0, food_price.indexOf(".") + 3);
+				}
+				else if (food_price.length() == 1) {
+					food_price += ".00";
+				}
+				
 				cur_item.addElement(food_id);
 				cur_item.addElement(food_name);
-				cur_item.addElement(df2.format(Double.parseDouble(food_price)).toString());// round price to 2 digits
+				cur_item.addElement(food_price);
+//				cur_item.addElement(df2.format(Double.parseDouble(food_price)).toString());// round price to 2 digits
 				cur_item.addElement(availability);
 				
 				
@@ -451,14 +459,18 @@ public class DataHelper {
 			ResultSet result = stmt.executeQuery(sql_stmt);
 			while(result.next()) {
 				price = result.getString("price");
+				if (price.length() > 4) {
+					price = price.substring(0, price.indexOf(".") + 3);
+				}
+				else if (price.length() == 1) {
+					price += ".00";
+				}
 			}
 			
 			System.out.println("Updated item " + item + " in database to " + price);
 			
-			DecimalFormat df2 = new DecimalFormat("#.##");
-			df2.setRoundingMode(RoundingMode.UP);
 			
-			return df2.format(Double.parseDouble(price)).toString();
+			return price;
 		} catch (Exception e) {
 			System.out.println(e);
 			System.out.println("Error encountered when getting price");
@@ -486,6 +498,52 @@ public class DataHelper {
 			return false;
 		}
 		
+	}
+	
+	Boolean changeAvailability(String item, Boolean available) {
+		try {
+			Statement stmt = conn.createStatement(); // statement object
+			// create the actual statement to populate the statement object
+			String available_str = "true";
+			if (!available) {
+				available_str = "false";
+			}
+			String sql_stmt = "UPDATE menu SET available = '" + available_str + "' WHERE name = '" + item + "'";
+			System.out.println("Executing Statement: " + sql_stmt);
+			
+			stmt.executeQuery(sql_stmt);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	Boolean getAvailability(String item) {
+		try {
+			Statement stmt = conn.createStatement(); // statement object
+			// create the actual statement to populate the statement object
+			String available_str = "true";
+			String sql_stmt = "SELECT available FROM menu WHERE name = '" + item + "'";
+			System.out.println("Executing Statement: " + sql_stmt);
+			
+			ResultSet result = stmt.executeQuery(sql_stmt);
+			while(result.next()) {
+				available_str = result.getString("available");
+				System.out.println(available_str);
+			}
+			
+			if (available_str.equals("t")) {
+				System.out.println("Found true");
+				return true;
+			}
+			else {
+				return false;
+			}
+			
+			
+		} catch (Exception e) {
+			return true;
+		}
 	}
 	
 }

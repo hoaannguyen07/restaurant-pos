@@ -25,6 +25,7 @@ import javax.swing.UIManager;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.JCheckBox;
 
 public class EditItem extends JFrame {
 	
@@ -32,6 +33,7 @@ public class EditItem extends JFrame {
 	
 	protected static String managerID, itemPrice, itemName;
 	private JPanel contentPane;
+	private JCheckBox chckbxNewCheckBox;
 	private final JLabel lblNewLabel = new JLabel("Manager ID: ");
 	private final JLabel lblManagerID = new JLabel("");
 	private final JLabel lblNewLabel_7 = new JLabel("Price");
@@ -39,6 +41,7 @@ public class EditItem extends JFrame {
 	private final JLabel lblNewLabel_1 = new JLabel("Item:");
 	private final JLabel lblEntreeName = new JLabel("");
 	private final JTextField txtPrice = new JTextField();
+	
 
 	/**
 	 * Launch the application.
@@ -71,7 +74,7 @@ public class EditItem extends JFrame {
 	public EditItem(DataHelper api, String _itemName) {
 		
 		api_connection = api;
-		managerID = api.getId();
+		managerID = api_connection.id;
 		itemName = _itemName;
 		
 		initGUI();
@@ -84,18 +87,16 @@ public class EditItem extends JFrame {
 		contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		lblNewLabel.setBounds(156, 10, 74, 24);
+		lblNewLabel.setBounds(124, 10, 74, 24);
 		
 		contentPane.add(lblNewLabel);
-		lblManagerID.setBounds(240, 10, 74, 24);
-		lblManagerID.setText(api_connection.getId());
+		lblManagerID.setBounds(197, 10, 144, 24);
+		lblManagerID.setText(managerID);
 		
 		contentPane.add(lblManagerID);
 		btnSaveChanges.setBounds(135, 191, 164, 40);
 		
 		btnSaveChanges.setBackground(new Color(0, 102, 255));
-		
-		String price = api_connection.getPrice(itemName);
 		
 		contentPane.add(btnSaveChanges);
 		lblNewLabel_1.setBounds(41, 52, 43, 24);
@@ -103,13 +104,14 @@ public class EditItem extends JFrame {
 	    
 		
 		contentPane.add(lblNewLabel_1);
-		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_7.setBounds(197, 109, 43, 17);
+		lblNewLabel_7.setBounds(197, 87, 33, 17);
 		contentPane.add(lblNewLabel_7);
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
-		txtPrice.setText("$" + String.valueOf(price));
-		txtPrice.setBounds(174, 137, 86, 24);
+		String price = api_connection.getPrice(itemName);
+		
+		txtPrice.setText("$ " + String.valueOf(price));
+		txtPrice.setBounds(177, 115, 79, 24);
 		contentPane.add(txtPrice);
 		txtPrice.setColumns(10);
 		lblEntreeName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -118,12 +120,19 @@ public class EditItem extends JFrame {
 		lblEntreeName.setFont(new Font("Arial", Font.BOLD, 18));
 		lblEntreeName.setText(itemName);
 		
+		Boolean available = api_connection.getAvailability(itemName);
+		
+		chckbxNewCheckBox = new JCheckBox("Available");
+		chckbxNewCheckBox.setSelected(available);
+		chckbxNewCheckBox.setBounds(180, 146, 74, 23);
+		contentPane.add(chckbxNewCheckBox);
+		
 		/* If button is pressed, changes are made to the database */
 		btnSaveChanges.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnSaveChanges) {
-					/* Remove '$' from text if needed */
 					api_connection.changePrice(itemName, txtPrice.getText());
+					api_connection.changeAvailability(itemName, chckbxNewCheckBox.isSelected());
 					Manager_Menu menu = new Manager_Menu(api_connection);
 					menu.setVisible(true);
 					dispose();

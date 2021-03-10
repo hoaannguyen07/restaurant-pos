@@ -361,4 +361,49 @@ public class DataHelper {
 		return menu_list;
 	}
 	
+	String getPrice(String item) {
+		String price = "";
+		try {
+			Statement stmt = conn.createStatement(); // statement object
+			// create the actual statement to populate the statement object
+			String sql_stmt = "SELECT price FROM menu WHERE name = '" + item + "'";
+			System.out.println("Executing Statement: " + sql_stmt);
+			
+			ResultSet result = stmt.executeQuery(sql_stmt);
+			while(result.next()) {
+				price = result.getString("price");
+			}
+			
+			System.out.println("Updated item " + item + " in database to " + price);
+			
+			return price;
+		} catch (Exception e) {
+			System.out.println(e);
+			System.out.println("Error encountered when getting price");
+			return price;
+		}
+	}
+	
+	Boolean changePrice(String item, String priceChangeTxt) {
+		if (priceChangeTxt.charAt(0) == '$') {
+			priceChangeTxt = priceChangeTxt.substring(1);
+		}
+		System.out.println(priceChangeTxt);
+		
+		try {
+			Statement stmt = conn.createStatement(); // statement object
+			// create the actual statement to populate the statement object
+			String sql_stmt = "UPDATE menu SET price = '" + priceChangeTxt + "' WHERE name = '" + item + "'";
+			System.out.println("Executing Statement: " + sql_stmt);
+			
+			stmt.executeQuery(sql_stmt);
+			return true;
+		} catch (Exception e) {
+			System.out.println(e);
+			System.out.println("Error encountered when changing price");
+			return false;
+		}
+		
+	}
+	
 }

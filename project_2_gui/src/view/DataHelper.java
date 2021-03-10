@@ -1,7 +1,8 @@
 package view;
 
+import java.math.RoundingMode;
 import java.sql.*; // to do all SQL commands
-import java.util.ArrayList;
+import java.text.DecimalFormat;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -12,7 +13,6 @@ public class DataHelper {
 	public String first_name;
 	public String id;
 	public String password;
-	Vector<Vector<String>> cart;
 	
 	DataHelper()
 	{
@@ -36,6 +36,36 @@ public class DataHelper {
 		System.out.println("Transfer of Connection Successfully");
 	}
 	
+	
+	
+	/**
+	 * @return the last_name
+	 */
+	public String getLast_name() {
+		return last_name;
+	}
+
+	/**
+	 * @return the first_name
+	 */
+	public String getFirst_name() {
+		return first_name;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
 	// add new person to the system
 	@SuppressWarnings("deprecation")
 	int add_new_person(JTextField l_name, JTextField f_name, JTextField cust_id, JPasswordField password)
@@ -335,17 +365,20 @@ public class DataHelper {
 			
 			while(result.next())
 			{
+				DecimalFormat df2 = new DecimalFormat("#.##");
+				df2.setRoundingMode(RoundingMode.UP);
+				
 				// create vector to record information on one row to then be added to menu_list [0] = id || [1] = name || [2] = price || [3] = availability
 				Vector<String> cur_item = new Vector<String>(); 
 				// get name and price of food item
 				String food_id = result.getString("id");
 				String food_name = result.getString("name");
-				String food_price = result.getString("price");
+				String food_price = result.getString("price"); 
 				String availability = result.getString("available");
 				
 				cur_item.addElement(food_id);
 				cur_item.addElement(food_name);
-				cur_item.addElement(food_price);
+				cur_item.addElement(df2.format(Double.parseDouble(food_price)).toString());// round price to 2 digits
 				cur_item.addElement(availability);
 				
 				
@@ -376,7 +409,10 @@ public class DataHelper {
 			
 			System.out.println("Updated item " + item + " in database to " + price);
 			
-			return price;
+			DecimalFormat df2 = new DecimalFormat("#.##");
+			df2.setRoundingMode(RoundingMode.UP);
+			
+			return df2.format(Double.parseDouble(price)).toString();
 		} catch (Exception e) {
 			System.out.println(e);
 			System.out.println("Error encountered when getting price");
@@ -396,7 +432,7 @@ public class DataHelper {
 			String sql_stmt = "UPDATE menu SET price = '" + priceChangeTxt + "' WHERE name = '" + item + "'";
 			System.out.println("Executing Statement: " + sql_stmt);
 			
-			stmt.executeQuery(sql_stmt);
+			ResultSet result = stmt.executeQuery(sql_stmt);
 			return true;
 		} catch (Exception e) {
 			System.out.println(e);

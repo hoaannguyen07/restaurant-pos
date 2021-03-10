@@ -98,14 +98,15 @@ public class Manager_Menu extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				int index = table_menu.getSelectedRow();
 				
+				// [0] = id || [1] = name || [2] = price || [3] = availability --> how table is set up
 				TableModel table_model = table_menu.getModel();
 				
-				String name = table_model.getValueAt(index, 0).toString();
-				String price = table_model.getValueAt(index, 1).toString();
+				String name = table_model.getValueAt(index, 1).toString();
+				String price = table_model.getValueAt(index, 2).toString();
 				
 				System.out.println(name + "\t" + price);
 				
-				EditItem openItem = new EditItem("1234", name);
+				EditItem openItem = new EditItem(api_connection, name);
 				openItem.setVisible(true);
 				dispose();
 			}
@@ -133,23 +134,20 @@ public class Manager_Menu extends JFrame {
 		}
 	}
 	
+	
+	/**
+	 * get menu data from api and add it to table to be showed on the frame
+	 */
 	void show_data_in_table()
 	{
 		// first make sure there is nothing in the table before adding stuff in
 		this.delete_all_rows_in_table();
 		
-		menu_list = api_connection.get_menu_data(); // [0] = id || [1] = name || [2] = price
-//		DefaultTableModel model = (DefaultTableModel) table_menu.getModel();
+		menu_list = api_connection.get_menu_data(); // [0] = id || [1] = name || [2] = price || [3] = availability
 		
-		// only display item name and price
 		for(int i = 0; i < menu_list.size(); i++)
 		{
-			Vector<String> displaying_list = new Vector<String>();
-			displaying_list.addElement(menu_list.elementAt(i).elementAt(0));
-			displaying_list.addElement(menu_list.elementAt(i).elementAt(1));
-			displaying_list.addElement(menu_list.elementAt(i).elementAt(2));
-			displaying_list.addElement(menu_list.elementAt(i).elementAt(3));
-			model.addRow(displaying_list);
+			model.addRow(menu_list.elementAt(i));
 		}
 		
 	}

@@ -24,20 +24,21 @@ import java.sql.Statement;
 import javax.swing.UIManager;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class EditItem extends JFrame {
+	
+	DataHelper api_connection;
+	
 	protected static String managerID, itemPrice, itemName;
 	private JPanel contentPane;
 	private final JLabel lblNewLabel = new JLabel("Manager ID: ");
 	private final JLabel lblManagerID = new JLabel("");
-	private final JPanel panel_6 = new JPanel();
 	private final JLabel lblNewLabel_7 = new JLabel("Price");
-	private final JPanel panel_7 = new JPanel();
 	private final JButton btnSaveChanges = new JButton("Save Changes");
-	private final JTextField txtPrice = new JTextField();
-	private final JLabel lblNewLabel_1 = new JLabel("Entree:");
+	private final JLabel lblNewLabel_1 = new JLabel("Item:");
 	private final JLabel lblEntreeName = new JLabel("");
-	private final JPanel panel = new JPanel();
+	private final JTextField txtPrice = new JTextField();
 
 	/**
 	 * Launch the application.
@@ -46,7 +47,7 @@ public class EditItem extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EditItem frame = new EditItem("1234", "Chicken Sandwich");
+					EditItem frame = new EditItem();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,28 +55,32 @@ public class EditItem extends JFrame {
 			}
 		});
 	}
-	
-	public final class dbSetup  {
-		  public static final String user = "zali110";
-		  public static final String pswd = "227009838";
-	}//end class
 
 	/**
 	 * Create the frame.
 	 */
-	public EditItem(String _managerID, String _itemName) {
-		txtPrice.setText("$");
-		txtPrice.setColumns(10);
+	public EditItem() {
 		
-		managerID = _managerID;
+		api_connection = new DataHelper();
+		managerID = "username";
+		itemName = "Chicken Sandwich";
+		
+		initGUI();
+	}
+	
+	public EditItem(DataHelper api, String _itemName) {
+		
+		api_connection = api;
+		managerID = api.getId();
 		itemName = _itemName;
 		
 		initGUI();
 	}
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 450);
+		setBounds(100, 100, 450, 295);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 139, 139));
 		contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -83,132 +88,47 @@ public class EditItem extends JFrame {
 		
 		contentPane.add(lblNewLabel);
 		lblManagerID.setBounds(240, 10, 74, 24);
-		lblManagerID.setText(managerID);
+		lblManagerID.setText(api_connection.getId());
 		
 		contentPane.add(lblManagerID);
-		panel_6.setBounds(10, 234, 416, 24);
-		
-		contentPane.add(panel_6);
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 14));
-		
-		panel_6.add(lblNewLabel_7);
-		panel_7.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_7.setBounds(10, 258, 416, 31);
-		
-		contentPane.add(panel_7);
-		
-		panel_7.add(txtPrice);
+		btnSaveChanges.setBounds(135, 191, 164, 40);
 		
 		btnSaveChanges.setBackground(new Color(0, 102, 255));
-		btnSaveChanges.setBounds(133, 323, 164, 40);
 		
+		String price = api_connection.getPrice(itemName);
 		
-		dbSetup my = new dbSetup();
-	    //Building the connection
-	    Connection conn = null;
-	    try {
-	    	//Class.forName("org.postgresql.Driver");
-	        conn = DriverManager.getConnection(
-	          "jdbc:postgresql://csce-315-db.engr.tamu.edu/db907_group9_project2",
-	           my.user, my.pswd);
-	    } catch (Exception e) {
-	    	e.printStackTrace();
-	        System.err.println(e.getClass().getName()+": "+e.getMessage());
-	        System.exit(0);
-	    }//end try catch
-	    System.out.println("Opened database successfully");
+		contentPane.add(btnSaveChanges);
+		lblNewLabel_1.setBounds(41, 52, 43, 24);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 	    
-	    double price = 0;
-	    try {
-	    	//create a statement object
-	    	Statement stmt = conn.createStatement();
-	        //create an SQL statement
-	        String sqlStatement = "SELECT menu.price FROM public.menu WHERE menu.name='" + itemName + "'";
-	        //send statement to DBMS
-	        ResultSet result = stmt.executeQuery(sqlStatement);
-	        while (result.next()) {
-	        	price = result.getDouble("price");
-	        }
-	    } catch (Exception e){
-	    	System.out.println("Error accessing Database.");
-	    }
-	    
-	    //closing the connection
-	    try {
-	      conn.close();
-	      System.out.println("Connection Closed.");
-	    } catch(Exception e) {
-	      System.out.println("Connection NOT Closed.");
-	    }//end try catch
+		
+		contentPane.add(lblNewLabel_1);
+		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_7.setBounds(197, 109, 43, 17);
+		contentPane.add(lblNewLabel_7);
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 14));
+		
+		txtPrice.setText("$" + String.valueOf(price));
+		txtPrice.setBounds(174, 137, 86, 24);
+		contentPane.add(txtPrice);
+		txtPrice.setColumns(10);
+		lblEntreeName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEntreeName.setBounds(93, 52, 248, 24);
+		contentPane.add(lblEntreeName);
+		lblEntreeName.setFont(new Font("Arial", Font.BOLD, 18));
+		lblEntreeName.setText(itemName);
 		
 		/* If button is pressed, changes are made to the database */
 		btnSaveChanges.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnSaveChanges) {
 					/* Remove '$' from text if needed */
-					String priceChangeTxt = txtPrice.getText();
-					if (priceChangeTxt.charAt(0) == '$') {
-						priceChangeTxt = priceChangeTxt.substring(1);
-					}
-					System.out.println(priceChangeTxt);
-					
-					double priceChange = Double.valueOf(priceChangeTxt);
-					
-					dbSetup my = new dbSetup();
-				    //Building the connection
-				    Connection conn = null;
-				    try {
-				    	//Class.forName("org.postgresql.Driver");
-				        conn = DriverManager.getConnection(
-				          "jdbc:postgresql://csce-315-db.engr.tamu.edu/db907_group9_project2",
-				           my.user, my.pswd);
-				    } catch (Exception e) {
-				    	e.printStackTrace();
-				        System.err.println(e.getClass().getName()+": "+e.getMessage());
-				        System.exit(0);
-				    }//end try catch
-				    System.out.println("Opened database successfully");
-					
-					try {
-						Statement stmt = conn.createStatement(); // statement object
-						// create the actual statement to populate the statement object
-						String sql_stmt = "UPDATE menu SET price = '" + priceChangeTxt + "' WHERE name = '" + itemName + "'";
-						System.out.println("Executing Statement: " + sql_stmt);
-						
-						stmt.executeQuery(sql_stmt);
-						System.out.println("Updated item " + itemName + " in database to " + priceChange);
-					} catch (Exception e) {
-						;
-					}
-				    
-				    //closing the connection
-				    try {
-				      conn.close();
-				      System.out.println("Connection Closed.");
-				    } catch(Exception e) {
-				      System.out.println("Connection NOT Closed.");
-				    }//end try catch
-					
-					Manager_Menu please_work = new Manager_Menu();
-					please_work.setVisible(true);
+					api_connection.changePrice(itemName, txtPrice.getText());
+					Manager_Menu menu = new Manager_Menu(api_connection);
+					menu.setVisible(true);
 					dispose();
 				}
 			}
 		});
-		
-		contentPane.add(btnSaveChanges);
-	    
-	    txtPrice.setText("$" + String.valueOf(price));
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 10));
-		lblNewLabel_1.setBounds(10, 52, 86, 24);
-	    
-		
-		contentPane.add(lblNewLabel_1);
-		panel.setBounds(93, 52, 245, 34);
-		
-		contentPane.add(panel);
-		panel.add(lblEntreeName);
-		lblEntreeName.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblEntreeName.setText(itemName);
 	}
 }

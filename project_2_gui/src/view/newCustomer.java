@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Color;
 
 public class newCustomer extends JFrame {
 
@@ -58,21 +59,21 @@ public class newCustomer extends JFrame {
 				username_textfield.setText("");
 			}
 		});
-		username_textfield.setBounds(157, 128, 238, 19);
+		username_textfield.setBounds(157, 128, 238, 24);
 		username_textfield.setColumns(10);
 		lastname_text_field.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) { 
 				lastname_text_field.setText("");
 			}
 		});
-		lastname_text_field.setBounds(157, 77, 238, 19);
+		lastname_text_field.setBounds(157, 77, 238, 24);
 		lastname_text_field.setColumns(10);
 		firstname_text_field.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) { 
 				firstname_text_field.setText("");
 			}
 		});
-		firstname_text_field.setBounds(157, 30, 238, 19);
+		firstname_text_field.setBounds(157, 30, 238, 24);
 		firstname_text_field.setColumns(10);
 		initGUI();
 	}
@@ -80,23 +81,24 @@ public class newCustomer extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 139, 139));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		lblFirstName.setBounds(50, 24, 100, 30);
+		lblFirstName.setBounds(50, 24, 68, 30);
 		
 		contentPane.add(lblFirstName);
 		
 		contentPane.add(firstname_text_field);
-		lblNewLabel.setBounds(50, 79, 100, 15);
+		lblNewLabel.setBounds(50, 79, 68, 15);
 		
 		contentPane.add(lblNewLabel);
 		
 		contentPane.add(lastname_text_field);
-		lblUsername.setBounds(50, 128, 100, 19);
+		lblUsername.setBounds(50, 128, 68, 19);
 		
 		contentPane.add(lblUsername);
-		lblPassword.setBounds(50, 177, 100, 19);
+		lblPassword.setBounds(50, 177, 68, 19);
 		
 		contentPane.add(lblPassword);
 		
@@ -121,10 +123,10 @@ public class newCustomer extends JFrame {
 				}
 			}
 		});
-		btnConfirm.setBounds(168, 226, 117, 25);
+		btnConfirm.setBounds(158, 226, 117, 25);
 		
 		contentPane.add(btnConfirm);
-		passwordField.setBounds(157, 177, 238, 19);
+		passwordField.setBounds(157, 177, 238, 24);
 		
 		contentPane.add(passwordField);
 	}

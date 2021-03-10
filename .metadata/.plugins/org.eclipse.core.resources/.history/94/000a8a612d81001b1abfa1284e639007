@@ -1,0 +1,205 @@
+/*
+ * Author: Adryn G
+ */
+package view;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import javax.swing.UIManager;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+
+public class EditItem extends JFrame {
+	protected static String managerID, itemPrice, itemName;
+	private JPanel contentPane;
+	private final JLabel lblNewLabel = new JLabel("Manager ID: ");
+	private final JLabel lblManagerID = new JLabel("");
+	private final JLabel lblNewLabel_7 = new JLabel("Price");
+	private final JButton btnSaveChanges = new JButton("Save Changes");
+	private final JLabel lblNewLabel_1 = new JLabel("Entree:");
+	private final JLabel lblEntreeName = new JLabel("");
+	private final JTextField txtPrice = new JTextField();
+	private final JPanel panel = new JPanel();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					EditItem frame = new EditItem("1234", "Chicken Sandwich");
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	public final class dbSetup  {
+		  public static final String user = "zali110";
+		  public static final String pswd = "227009838";
+	}//end class
+
+	/**
+	 * Create the frame.
+	 */
+	public EditItem(String _managerID, String _itemName) {
+		
+		managerID = _managerID;
+		itemName = _itemName;
+		
+		initGUI();
+	}
+	private void initGUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 295);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 139, 139));
+		contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		lblNewLabel.setBounds(156, 10, 74, 24);
+		
+		contentPane.add(lblNewLabel);
+		lblManagerID.setBounds(240, 10, 74, 24);
+		lblManagerID.setText(managerID);
+		
+		contentPane.add(lblManagerID);
+		btnSaveChanges.setBounds(135, 191, 164, 40);
+		
+		btnSaveChanges.setBackground(new Color(0, 102, 255));
+		
+		
+		dbSetup my = new dbSetup();
+	    //Building the connection
+	    Connection conn = null;
+	    try {
+	    	//Class.forName("org.postgresql.Driver");
+	        conn = DriverManager.getConnection(
+	          "jdbc:postgresql://csce-315-db.engr.tamu.edu/db907_group9_project2",
+	           my.user, my.pswd);
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	        System.err.println(e.getClass().getName()+": "+e.getMessage());
+	        System.exit(0);
+	    }//end try catch
+	    System.out.println("Opened database successfully");
+	    
+	    double price = 0;
+	    try {
+	    	//create a statement object
+	    	Statement stmt = conn.createStatement();
+	        //create an SQL statement
+	        String sqlStatement = "SELECT menu.price FROM public.menu WHERE menu.name='" + itemName + "'";
+	        //send statement to DBMS
+	        ResultSet result = stmt.executeQuery(sqlStatement);
+	        while (result.next()) {
+	        	price = result.getDouble("price");
+	        }
+	    } catch (Exception e){
+	    	System.out.println("Error accessing Database.");
+	    }
+	    
+	    //closing the connection
+	    try {
+	      conn.close();
+	      System.out.println("Connection Closed.");
+	    } catch(Exception e) {
+	      System.out.println("Connection NOT Closed.");
+	    }//end try catch
+		
+		/* If button is pressed, changes are made to the database */
+		btnSaveChanges.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(arg0.getSource() == btnSaveChanges) {
+					/* Remove '$' from text if needed */
+					String priceChangeTxt = txtPrice.getText();
+					if (priceChangeTxt.charAt(0) == '$') {
+						priceChangeTxt = priceChangeTxt.substring(1);
+					}
+					System.out.println(priceChangeTxt);
+					
+					double priceChange = Double.valueOf(priceChangeTxt);
+					
+					dbSetup my = new dbSetup();
+				    //Building the connection
+				    Connection conn = null;
+				    try {
+				    	//Class.forName("org.postgresql.Driver");
+				        conn = DriverManager.getConnection(
+				          "jdbc:postgresql://csce-315-db.engr.tamu.edu/db907_group9_project2",
+				           my.user, my.pswd);
+				    } catch (Exception e) {
+				    	e.printStackTrace();
+				        System.err.println(e.getClass().getName()+": "+e.getMessage());
+				        System.exit(0);
+				    }//end try catch
+				    System.out.println("Opened database successfully");
+					
+					try {
+						Statement stmt = conn.createStatement(); // statement object
+						// create the actual statement to populate the statement object
+						String sql_stmt = "UPDATE menu SET price = '" + priceChangeTxt + "' WHERE name = '" + itemName + "'";
+						System.out.println("Executing Statement: " + sql_stmt);
+						
+						stmt.executeQuery(sql_stmt);
+						System.out.println("Updated item " + itemName + " in database to " + priceChange);
+					} catch (Exception e) {
+						;
+					}
+				    
+				    //closing the connection
+				    try {
+				      conn.close();
+				      System.out.println("Connection Closed.");
+				    } catch(Exception e) {
+				      System.out.println("Connection NOT Closed.");
+				    }//end try catch
+					
+					Manager_Menu please_work = new Manager_Menu();
+					please_work.setVisible(true);
+					dispose();
+				}
+			}
+		});
+		
+		contentPane.add(btnSaveChanges);
+		lblNewLabel_1.setBounds(10, 52, 86, 24);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 10));
+	    
+		
+		contentPane.add(lblNewLabel_1);
+		panel.setBounds(94, 52, 245, 34);
+		
+		contentPane.add(panel);
+		panel.add(lblEntreeName);
+		lblEntreeName.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblEntreeName.setText(itemName);
+		lblNewLabel_7.setBounds(200, 109, 33, 17);
+		contentPane.add(lblNewLabel_7);
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 14));
+		
+		txtPrice.setText("$" + String.valueOf(price));
+		txtPrice.setBounds(174, 137, 86, 20);
+		contentPane.add(txtPrice);
+		txtPrice.setColumns(10);
+	}
+}

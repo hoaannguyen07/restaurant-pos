@@ -27,6 +27,8 @@ public class Manager_Menu extends JFrame {
 	
 	DataHelper api_connection;
 	
+	String username;
+	
 	private JPanel contentPane;
 	public static final Vector<String> MENU_HEADER = new Vector<String>();
 	public static final Vector<Vector<String>> NULL_DATA = new Vector<Vector<String>>();
@@ -63,17 +65,20 @@ public class Manager_Menu extends JFrame {
 			MENU_HEADER.addElement("Name");
 			MENU_HEADER.addElement("Price");
 		}
+		api_connection = new DataHelper();
+		username = "username";
 		initGUI();
 		show_data_in_table();
 	}
 	
-	public Manager_Menu(DataHelper api) {
+	public Manager_Menu(DataHelper api, String username) {
 		if (MENU_HEADER.size() == 0)
 		{
 			MENU_HEADER.addElement("Name");
 			MENU_HEADER.addElement("Price");
 		}
 		this.api_connection = api;
+		this.username = username;
 		initGUI();
 		show_data_in_table();
 	}
@@ -101,7 +106,7 @@ public class Manager_Menu extends JFrame {
 				
 				System.out.println(name + "\t" + price);
 				
-				EditItem openItem = new EditItem("1234", name);
+				EditItem openItem = new EditItem(api_connection, username, name);
 				openItem.setVisible(true);
 				dispose();
 			}

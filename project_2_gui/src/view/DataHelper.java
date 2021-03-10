@@ -13,8 +13,8 @@ public class DataHelper {
 	public String first_name;
 	public String id;
 	public String password;
-	Vector<Vector<String>> menu_list;
-	Vector<Vector<String>> ingredients_list;
+	Vector<Vector<String>> menu_list; // [0] = id || [1] = name || [2] = price || [3] = availability
+	Vector<Vector<String>> ingredients_list; // [0] = key || [1] = name || [2] = price
 	
 	DataHelper()
 	{

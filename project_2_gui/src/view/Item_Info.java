@@ -48,6 +48,12 @@ public class Item_Info {
 	public void setPrice(String price) {
 		this.price = price;
 	}
+
+	@Override
+	public String toString() {
+		return "Item_Info [name = " + name + ", price = " + price + "]";
+	}
+	
 	
 	
 }

@@ -607,4 +607,93 @@ public class DataHelper {
 		}
 	}
 	
+	Boolean verifyPayment(JTextField card_num, JTextField security_code, int card_type, String card_carrier, String expiration_date) {
+		Boolean card_type_sql;
+		String cardnumber = "";
+//		String type;
+//		int securitycode = -1;
+		
+		try {
+			Statement stmt = conn.createStatement();
+			
+			//determining card type
+			if (card_type == 0) { //it's a credit card
+				card_type_sql = false;
+			} else { //it's a debit card
+				card_type_sql = true;
+			}
+			
+			String sql_stmt = "SELECT * FROM CardInfo WHERE CardInfo.credit_debit IS '" 
+					+ card_type_sql
+					+ "' AND CardInfo.cardnumber LIKE '" 
+					+ card_num.getText() 
+					+ "' AND CardInfo.type LIKE '"
+					+ card_carrier.toUpperCase()
+					+ "' AND CardInfo.expiration LIKE'"
+					+ expiration_date
+					+ "' AND CardInfo.securitycode LIKE '"
+					+ security_code.getText() + "'";
+			System.out.println("Executing Statement: " + sql_stmt);
+			ResultSet result = stmt.executeQuery(sql_stmt);
+			
+			while(result.next()) {
+				card_type_sql = result.getBoolean("credit_debit");
+				cardnumber = result.getString("cardnumber"); 
+//				type = result.getString("type");
+//				securitycode = result.getInt("securitycode");
+			}
+			System.out.println("Finished Executing Statement: " + sql_stmt);
+			
+			if (cardnumber.equals("")) { //no card number is all you need to check to verify if no card is there
+				return false;
+			} else { // the card exists!		
+				System.out.println("Card is valid!");
+				return true;
+			}
+			
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	Boolean createPayment(JTextField card_num, JTextField security_code, int card_type, String card_carrier, String expiration_date) {
+		Boolean card_type_sql;
+		
+		try {
+			Statement stmt = conn.createStatement();
+			
+			//determining card type
+			if (card_type == 0) { //it's a credit card
+				card_type_sql = true;
+			} else { //it's a debit card
+				card_type_sql = false;
+			}
+			
+			//INSERT INTO card(credit_debit, cardnumber, type, expiration, securitycode, customerid)
+			//VALUES ('<T/F>', '<card_num>', '<type>', '<expiration>', <security_code_int>, '<customerid>');
+			
+			String sql_stmt = "INSERT INTO CardInfo VALUES (" 
+					+ card_type_sql
+					+ ", '" 
+					+ card_num.getText() 
+					+ "', '"
+					+ card_carrier.toUpperCase()
+					+ "', '"
+					+ expiration_date
+					+ "', '"
+					+ security_code.getText() 
+					+ "', '"
+					+ getId()
+					+ "')";
+			System.out.println("Executing Statement: " + sql_stmt);
+//			ResultSet result = 
+			stmt.executeQuery(sql_stmt);	
+			System.out.println("Finished Executing Statement: " + sql_stmt);
+			
+			return true;
+			
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }

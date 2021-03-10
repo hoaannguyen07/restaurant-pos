@@ -218,7 +218,7 @@ public class Ingredients extends JFrame {
 		// first make sure there is nothing in the table before adding stuff in
 		this.delete_all_rows_in_table();
 		
-		ingredients_list = get_ingredients_data(); // [0] = key || [1] = name || [2] = price
+		ingredients_list = api_connection.get_ingredients_data(); // [0] = key || [1] = name || [2] = price
 //		DefaultTableModel model = (DefaultTableModel) table_menu.getModel();
 		
 		// only display item name and price
@@ -229,45 +229,5 @@ public class Ingredients extends JFrame {
 			displaying_list.addElement(ingredients_list.elementAt(i).elementAt(2));
 			model.addRow(displaying_list);
 		}
-		
-	}
-	
-	Vector<Vector<String>> get_ingredients_data()
-	{
-		Vector<Vector<String>> ingredients = new Vector<Vector<String>>();
-		api_connection = new DataHelper();
-
-		try
-		{
-			
-			Statement stmt = api_connection.conn.createStatement(); // statement object
-			// create the actual statement to populate the statement object
-			String sql_stmt = "SELECT * from ingredients";
-			
-			System.out.println("Executing Statement: " + sql_stmt);
-			ResultSet result = stmt.executeQuery(sql_stmt);
-			
-			while(result.next())
-			{
-				Vector<String> cur_item = new Vector<String>(); // [0] = key || [1] = name || [2] = price
-				// get name and price of food item
-				String ingredient_key = result.getString("key");
-				String ingredient_name = result.getString("name");
-				String ingredient_price = result.getString("price");
-				
-				cur_item.addElement(ingredient_key);
-				cur_item.addElement(ingredient_name);
-				cur_item.addElement(ingredient_price);
-				// put all info pertaining to item into the menu list
-				ingredients.addElement(cur_item);
-			
-			}
-			
-		} catch (Exception e)
-		{
-			System.out.println("Error querying information from Ingredients Data Table.");
-		}
-		System.out.println(ingredients);
-		return ingredients;
 	}
 }

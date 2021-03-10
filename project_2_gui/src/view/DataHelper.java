@@ -13,6 +13,8 @@ public class DataHelper {
 	public String first_name;
 	public String id;
 	public String password;
+	Vector<Vector<String>> menu_list;
+	Vector<Vector<String>> ingredients_list;
 	
 	DataHelper()
 	{
@@ -352,7 +354,7 @@ public class DataHelper {
 	
 	Vector<Vector<String>> get_menu_data()
 	{
-		Vector<Vector<String>> menu_list = new Vector<Vector<String>>();
+		Vector<Vector<String>> menu = new Vector<Vector<String>>();
 
 		try
 		{
@@ -382,7 +384,7 @@ public class DataHelper {
 				cur_item.addElement(availability);
 				
 				
-				menu_list.addElement(cur_item);
+				menu.addElement(cur_item);
 				
 			}
 			
@@ -391,7 +393,51 @@ public class DataHelper {
 			System.out.println(e);
 			System.out.println("Error getting menu data table");
 		}
-		return menu_list;
+		
+		this.menu_list = menu;
+		
+		return menu;
+	}
+	
+	Vector<Vector<String>> get_ingredients_data()
+	{
+		Vector<Vector<String>> ingredients = new Vector<Vector<String>>();
+
+		try
+		{
+			
+			Statement stmt = conn.createStatement(); // statement object
+			// create the actual statement to populate the statement object
+			String sql_stmt = "SELECT * from ingredients";
+			
+			System.out.println("Executing Statement: " + sql_stmt);
+			ResultSet result = stmt.executeQuery(sql_stmt);
+			
+			while(result.next())
+			{
+				Vector<String> cur_item = new Vector<String>(); // [0] = key || [1] = name || [2] = price
+				// get name and price of food item
+				String ingredient_key = result.getString("key");
+				String ingredient_name = result.getString("name");
+				String ingredient_price = result.getString("price");
+				
+				cur_item.addElement(ingredient_key);
+				cur_item.addElement(ingredient_name);
+				cur_item.addElement(ingredient_price);
+				// put all info pertaining to item into the menu list
+				ingredients.addElement(cur_item);
+			
+			}
+			
+		} catch (Exception e)
+		{
+			System.out.println("Error querying information from Ingredients Data Table.");
+		}
+		
+		System.out.println(ingredients);
+		this.ingredients_list = ingredients;
+		
+		return ingredients;
 	}
 	
 	String getPrice(String item) {

@@ -47,19 +47,12 @@ public class Customer_Type extends javax.swing.JFrame {
 
         panel_layout = new javax.swing.JPanel();
         panel_customer = new javax.swing.JPanel();
-        panel_customer.addMouseListener(new MouseAdapter() {
-        	@Override
-        	public void mouseClicked(MouseEvent e) {
-        		newCustomer view_new_cust = new newCustomer(); 
-        		view_new_cust.setVisible(true);
-        		dispose();
-        	}
-        });
+        
         label_customer = new javax.swing.JLabel();
         label_customer.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
-        		newCustomer view_new_cust = new newCustomer(); 
+        		newCustomer view_new_cust = new newCustomer(api_connection); 
         		view_new_cust.setVisible(true);
         		dispose();
         	}
@@ -69,7 +62,7 @@ public class Customer_Type extends javax.swing.JFrame {
         label_manager.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
-        		Customer_Sign_in view_return_cust = new Customer_Sign_in();
+        		Cust_Sign_In view_return_cust = new Cust_Sign_In(api_connection);
         		view_return_cust.setVisible(true);
         		dispose();
         	}

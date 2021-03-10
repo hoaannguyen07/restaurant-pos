@@ -264,7 +264,7 @@ public class dessertMenu extends JFrame {
 		// only display item name and price of entrees
 		for(int i = 0; i < menu_list.size(); i++)
 		{
-			if (menu_list.elementAt(i).elementAt(0).contains("D")) {
+			if (menu_list.elementAt(i).elementAt(0).contains("D") && menu_list.elementAt(i).elementAt(3).equals("t")) {
 				Vector<String> displaying_list = new Vector<String>();
 				displaying_list.addElement(menu_list.elementAt(i).elementAt(1));
 				displaying_list.addElement("$ " + menu_list.elementAt(i).elementAt(2));

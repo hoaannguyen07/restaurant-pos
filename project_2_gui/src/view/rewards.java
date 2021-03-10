@@ -144,7 +144,7 @@ public class rewards extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnBack) { 
-					customerOptionMenu view_cust = new customerOptionMenu(first, last, user, pass, price);
+					customerOptionMenu view_cust = new customerOptionMenu(api_connection);
 					view_cust.setVisible(true);
 					dispose();
 				}

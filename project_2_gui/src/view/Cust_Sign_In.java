@@ -163,6 +163,9 @@ public class Cust_Sign_In extends JFrame {
 					else if (sign_in_status == 2)
 					{
 						label_log_in_msg.setText("User: " + tf_username.getText() + " and Pass: " + pf_password.getText());
+						customerOptionMenu customer_option = new customerOptionMenu(api);
+						customer_option.setVisible(true);
+						dispose();
 					}
 				}
 			}

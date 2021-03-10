@@ -237,7 +237,7 @@ public class Customer_Menu extends JFrame {
 				}
 			}
 		});
-		btnBack.setBounds(22, 11, 55, 25);
+		btnBack.setBounds(10, 11, 67, 25);
 		contentPane.add(btnBack);
 		
 		panel = new JPanel();
@@ -286,10 +286,12 @@ public class Customer_Menu extends JFrame {
 		// only display item name and price
 		for(int i = 0; i < menu_list.size(); i++)
 		{
-			Vector<String> displaying_list = new Vector<String>();
-			displaying_list.addElement(menu_list.elementAt(i).elementAt(1));
-			displaying_list.addElement("$ " + menu_list.elementAt(i).elementAt(2));
-			model.addRow(displaying_list);
+			if (menu_list.elementAt(i).elementAt(3).equals("t")) {
+				Vector<String> displaying_list = new Vector<String>();
+				displaying_list.addElement(menu_list.elementAt(i).elementAt(1));
+				displaying_list.addElement("$ " + menu_list.elementAt(i).elementAt(2));
+				model.addRow(displaying_list);
+			}
 		}
 		
 	}

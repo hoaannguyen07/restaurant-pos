@@ -22,6 +22,8 @@ import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 
 public class prevOrder2 extends JFrame {
+	
+	DataHelper api_connection;
 
 	private JPanel contentPane;
 	private final JLabel lblEntrees = new JLabel("Entrees");
@@ -63,6 +65,7 @@ public class prevOrder2 extends JFrame {
 		last = last_name;
 		user = username; 
 		pass = password;
+		api_connection = new DataHelper();
 		initGUI();
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -163,7 +166,7 @@ public class prevOrder2 extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnBack) {
-					customerOptionMenu view_cust_option = new customerOptionMenu(first, last, user, pass, price);
+					customerOptionMenu view_cust_option = new customerOptionMenu(api_connection);
 					view_cust_option.setVisible(true);
 					dispose();
 				}

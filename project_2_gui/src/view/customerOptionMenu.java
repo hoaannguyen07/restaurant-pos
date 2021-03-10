@@ -39,7 +39,7 @@ public class customerOptionMenu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					customerOptionMenu frame = new customerOptionMenu(first, last, user, pass, price);
+					customerOptionMenu frame = new customerOptionMenu();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -75,19 +75,14 @@ public class customerOptionMenu extends JFrame {
 	 * @param first_name 
 	 */
 	// constructor for after customer sign in
-	public customerOptionMenu(String first_name, String last_name, String username, String password, double total_price) {
-		first = first_name;
-		last = last_name;
-		user = username;
-		pass = password;
-		price = total_price;
+	public customerOptionMenu(DataHelper api) {
+		api_connection = api;
 		
-		api_connection = new DataHelper();
-		
-		api_connection.first_name = first;
-		api_connection.last_name = last;
-		api_connection.id = user;
-		api_connection.password = pass;
+		first = api_connection.first_name;
+		last = api_connection.last_name;
+		user = api_connection.id;
+		pass = api_connection.password;
+		price = 0;
 		
 		// initialize orders vector
 		for(int i = 0; i < 4; i++)

@@ -20,6 +20,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class newCustomer extends JFrame {
+	
+	DataHelper api_connection;
 
 	private JPanel contentPane;
 	private final JLabel lblFirstName = new JLabel("First Name: ");
@@ -39,7 +41,7 @@ public class newCustomer extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					newCustomer frame = new newCustomer();
+					newCustomer frame = new newCustomer(new DataHelper());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +53,8 @@ public class newCustomer extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public newCustomer() {
+	public newCustomer(DataHelper api) {
+		api_connection = api;
 		username_textfield.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -107,16 +110,24 @@ public class newCustomer extends JFrame {
 				String last_name = lastname_text_field.getText();
 				String username = username_textfield.getText();
 				
-				System.out.println(first_name.contentEquals("MARY"));
+				//System.out.println(first_name.contentEquals("MARY"));
 				String password = String.valueOf(passwordField.getPassword());
+				System.out.println(password);
+				
 				
 				if(arg0.getSource() == btnConfirm) { 
 					if(first_name.isEmpty() || last_name.isEmpty() || username.isEmpty() || password.isEmpty()) { 
 						JOptionPane.showMessageDialog(null, "You missed some pane, please make sure every box was filled.");
 					} else { 
-						customerOptionMenu gen_options = new customerOptionMenu(first_name, last_name, username, password, 0);
-						gen_options.setVisible(true);
-						dispose();
+						if (api_connection.addNewCustomer(first_name, last_name, username, password)) {
+							customerOptionMenu gen_options = new customerOptionMenu(api_connection);
+							gen_options.setVisible(true);
+							dispose();
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null, "Username already exists. Try again.");
+						}
 					}
 				}
 			}

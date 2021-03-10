@@ -494,7 +494,7 @@ public class DataHelper {
 			String sql_stmt = "UPDATE menu SET price = '" + priceChangeTxt + "' WHERE name = '" + item + "'";
 			System.out.println("Executing Statement: " + sql_stmt);
 			
-			stmt.executeQuery(sql_stmt);
+			stmt.executeUpdate(sql_stmt);
 			return true;
 		} catch (Exception e) {
 			System.out.println(e);
@@ -515,7 +515,7 @@ public class DataHelper {
 			String sql_stmt = "UPDATE menu SET available = '" + available_str + "' WHERE name = '" + item + "'";
 			System.out.println("Executing Statement: " + sql_stmt);
 			
-			stmt.executeQuery(sql_stmt);
+			stmt.executeUpdate(sql_stmt);
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -567,6 +567,43 @@ public class DataHelper {
 			
 		} catch (Exception e) {
 			return "";
+		}
+	}
+	
+	Boolean addNewCustomer(String first, String last, String user, String pass) {
+		try {
+			Statement stmt = conn.createStatement(); // statement object
+			// create the actual statement to populate the statement object
+			String count = "";
+			String sql_stmt = "SELECT count(id) FROM customer WHERE id = '" + user + "'";
+			System.out.println("Executing Statement: " + sql_stmt);
+			
+			ResultSet result = stmt.executeQuery(sql_stmt);
+			while(result.next()) {
+				count = result.getString("count");
+				System.out.println(count);
+			}
+			
+			// is username is not found, add them to customer table
+			if (count.equals("0") && !first.equals("") && !last.equals("") && !pass.equals("")) {
+				sql_stmt = "INSERT INTO customer (id, password, firstname, lastname) VALUES ('" + user + "', '" + pass + "', '" + first + "', '" + last + "');";
+				System.out.println("Executing Statement: " + sql_stmt);
+				
+				stmt.executeUpdate(sql_stmt);
+				
+				this.last_name = last;
+				this.first_name = first;
+				this.id = user;
+				this.password = pass;
+				return true;
+			}
+			else {
+				return false;
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Query Failed");
+			return false;
 		}
 	}
 	

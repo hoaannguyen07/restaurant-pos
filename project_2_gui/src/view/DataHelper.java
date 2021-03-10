@@ -490,7 +490,7 @@ public class DataHelper {
 			String sql_stmt = "UPDATE menu SET price = '" + priceChangeTxt + "' WHERE name = '" + item + "'";
 			System.out.println("Executing Statement: " + sql_stmt);
 			
-			ResultSet result = stmt.executeQuery(sql_stmt);
+			stmt.executeQuery(sql_stmt);
 			return true;
 		} catch (Exception e) {
 			System.out.println(e);
@@ -543,6 +543,26 @@ public class DataHelper {
 			
 		} catch (Exception e) {
 			return true;
+		}
+	}
+	
+	String getItemID(String item) {
+		try {
+			Statement stmt = conn.createStatement(); // statement object
+			// create the actual statement to populate the statement object
+			String id = "";
+			String sql_stmt = "SELECT id FROM menu WHERE name = '" + item + "'";
+			System.out.println("Executing Statement: " + sql_stmt);
+			
+			ResultSet result = stmt.executeQuery(sql_stmt);
+			while(result.next()) {
+				id = result.getString("id");
+			}
+			
+			return id;
+			
+		} catch (Exception e) {
+			return "";
 		}
 	}
 	

@@ -8,21 +8,25 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
 public class customerOptionMenu extends JFrame {
+	
+	DataHelper api_connection;
+	private Vector<String> orders = new Vector<String>(); // [0] = entree || [1] = side || [2] = beverage || [3] = dessert
 
 	private JPanel contentPane;
 	private final JButton btnViewMenu = new JButton("View Menu");
 	private final JButton btnViewLastMeal = new JButton("View Last Meal");
 	private final JButton btnPaymentInformation = new JButton("Payment Information");
 	private final JButton btnRewards = new JButton("Reward Tier");
-	public static String first;
-	public static String last;
-	public static String user;
-	public static String pass;
-	public static double price;
+	public static String first = "";
+	public static String last = "";
+	public static String user = "";
+	public static String pass = "";
+	public static double price = 0;
 	private final JLabel lblUser = new JLabel("User:");
 	private final JLabel labelUserGivenName = new JLabel("");
 	private final JLabel lblFirstName = new JLabel("First Name: ");
@@ -43,6 +47,25 @@ public class customerOptionMenu extends JFrame {
 			}
 		});
 	}
+	
+	//constructor for running frame by itself with no input
+	public customerOptionMenu() {
+		
+		api_connection = new DataHelper();
+		
+		api_connection.first_name = first;
+		api_connection.last_name = last;
+		api_connection.id = user;
+		api_connection.password = pass;
+		
+		// initialize orders vector
+		for(int i = 0; i < 4; i++)
+		{
+			orders.addElement("");
+		}
+		
+		initGUI();
+	}
 
 	/**
 	 * Create the frame.
@@ -51,6 +74,7 @@ public class customerOptionMenu extends JFrame {
 	 * @param last_name 
 	 * @param first_name 
 	 */
+	// constructor for after customer sign in
 	public customerOptionMenu(String first_name, String last_name, String username, String password, double total_price) {
 		first = first_name;
 		last = last_name;
@@ -58,8 +82,35 @@ public class customerOptionMenu extends JFrame {
 		pass = password;
 		price = total_price;
 		
+		api_connection = new DataHelper();
+		
+		api_connection.first_name = first;
+		api_connection.last_name = last;
+		api_connection.id = user;
+		api_connection.password = pass;
+		
+		// initialize orders vector
+		for(int i = 0; i < 4; i++)
+		{
+			orders.addElement("");
+		}
+		
 		initGUI();
 	}
+	
+	//constructor for when customer returns from creating an order from the menu
+	public customerOptionMenu(DataHelper api, Vector<String> orders, double total_price) {
+		api_connection = api;
+		this.orders = orders;
+		first = api_connection.first_name;
+		last = api_connection.last_name;
+		user = api_connection.id;
+		pass = api_connection.password;
+		price = total_price;
+		
+		initGUI();
+	}
+	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -74,13 +125,7 @@ public class customerOptionMenu extends JFrame {
 		btnViewMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnViewMenu) {
-					DataHelper data_thing = new DataHelper();
-					data_thing.first_name = first;
-					data_thing.last_name = last;
-					data_thing.id = user;
-					data_thing.password = pass;
-					
-					Customer_Menu view_menu = new Customer_Menu(data_thing, price);
+					menuSelect view_menu = new menuSelect(api_connection, orders, price);
 					view_menu.setVisible(true);
 					dispose();
 				}

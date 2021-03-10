@@ -186,8 +186,8 @@ public class Ingredients extends JFrame {
 					System.out.println(i + ".\t" + orders.elementAt(i));
 				}
 				System.out.println("Total price: " + order_price);
-				Customer_Menu customer_menu_frame = new Customer_Menu(api_connection, orders, order_price);
-				customer_menu_frame.setVisible(true);
+				menuSelect customer_select_menu = new menuSelect(api_connection, orders, order_price);
+				customer_select_menu.setVisible(true);
 				dispose();
 			}
 		});

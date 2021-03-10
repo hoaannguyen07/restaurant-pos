@@ -43,7 +43,7 @@ public class Customer_Menu extends JFrame {
 	JTable table_menu;
 	JScrollPane pane_menu;
 	private final JLabel label_menu_title = new JLabel("A.N.G.S.T MENU");
-	private JButton btnNewButton;
+	private JButton btnBack;
 	
 	public static String first;
 	public static String last;
@@ -178,16 +178,13 @@ public class Customer_Menu extends JFrame {
 				String name = table_model.getValueAt(index, 0).toString();
 				String price = table_model.getValueAt(index, 1).toString();
 				
-				String item_id = menu_list.elementAt(index).elementAt(0);
+				price = price.substring(2); // removing "$ "
+				
+				String item_id = api_connection.getItemID(name);
 				
 				System.out.println(name + "\t" + item_id + "\t" + price);
 				
 				int selected_item_orders_id = -1;
-				
-				char E = 'E';
-				Character S = 'S';
-				Character B = 'B';
-				Character D = 'D';
 				
 				Character first_char = item_id.charAt(0);
 				// find type of food item it is and code it using the orders code (to later pass onto the ingredients frame)
@@ -224,24 +221,24 @@ public class Customer_Menu extends JFrame {
 //		table_menu.setPreferredSize(568,374)
 		contentPane.add(pane_menu);
 		pane_menu.setViewportView(table_menu);
-		label_menu_title.setFont(new Font("Segoe UI Black", Font.PLAIN, 55));
+		label_menu_title.setFont(new Font("Segoe UI Black", Font.PLAIN, 52));
 		label_menu_title.setHorizontalAlignment(SwingConstants.CENTER);
-		label_menu_title.setBounds(10, 11, 568, 73);
+		label_menu_title.setBounds(10, 23, 568, 73);
 		
 		contentPane.add(label_menu_title);
 		
-		btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(arg0.getSource() == btnNewButton) { 
-					customerOptionMenu view_cust = new customerOptionMenu(first, last, user, pass, total_price);
-					view_cust.setVisible(true);
+				if(arg0.getSource() == btnBack) { 
+					menuSelect menu_select = new menuSelect(api_connection, orders, total_price);
+					menu_select.setVisible(true);
 					dispose();
 				}
 			}
 		});
-		btnNewButton.setBounds(22, 11, 44, 25);
-		contentPane.add(btnNewButton);
+		btnBack.setBounds(22, 11, 55, 25);
+		contentPane.add(btnBack);
 		
 		panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
@@ -258,13 +255,13 @@ public class Customer_Menu extends JFrame {
 		lblNewLabel_1 = new JLabel("Click on the ingredient that you want to customize.");
 		lblNewLabel_1.setForeground(new Color(128, 0, 0));
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 20));
-		lblNewLabel_1.setBounds(10, 107, 491, 32);
+		lblNewLabel_1.setBounds(46, 107, 491, 32);
 		contentPane.add(lblNewLabel_1);
 		
 		lblNewLabel_2 = new JLabel("* Note that any customization will be finalized and cannot be changed");
 		lblNewLabel_2.setForeground(new Color(165, 42, 42));
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_2.setBounds(10, 529, 466, 14);
+		lblNewLabel_2.setBounds(59, 529, 466, 14);
 		contentPane.add(lblNewLabel_2);
 	}
 	
@@ -283,7 +280,7 @@ public class Customer_Menu extends JFrame {
 		// first make sure there is nothing in the table before adding stuff in
 		this.delete_all_rows_in_table();
 		
-		menu_list = get_menu_data(); // [0] = id || [1] = name || [2] = price
+		menu_list = api_connection.get_menu_data(); // [0] = id || [1] = name || [2] = price
 //		DefaultTableModel model = (DefaultTableModel) table_menu.getModel();
 		
 		// only display item name and price
@@ -291,47 +288,9 @@ public class Customer_Menu extends JFrame {
 		{
 			Vector<String> displaying_list = new Vector<String>();
 			displaying_list.addElement(menu_list.elementAt(i).elementAt(1));
-			displaying_list.addElement(menu_list.elementAt(i).elementAt(2));
+			displaying_list.addElement("$ " + menu_list.elementAt(i).elementAt(2));
 			model.addRow(displaying_list);
 		}
 		
-	}
-	
-	Vector<Vector<String>> get_menu_data()
-	{
-		Vector<Vector<String>> menu_list = new Vector<Vector<String>>();
-		api_connection = new DataHelper();
-
-		try
-		{
-			
-			Statement stmt = api_connection.conn.createStatement(); // statement object
-			// create the actual statement to populate the statement object
-			String sql_stmt = "SELECT * from menu";
-			
-			System.out.println("Executing Statement: " + sql_stmt);
-			ResultSet result = stmt.executeQuery(sql_stmt);
-			
-			while(result.next())
-			{
-				Vector<String> cur_item = new Vector<String>(); // [0] = id || [1] = name || [2] = price
-				// get name and price of food item
-				String food_id = result.getString("id");
-				String food_name = result.getString("name");
-				String food_price = result.getString("price");
-				cur_item.addElement(food_id);
-				cur_item.addElement(food_name);
-				cur_item.addElement(food_price);
-				// put all info pertaining to item into the menu list
-				menu_list.addElement(cur_item);
-			
-			}
-			
-		} catch (Exception e)
-		{
-			System.out.println("Error adding to manager Datatable.");
-		}
-		System.out.println(menu_list);
-		return menu_list;
 	}
 }

@@ -45,8 +45,7 @@ public class Customer_Menu extends JFrame {
 	public static String last;
 	public static String user;
 	public static String pass;
-	private JPanel panel;
-	private JLabel lblNewLabel;
+	private final JButton button_cart = new JButton("CART");
 
 	/**
 	 * Launch the application.
@@ -153,9 +152,9 @@ public class Customer_Menu extends JFrame {
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 676);
+		setBounds(100, 100, 600, 574);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 139, 139));
+		contentPane.setBackground(new Color(51, 153, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -221,13 +220,15 @@ public class Customer_Menu extends JFrame {
 //		table_menu.setPreferredSize(568,374)
 		contentPane.add(pane_menu);
 		pane_menu.setViewportView(table_menu);
+		label_menu_title.setForeground(new Color(255, 255, 255));
 		label_menu_title.setFont(new Font("Segoe UI Black", Font.PLAIN, 52));
 		label_menu_title.setHorizontalAlignment(SwingConstants.CENTER);
-		label_menu_title.setBounds(10, 23, 568, 73);
+		label_menu_title.setBounds(10, 47, 568, 73);
 		
 		contentPane.add(label_menu_title);
 		
 		btnBack = new JButton("Back");
+		btnBack.setBackground(new Color(0, 51, 51));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnBack) { 
@@ -239,18 +240,20 @@ public class Customer_Menu extends JFrame {
 		});
 		btnBack.setBounds(10, 11, 67, 25);
 		contentPane.add(btnBack);
+		button_cart.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cart c = new cart(api_connection);
+				c.setVisible(true);
+				dispose();
+			}
+		});
+		button_cart.setForeground(new Color(255, 255, 255));
+		button_cart.setBackground(new Color(0, 51, 51));
+		button_cart.setFont(new Font("Arial", Font.BOLD, 18));
+		button_cart.setBounds(478, 9, 100, 25);
 		
-		panel = new JPanel();
-		panel.setBackground(new Color(255, 255, 255));
-		panel.setBounds(196, 554, 200, 75);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		lblNewLabel = new JLabel("ADD TO CART");
-		lblNewLabel.setFont(new Font("Arial Black", Font.BOLD, 20));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(10, 11, 180, 53);
-		panel.add(lblNewLabel);
+		contentPane.add(button_cart);
 	}
 	
 	void delete_all_rows_in_table()

@@ -20,6 +20,8 @@ import java.util.Vector;
 
 import javax.swing.Action;
 import javax.swing.ButtonGroup;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Customize_Screen extends JFrame {
 
@@ -41,7 +43,7 @@ public class Customize_Screen extends JFrame {
 	private final Action action = new SwingAction();
 	
 	DataHelper api_connection;
-	private final JButton btnNewButton_1 = new JButton("Back");
+	private final JButton button_back = new JButton("Back");
 	
 	/**
 	 * Launch the application.
@@ -61,7 +63,13 @@ public class Customize_Screen extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @wbp.parser.constructor
 	 */
+	
+	public Customize_Screen(DataHelper api) {
+		this.api_connection = api;
+		initGUI();
+	}
 	
 	public Customize_Screen(DataHelper api,  String cur_order, String id) {
 		this.api_connection = api;
@@ -86,20 +94,20 @@ public class Customize_Screen extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 328, 300);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 139, 139));
+		contentPane.setBackground(new Color(51, 153, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		button_reg = new JRadioButton("Regular");
 		button_reg.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		button_reg.setBackground(new Color(0, 139, 139));
+		button_reg.setBackground(new Color(51, 153, 255));
 		button_reg.setBounds(56, 119, 91, 23);
 		contentPane.add(button_reg);
 		
 		button_extra = new JRadioButton("Extra");
 		button_extra.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		button_extra.setBackground(new Color(0, 139, 139));
+		button_extra.setBackground(new Color(51, 153, 255));
 		button_extra.setBounds(188, 119, 91, 23);
 		contentPane.add(button_extra);
 		
@@ -107,23 +115,32 @@ public class Customize_Screen extends JFrame {
 		group.add(button_reg);
 		group.add(button_extra);
 		
-		JLabel lblNewLabel = new JLabel("Ingredient Options");
-		lblNewLabel.setBackground(new Color(240, 240, 240));
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(57, 34, 201, 41);
-		contentPane.add(lblNewLabel);
+		JLabel label_title = new JLabel("Ingredient Options");
+		label_title.setBackground(new Color(240, 240, 240));
+		label_title.setFont(new Font("Tahoma", Font.BOLD, 18));
+		label_title.setHorizontalAlignment(SwingConstants.CENTER);
+		label_title.setBounds(57, 34, 201, 41);
+		contentPane.add(label_title);
 		
-		JButton btnNewButton = new JButton("Confirm");
-		btnNewButton.setAction(action);
-		btnNewButton.setBackground(new Color(255, 255, 255));
-		btnNewButton.setBounds(107, 212, 91, 23);
-		contentPane.add(btnNewButton);
-		btnNewButton_1.setBackground(new Color(255, 255, 255));
-		btnNewButton_1.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnNewButton_1.setBounds(10, 11, 63, 23);
+		JButton button_confirm = new JButton("Confirm");
+		button_confirm.setAction(action);
+		button_confirm.setBackground(new Color(255, 255, 255));
+		button_confirm.setBounds(107, 212, 91, 23);
+		contentPane.add(button_confirm);
+		button_back.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				api_connection.reset_cart_ingredient_id();
+				Ingredients ingredients_frame = new Ingredients(api_connection);
+				ingredients_frame.setVisible(true);
+				dispose();
+			}
+		});
+		button_back.setBackground(new Color(0, 51, 51));
+		button_back.setFont(new Font("Arial", Font.PLAIN, 11));
+		button_back.setBounds(10, 11, 63, 23);
 		
-		contentPane.add(btnNewButton_1);
+		contentPane.add(button_back);
 	}
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {
@@ -132,29 +149,42 @@ public class Customize_Screen extends JFrame {
 		}
 		// determine how the ingredient is customized and add to order
 		public void actionPerformed(ActionEvent e) {
-			String added_ingredient = "";
-			if (button_reg.isSelected()) {
-				cur_price += ingredient_price;
-				added_ingredient += ";" + ingredient_id;
-			}
-			else if (button_extra.isSelected()) {
-				cur_price += ingredient_price;
-				added_ingredient += ";" +"X" + ingredient_id;
-			}
+//			String added_ingredient = "";
+//			if (button_reg.isSelected()) {
+//				cur_price += ingredient_price;
+//				added_ingredient += ";" + ingredient_id;
+//			}
+//			else if (button_extra.isSelected()) {
+//				cur_price += ingredient_price;
+//				added_ingredient += ";" +"X" + ingredient_id;
+//			}
+//			
+//			String update_order = orders.elementAt(order_type_id);
+//			update_order += added_ingredient;
+//			orders.set(order_type_id, update_order);
+//			
+////			order += added_ingredient;
+//			System.out.println("Cart so far");
+//			for(int i = 0; i < orders.size(); i++)
+//			{
+//				System.out.println(i + ".\t" + orders.elementAt(i));
+//			}
+//			System.out.println("Total price: " + cur_price);
+//			Ingredients ingregdients_frame = new Ingredients(api_connection, orders, order_type_id, menu_item, cur_price, false); // don't add menu item
+//			ingregdients_frame.setVisible(true);
+//			dispose();
 			
-			String update_order = orders.elementAt(order_type_id);
-			update_order += added_ingredient;
-			orders.set(order_type_id, update_order);
-			
-//			order += added_ingredient;
-			System.out.println("Cart so far");
-			for(int i = 0; i < orders.size(); i++)
+			if (button_reg.isSelected())
 			{
-				System.out.println(i + ".\t" + orders.elementAt(i));
+				api_connection.add_cur_ingredient_as_customization(1);
 			}
-			System.out.println("Total price: " + cur_price);
-			Ingredients ingregdients_frame = new Ingredients(api_connection, orders, order_type_id, menu_item, cur_price, false); // don't add menu item
-			ingregdients_frame.setVisible(true);
+			else if (button_extra.isSelected())
+			{
+				api_connection.add_cur_ingredient_as_customization(2);
+			}
+			
+			Ingredients ingredients_frame = new Ingredients(api_connection);
+			ingredients_frame.setVisible(true);
 			dispose();
 		}
 	}

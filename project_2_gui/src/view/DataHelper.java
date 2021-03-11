@@ -766,10 +766,28 @@ public class DataHelper {
 		cart_helper.add_cur_menu_item();
 	}
 	
+	void choose_ingredient_item_to_customize(String ingredient_item_id)
+	{
+		cart_helper.setCur_ingredient_item_key(ingredient_item_id);
+	}
+	
 	void delete_cur_menu_item()
 	{
 		cart_helper.delete_cur_menu_item_from_cart();
 		cart_helper.prep_for_next_menu_item();
+	}
+	
+	void reset_cart_ingredient_id()
+	{
+		cart_helper.setCur_ingredient_item_key("");
+	}
+	
+	// add ingredient into cart and delete ingredient key because this is used right before
+	// going to ingredient screen for the customer to choose another customization
+	void add_cur_ingredient_as_customization(int option)
+	{
+		cart_helper.add_cur_ingredient(option);
+		reset_cart_ingredient_id();
 	}
 	
 	/**
@@ -785,92 +803,92 @@ public class DataHelper {
 		System.out.println("Current Cart:\n" + cart_helper.getCart());
 	}
 	
-	    Map<String, Vector<String>> convertOrder(String order) 
-	    { 
-		Map<String, Vector<String>> hm  = new HashMap<String, Vector<String>>(); 
-		Vector<String> empty_string = new Vector<String>();
+	Map<String, Vector<String>> convertOrder(String order) 
+    { 
+	Map<String, Vector<String>> hm  = new HashMap<String, Vector<String>>(); 
+	Vector<String> empty_string = new Vector<String>();
 
-		String[] split_entrees = order.split("(:)");
+	String[] split_entrees = order.split("(:)");
 
-		for(int i = 0; i < split_entrees.length; i++) { 
-		    if(split_entrees[i].length() == 2 || split_entrees[i].length() == 3) { 
-			// only has the entree and no ingredient 
-			hm.put(split_entrees[i], empty_string);
-		    } else {
-			// need to parse the string 
-			String[] split_ingred = split_entrees[i].split(";");
-			Vector<String> ingredients = new Vector<String>();
-			for(int j = 1; j < split_ingred.length; j++) { 
-			    ingredients.add(split_ingred[j]);
-			}
-			hm.put(split_ingred[0], ingredients);
-		    }
+	for(int i = 0; i < split_entrees.length; i++) { 
+	    if(split_entrees[i].length() == 2 || split_entrees[i].length() == 3) { 
+		// only has the entree and no ingredient 
+		hm.put(split_entrees[i], empty_string);
+	    } else {
+		// need to parse the string 
+		String[] split_ingred = split_entrees[i].split(";");
+		Vector<String> ingredients = new Vector<String>();
+		for(int j = 1; j < split_ingred.length; j++) { 
+		    ingredients.add(split_ingred[j]);
 		}
-
-		// Uncomment for debugging
-		// for (Map.Entry<String, Vector<String>> me : hm.entrySet()) { 
-		//     System.out.println(me.getKey() + "->" + me.getValue());
-		// }
-
-		return hm;
+		hm.put(split_ingred[0], ingredients);
 	    }
+	}
 
-		Map<String, Vector<String>> prevOrder() {
-			Map<String, Vector<String>> prevOrderMap = new HashMap<String, Vector<String>>(); 
-			try {
-				Statement stmt = conn.createStatement();
+	// Uncomment for debugging
+	// for (Map.Entry<String, Vector<String>> me : hm.entrySet()) { 
+	//     System.out.println(me.getKey() + "->" + me.getValue());
+	// }
+
+	return hm;
+    }
+
+	Map<String, Vector<String>> prevOrder() {
+		Map<String, Vector<String>> prevOrderMap = new HashMap<String, Vector<String>>(); 
+		try {
+			Statement stmt = conn.createStatement();
+			
+			String entree, side, beverage, dessert;
+			Vector<String> entrees = new Vector<String>();
+			Vector<String> sides = new Vector<String>();
+			Vector<String> beverages = new Vector<String>();
+			Vector<String> desserts = new Vector<String>();
+			
+			//INSERT INTO card(credit_debit, cardnumber, type, expiration, securitycode, customerid)
+			//VALUES ('<T/F>', '<card_num>', '<type>', '<expiration>', <security_code_int>, '<customerid>');
+			
+			String where = "WHERE customer.lastname LIKE '" + this.last_name.toUpperCase() + "%' ";
+			String and_str = "AND customer.firstname LIKE '" + this.first_name.toUpperCase() + "%' ";
+			String sql_stmt = 
+					"SELECT m1.name AS entree, m2.name AS side, m3.name AS beverage, m4.name AS dessert " + 
+					"FROM orders " + 
+					"FULL OUTER JOIN customer ON orders.customerid = customer.id " + 
+					"FULL OUTER JOIN menu m1 ON orders.entrees = m1.id " + 
+					"FULL OUTER JOIN menu m2 ON orders.sides = m2.id " + 
+					"FULL OUTER JOIN menu m3 ON orders.beverages = m3.id " + 
+					"FULL OUTER JOIN menu m4 ON orders.desserts = m4.id " + 
+					 where + and_str + 
+					"ORDER BY orders.date DESC " + 
+					"LIMIT 5";
+			ResultSet result = stmt.executeQuery(sql_stmt);	
+			System.out.println("Finished Executing Statement: " + sql_stmt);
+			
+			while (result.next()) {
+				entree = result.getString("entree");
+				entrees.add(entree);
 				
-				String entree, side, beverage, dessert;
-				Vector<String> entrees = new Vector<String>();
-				Vector<String> sides = new Vector<String>();
-				Vector<String> beverages = new Vector<String>();
-				Vector<String> desserts = new Vector<String>();
+				side = result.getString("side");
+				sides.add(side);
 				
-				//INSERT INTO card(credit_debit, cardnumber, type, expiration, securitycode, customerid)
-				//VALUES ('<T/F>', '<card_num>', '<type>', '<expiration>', <security_code_int>, '<customerid>');
+				beverage = result.getString("beverage");
+				beverages.add(beverage);
 				
-				String where = "WHERE customer.lastname LIKE '" + this.last_name.toUpperCase() + "%' ";
-				String and_str = "AND customer.firstname LIKE '" + this.first_name.toUpperCase() + "%' ";
-				String sql_stmt = 
-						"SELECT m1.name AS entree, m2.name AS side, m3.name AS beverage, m4.name AS dessert " + 
-						"FROM orders " + 
-						"FULL OUTER JOIN customer ON orders.customerid = customer.id " + 
-						"FULL OUTER JOIN menu m1 ON orders.entrees = m1.id " + 
-						"FULL OUTER JOIN menu m2 ON orders.sides = m2.id " + 
-						"FULL OUTER JOIN menu m3 ON orders.beverages = m3.id " + 
-						"FULL OUTER JOIN menu m4 ON orders.desserts = m4.id " + 
-						 where + and_str + 
-						"ORDER BY orders.date DESC " + 
-						"LIMIT 5";
-				ResultSet result = stmt.executeQuery(sql_stmt);	
-				System.out.println("Finished Executing Statement: " + sql_stmt);
-				
-				while (result.next()) {
-					entree = result.getString("entree");
-					entrees.add(entree);
-					
-					side = result.getString("side");
-					sides.add(side);
-					
-					beverage = result.getString("beverage");
-					beverages.add(beverage);
-					
-					dessert = result.getString("dessert");
-					desserts.add(dessert);
-				}
-				
-				prevOrderMap.put("Entrees", entrees);
-				prevOrderMap.put("Sides", sides);
-				prevOrderMap.put("Beverages", beverages);
-				prevOrderMap.put("Desserts", desserts);
-				
-				return prevOrderMap;
-				
-			} catch (Exception e) {
-				System.out.println("Failed to execute previous order.");
+				dessert = result.getString("dessert");
+				desserts.add(dessert);
 			}
-			return null;
+			
+			prevOrderMap.put("Entrees", entrees);
+			prevOrderMap.put("Sides", sides);
+			prevOrderMap.put("Beverages", beverages);
+			prevOrderMap.put("Desserts", desserts);
+			
+			return prevOrderMap;
+			
+		} catch (Exception e) {
+			System.out.println("Failed to execute previous order.");
 		}
-		
+		return null;
+	}
+	
 	
 }

@@ -170,12 +170,17 @@ public class Ingredients extends JFrame {
 				
 				System.out.println(name + "\t" + ingredient_id + "\t" + ingredient_price);
 				
-				System.out.println("Current Order that is being customized");
-				System.out.println("Order: " + cur_order);
-				System.out.println("Price: " + order_price);
+//				System.out.println("Current Order that is being customized");
+//				System.out.println("Order: " + cur_order);
+//				System.out.println("Price: " + order_price);
+//				
+//				Customize_Screen customize_frame = new Customize_Screen(api_connection, orders, order_type_id, menu_item, ingredient_id, order_price, Double.parseDouble(ingredient_price));
+//				customize_frame.setVisible(true);
+//				dispose();
 				
-				Customize_Screen customize_frame = new Customize_Screen(api_connection, orders, order_type_id, menu_item, ingredient_id, order_price, Double.parseDouble(ingredient_price));
-				customize_frame.setVisible(true);
+				api_connection.choose_ingredient_item_to_customize(ingredient_id);
+				Customize_Screen customize = new Customize_Screen(api_connection);
+				customize.setVisible(true);
 				dispose();
 			}
 		});

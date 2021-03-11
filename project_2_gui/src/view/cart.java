@@ -13,7 +13,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class cart extends JFrame {
-
+	
+	DataHelper api_connection;
+	
 	private JPanel contentPane;
 	private final JButton btnPayment = new JButton("Payment");
 	private final JButton btnBack = new JButton("Back");
@@ -42,6 +44,12 @@ public class cart extends JFrame {
 	public cart() {
 		initGUI();
 	}
+	
+	public cart(DataHelper api) {
+		this.api_connection = api;
+		initGUI();
+	}
+	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 453, 501);

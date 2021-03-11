@@ -20,6 +20,7 @@ import java.awt.Font;
 import javax.swing.JSpinner;
 import javax.swing.JProgressBar;
 import java.beans.PropertyChangeListener;
+import java.util.Vector;
 import java.beans.PropertyChangeEvent;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -36,7 +37,7 @@ public class rewards extends JFrame {
 	private JPanel contentPane;
 	private final JLabel eligible_text = new JLabel("Possible reward:");
 	private final JLabel visits_25_text = new JLabel("5 visits");
-	private final JLabel free_entree_text = new JLabel("Free medium drink");
+	private final JLabel free_entree_text = new JLabel("Free medium fries");
 	private final JPanel panel_3 = new JPanel();
 	private final JLabel lblNewLabel = new JLabel("Earn a reward with");
 	private final JLabel lblNewLabel_1 = new JLabel("more visit(s).");
@@ -128,17 +129,31 @@ public class rewards extends JFrame {
 		/* All functional code down below */
 		
 		/* TEST: Default customer info to test
-		 * delete later */
+		 * Delete later */
+		DataHelper api_connection = new DataHelper();
+		api_connection.first_name = "Mary";
+		api_connection.last_name = "Smith";
+		api_connection.id = "7"; //For test purposes: ID 1 has 1 visit, ID 7 had 260 visits
+		api_connection.password = "7";	
 		
-		DataHelper api = new DataHelper();
-		api.id = "7";		
-		System.out.println("ID: " + api.getId());
-		System.out.println(api.get_num_visits());
+		/* End TEST code to delete later */
 		
-		int num_visits = api.get_num_visits();
+		System.out.println("ID: " + api_connection.getId());
+		System.out.println("Num of Visits: " + api_connection.get_num_visits());
 		
-		lblNewLabel_2.setText(String.valueOf(num_visits % 5));
+		int num_visits = api_connection.get_num_visits();
+		
+		lblNewLabel_2.setText(String.valueOf(5 - (num_visits % 5)));
 		contentPane.add(lblNewLabel_2);
+		
+		/* Determine if customer is eligible for reward, and  if so show add to cart button */
+		if (num_visits % 5 == 0 && num_visits != 0)
+		{
+			contentPane.add(lblReward);
+			contentPane.add(btnAddToCart);
+		} else {
+			contentPane.add(eligible_text);
+		}
 		
 		/* Back button functionality */
 		btnBack.addActionListener(new ActionListener() {
@@ -151,7 +166,7 @@ public class rewards extends JFrame {
 			}
 		});
 		
-		/*Cart button functionality */
+		/* Cart button functionality */
 		btnCart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnCart) { 
@@ -160,14 +175,23 @@ public class rewards extends JFrame {
 					dispose();
 				}
 			}
-		});		
+		});	
 		
-		if (num_visits % 5 == 0 && num_visits != 0)
-		{
-			contentPane.add(lblReward);
-			contentPane.add(btnAddToCart);
-		} else {
-			contentPane.add(eligible_text);
-		}
+		/* Add to cart button functionality */
+		btnAddToCart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(arg0.getSource() == btnAddToCart) { 
+					// Must update menu first
+					Vector<Vector<String>> menu_list = api_connection.get_menu_data();
+					
+					// Add medium fries to order
+					// TODO: Make sure the fries are not added to total cost
+					api_connection.choose_menu_item_to_customize("S2");
+					Ingredients ingr_frame = new Ingredients(api_connection);
+					ingr_frame.setVisible(true);
+					dispose();
+				}
+			}
+		});	
 	}
 }

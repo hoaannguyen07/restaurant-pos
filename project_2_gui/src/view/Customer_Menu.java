@@ -1,17 +1,12 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -28,6 +23,7 @@ import java.awt.event.ActionEvent;
 
 public class Customer_Menu extends JFrame {
 	
+	private static final long serialVersionUID = 1L;
 	DataHelper api_connection;
 	private Vector<String> orders = new Vector<String>(); // [0] = entree || [1] = side || [2] = beverage || [3] = dessert
 	

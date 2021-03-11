@@ -1,13 +1,13 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Action;
+import javax.swing.JButton;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,11 +21,14 @@ import java.awt.event.MouseEvent;
  */
 public class Customer_Type extends javax.swing.JFrame {
 
-    /**
+    private static final long serialVersionUID = 1L;
+	/**
      * Creates new form Customer_Type
      */
 	
 	DataHelper api_connection;
+	
+	private final Action action = new SwingAction();
 	
     public Customer_Type() {
         initComponents();
@@ -34,6 +37,16 @@ public class Customer_Type extends javax.swing.JFrame {
     public Customer_Type(DataHelper api) {
     	this.api_connection = api;
     	initComponents();
+    }
+    
+    public class SwingAction extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+        public SwingAction() {
+            putValue(NAME, "Back");
+            putValue(SHORT_DESCRIPTION, "Heading back to customer type menu.");
+        }
+        public void actionPerformed(ActionEvent e) {
+        }
     }
 
     /**
@@ -174,6 +187,21 @@ public class Customer_Type extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panel_layout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+        
+        JButton button_back = new JButton("Back");
+        button_back.setAction(action);
+        button_back.setBounds(240, 350, 111, 26);
+        panel_layout.add(button_back);
+        
+        button_back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(arg0.getSource() == button_back) {
+					User_Type view_cust_option = new User_Type(api_connection);
+					view_cust_option.setVisible(true);
+					dispose();
+				}
+			}
+		});
 
         pack();
     }// </editor-fold>                        
@@ -222,4 +250,3 @@ public class Customer_Type extends javax.swing.JFrame {
     private javax.swing.JPanel panel_manager;
     // End of variables declaration                   
 }
-

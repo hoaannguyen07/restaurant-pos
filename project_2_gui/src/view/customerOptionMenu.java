@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -14,6 +13,7 @@ import javax.swing.JLabel;
 
 public class customerOptionMenu extends JFrame {
 	
+	private static final long serialVersionUID = 1L;
 	DataHelper api_connection;
 	private Vector<String> orders = new Vector<String>(); // [0] = entree || [1] = side || [2] = beverage || [3] = dessert
 
@@ -144,7 +144,7 @@ public class customerOptionMenu extends JFrame {
 		btnPaymentInformation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnPaymentInformation) { 
-					cardtype view_card = new cardtype(price);
+					cardtype view_card = new cardtype(api_connection);
 					view_card.setVisible(true);
 					dispose();
 				}
@@ -156,7 +156,7 @@ public class customerOptionMenu extends JFrame {
 		btnRewards.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnRewards) { 
-					rewards view_rewards = new rewards(first, last, user, pass, api_connection);
+					rewards view_rewards = new rewards(api_connection);
 					view_rewards.setVisible(true);
 					dispose();
 				}

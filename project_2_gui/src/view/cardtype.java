@@ -1,6 +1,4 @@
 package view;
-
-//import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,8 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
-//import javax.swing.JTextArea;
-//import javax.swing.JButton;
+import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.SwingConstants;
@@ -18,7 +15,11 @@ import javax.swing.border.MatteBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JRadioButton;
-//import javax.swing.JRadioButtonMenuItem;
+
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Action;
 
 public class cardtype extends JFrame {
 
@@ -45,6 +46,7 @@ public class cardtype extends JFrame {
 	
 	private final JLabel card_verify_text = new JLabel("");
 	
+	private final Action action = new SwingAction();
 	
 	//query variables
 	protected static double price; 
@@ -95,8 +97,20 @@ public class cardtype extends JFrame {
 		
 		this.api_connection = api;
 		
+		System.out.println("API name in cardtype constructor: " + this.api_connection.getFirst_name());
+		
 		initGUI();
 	}
+	
+    public class SwingAction extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+        public SwingAction() {
+            putValue(NAME, "Back");
+            putValue(SHORT_DESCRIPTION, "Heading back to customer option menu.");
+        }
+        public void actionPerformed(ActionEvent e) {
+        }
+    }
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initGUI() {
@@ -167,6 +181,21 @@ public class cardtype extends JFrame {
 		
 		card_verify_text.setBounds(137, 78, 299, 16);
 		contentPane.add(card_verify_text);
+		
+		JButton button_back = new JButton("Back");
+        button_back.setAction(action);
+        button_back.setBounds(20, 66, 111, 26);
+        contentPane.add(button_back);
+        
+        button_back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(arg0.getSource() == button_back) {
+					customerOptionMenu view_cust_option = new customerOptionMenu(api_connection);
+					view_cust_option.setVisible(true);
+					dispose();
+				}
+			}
+		});
 		
 		panel_pay.addMouseListener(new MouseAdapter() {
 			@Override

@@ -1,17 +1,12 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -23,8 +18,16 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Action;
+import javax.swing.JButton;
+
 public class Ingredients extends JFrame {
 	
+	private static final long serialVersionUID = 1L;
+
 	private DataHelper api_connection;
 	
 	Vector<Vector<String>> ingredients_list; // keep all ingredients from table [0] = key || [1] = name || [2] = price
@@ -49,6 +52,8 @@ public class Ingredients extends JFrame {
 	private final JLabel lblNewLabel_1 = new JLabel("* Note that any customization will be finalized and cannot be changed");
 	private final JPanel panel = new JPanel();
 	private final JLabel lblNewLabel_2 = new JLabel("SAVE CHANGES");
+	
+	private final Action action = new SwingAction();
 
 	/**
 	 * Launch the application.
@@ -120,6 +125,16 @@ public class Ingredients extends JFrame {
 		initGUI();
 		show_data_in_table();
 	}
+	
+	public class SwingAction extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+        public SwingAction() {
+            putValue(NAME, "Back");
+            putValue(SHORT_DESCRIPTION, "Heading back to customer's menu.");
+        }
+        public void actionPerformed(ActionEvent e) {
+        }
+    }
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -201,6 +216,21 @@ public class Ingredients extends JFrame {
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		panel.add(lblNewLabel_2);
+		
+		JButton button_back = new JButton("Back");
+        button_back.setAction(action);
+        button_back.setBounds(10, 76, 111, 26);
+        contentPane.add(button_back);
+        
+        button_back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(arg0.getSource() == button_back) {
+					Customer_Menu view_cust_option = new Customer_Menu(api_connection);
+					view_cust_option.setVisible(true);
+					dispose();
+				}
+			}
+		});
 	}
 	
 	void delete_all_rows_in_table()

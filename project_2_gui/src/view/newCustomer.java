@@ -1,26 +1,28 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 
 public class newCustomer extends JFrame {
 	
+	private static final long serialVersionUID = 1L;
+
 	DataHelper api_connection;
 
 	private JPanel contentPane;
@@ -33,6 +35,8 @@ public class newCustomer extends JFrame {
 	private final JTextField username_textfield = new JTextField("Click here to enter your username.");
 	private final JButton btnConfirm = new JButton("Confirm");
 	private final JPasswordField passwordField = new JPasswordField();
+	
+	private final Action action = new SwingAction();
 
 	/**
 	 * Launch the application.
@@ -79,6 +83,17 @@ public class newCustomer extends JFrame {
 		firstname_text_field.setColumns(10);
 		initGUI();
 	}
+	
+	public class SwingAction extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+        public SwingAction() {
+            putValue(NAME, "Back");
+            putValue(SHORT_DESCRIPTION, "Heading back to customer type menu.");
+        }
+        public void actionPerformed(ActionEvent e) {
+        }
+    }
+	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -104,6 +119,22 @@ public class newCustomer extends JFrame {
 		contentPane.add(lblPassword);
 		
 		contentPane.add(username_textfield);
+		
+		JButton button_back = new JButton("Back");
+        button_back.setAction(action);
+        button_back.setBounds(134, 225, 66, 26);
+        contentPane.add(button_back);
+        
+        button_back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(arg0.getSource() == button_back) {
+					Customer_Type view_cust_option = new Customer_Type(api_connection);
+					view_cust_option.setVisible(true);
+					dispose();
+				}
+			}
+		});
+        
 		btnConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String first_name = firstname_text_field.getText();
@@ -132,7 +163,7 @@ public class newCustomer extends JFrame {
 				}
 			}
 		});
-		btnConfirm.setBounds(168, 226, 117, 25);
+		btnConfirm.setBounds(202, 226, 117, 25);
 		
 		contentPane.add(btnConfirm);
 		passwordField.setBounds(157, 177, 238, 19);

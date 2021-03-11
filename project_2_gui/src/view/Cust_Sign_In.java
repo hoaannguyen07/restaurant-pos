@@ -1,11 +1,11 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -17,7 +17,15 @@ import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Action;
+import javax.swing.JButton;
+
 public class Cust_Sign_In extends JFrame {
+	private static final long serialVersionUID = 1L;
+
 	DataHelper api;
 
 	private JPanel contentPane;
@@ -29,6 +37,8 @@ public class Cust_Sign_In extends JFrame {
 	private final JPanel panel = new JPanel();
 	private final JLabel label_log_in = new JLabel("LOG IN");
 	private final JLabel label_log_in_msg = new JLabel("");
+	
+	private final Action action = new SwingAction();
 
 	/**
 	 * Launch the application.
@@ -60,6 +70,16 @@ public class Cust_Sign_In extends JFrame {
 		
 		initGUI();
 	}
+	
+	public class SwingAction extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+        public SwingAction() {
+            putValue(NAME, "Back");
+            putValue(SHORT_DESCRIPTION, "Heading back to customer type menu.");
+        }
+        public void actionPerformed(ActionEvent e) {
+        }
+    }
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -116,6 +136,7 @@ public class Cust_Sign_In extends JFrame {
 		panel_password.setBounds(191, 191, 202, 25);
 		contentPane.add(panel_password);
 		pf_password.addFocusListener(new FocusAdapter() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void focusGained(FocusEvent e) {
 				if (pf_password.getText().equals("Password"))
@@ -128,6 +149,7 @@ public class Cust_Sign_In extends JFrame {
 				}
 				
 			}
+			@SuppressWarnings("deprecation")
 			@Override
 			public void focusLost(FocusEvent e) {
 				if (pf_password.getText().equals(""))
@@ -143,7 +165,24 @@ public class Cust_Sign_In extends JFrame {
 		pf_password.setBounds(10, 0, 182, 25);
 		
 		panel_password.add(pf_password);
+		
+		JButton button_back = new JButton("Back");
+        button_back.setAction(action);
+        button_back.setBounds(239, 329, 111, 26);
+        contentPane.add(button_back);
+        
+        button_back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(arg0.getSource() == button_back) {
+					Customer_Type view_cust_option = new Customer_Type(api);
+					view_cust_option.setVisible(true);
+					dispose();
+				}
+			}
+		});
+        
 		panel.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				

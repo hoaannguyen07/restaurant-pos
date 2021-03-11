@@ -7,15 +7,15 @@ package view;
  */
 public class Item_Info {
 	private String name;
-	private String price;
+	private double price;
 	
 	Item_Info()
 	{
 		this.name = "";
-		this.price = "";
+		this.price = 0.0;
 	}
 	
-	Item_Info(String item_name, String item_price)
+	Item_Info(String item_name, double item_price)
 	{
 		this.name = item_name;
 		this.price = item_price;
@@ -31,7 +31,7 @@ public class Item_Info {
 	/**
 	 * @return the price
 	 */
-	public String getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
@@ -45,8 +45,8 @@ public class Item_Info {
 	/**
 	 * @param price the price to set
 	 */
-	public void setPrice(String price) {
-		this.price = price;
+	public void setPrice(double item_price) {
+		this.price = item_price;
 	}
 
 	@Override

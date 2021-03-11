@@ -778,4 +778,34 @@ public class DataHelper {
 		System.out.println("Current Cart:\n" + cart_helper.getCart());
 	}
 	
+	    Map<String, Vector<String>> convertOrder(String order) 
+	    { 
+		Map<String, Vector<String>> hm  = new HashMap<String, Vector<String>>(); 
+		Vector<String> empty_string = new Vector<String>();
+
+		String[] split_entrees = order.split("(:)");
+
+		for(int i = 0; i < split_entrees.length; i++) { 
+		    if(split_entrees[i].length() == 2 || split_entrees[i].length() == 3) { 
+			// only has the entree and no ingredient 
+			hm.put(split_entrees[i], empty_string);
+		    } else {
+			// need to parse the string 
+			String[] split_ingred = split_entrees[i].split(";");
+			Vector<String> ingredients = new Vector<String>();
+			for(int j = 1; j < split_ingred.length; j++) { 
+			    ingredients.add(split_ingred[j]);
+			}
+			hm.put(split_ingred[0], ingredients);
+		    }
+		}
+
+		// Uncomment for debugging
+		// for (Map.Entry<String, Vector<String>> me : hm.entrySet()) { 
+		//     System.out.println(me.getKey() + "->" + me.getValue());
+		// }
+
+		return hm;
+	    } 
+	
 }

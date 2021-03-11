@@ -85,19 +85,19 @@ public class Manager_Sign_In extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 128, 128));
+		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		label_title.setForeground(new Color(255, 255, 255));
 		label_title.setFont(new Font("Arial Black", Font.BOLD, 30));
 		label_title.setHorizontalAlignment(SwingConstants.CENTER);
-		label_title.setBounds(136, 11, 314, 72);
+		label_title.setBounds(137, 11, 314, 72);
 		
 		contentPane.add(label_title);
 		panel_username.setBorder(null);
 		panel_username.setBackground(new Color(255, 255, 255));
-		panel_username.setBounds(191, 136, 202, 25);
+		panel_username.setBounds(193, 136, 202, 25);
 		
 		contentPane.add(panel_username);
 		panel_username.setLayout(null);
@@ -133,7 +133,7 @@ public class Manager_Sign_In extends JFrame {
 		panel_password.setBorder(null);
 		panel_password.setLayout(null);
 		panel_password.setBackground(new Color(255, 255, 255));
-		panel_password.setBounds(191, 191, 202, 25);
+		panel_password.setBounds(193, 191, 202, 25);
 		contentPane.add(panel_password);
 		pf_password.addFocusListener(new FocusAdapter() {
 			@SuppressWarnings("deprecation")
@@ -193,7 +193,7 @@ public class Manager_Sign_In extends JFrame {
 			}
 		});
 		panel_log_in.setBackground(new Color(0, 51, 51));
-		panel_log_in.setBounds(191, 263, 202, 54);
+		panel_log_in.setBounds(193, 263, 202, 54);
 		
 		contentPane.add(panel_log_in);
 		panel_log_in.setLayout(null);
@@ -211,8 +211,12 @@ public class Manager_Sign_In extends JFrame {
 		contentPane.add(label_log_in_msg);
 		
 		JButton button_back = new JButton("Back");
+		button_back.setForeground(new Color(255, 255, 255));
+//		button_back.setForeground(new Color(0, 0, 0));
+		button_back.setBackground(new Color(0, 51, 51));
         button_back.setAction(action);
-        button_back.setBounds(22, 67, 111, 26);
+        button_back.setBounds(25, 11, 55, 26);
+        button_back.setOpaque(true);
         contentPane.add(button_back);
         
         button_back.addActionListener(new ActionListener() {

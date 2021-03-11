@@ -83,7 +83,7 @@ public class EditItem extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 295);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 139, 139));
+		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -94,9 +94,10 @@ public class EditItem extends JFrame {
 		lblManagerID.setText(managerID);
 		
 		contentPane.add(lblManagerID);
-		btnSaveChanges.setBounds(135, 191, 164, 40);
+		btnSaveChanges.setForeground(new Color(255, 255, 255));
+		btnSaveChanges.setBounds(137, 191, 164, 40);
 		
-		btnSaveChanges.setBackground(new Color(0, 102, 255));
+		btnSaveChanges.setBackground(new Color(0, 51, 51));
 		
 		contentPane.add(btnSaveChanges);
 		lblNewLabel_1.setBounds(41, 52, 43, 24);
@@ -104,18 +105,19 @@ public class EditItem extends JFrame {
 	    
 		
 		contentPane.add(lblNewLabel_1);
-		lblNewLabel_7.setBounds(197, 87, 33, 17);
+		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_7.setBounds(197, 87, 43, 17);
 		contentPane.add(lblNewLabel_7);
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		String price = api_connection.getPrice(itemName);
 		
 		txtPrice.setText("$ " + String.valueOf(price));
-		txtPrice.setBounds(177, 115, 79, 24);
+		txtPrice.setBounds(179, 115, 79, 24);
 		contentPane.add(txtPrice);
 		txtPrice.setColumns(10);
 		lblEntreeName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEntreeName.setBounds(93, 52, 248, 24);
+		lblEntreeName.setBounds(95, 52, 248, 24);
 		contentPane.add(lblEntreeName);
 		lblEntreeName.setFont(new Font("Arial", Font.BOLD, 18));
 		lblEntreeName.setText(itemName);
@@ -124,7 +126,7 @@ public class EditItem extends JFrame {
 		
 		chckbxNewCheckBox = new JCheckBox("Available");
 		chckbxNewCheckBox.setSelected(available);
-		chckbxNewCheckBox.setBounds(180, 146, 74, 23);
+		chckbxNewCheckBox.setBounds(182, 146, 74, 23);
 		contentPane.add(chckbxNewCheckBox);
 		
 		/* If button is pressed, changes are made to the database */

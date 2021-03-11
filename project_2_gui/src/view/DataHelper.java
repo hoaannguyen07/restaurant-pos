@@ -3,6 +3,8 @@ package view;
 import java.math.RoundingMode;
 import java.sql.*; // to do all SQL commands
 import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -409,8 +411,8 @@ public class DataHelper {
 			
 			while(result.next())
 			{
-//				DecimalFormat df2 = new DecimalFormat("#.##");
-//				df2.setRoundingMode(RoundingMode.UP);
+				DecimalFormat df2 = new DecimalFormat("#.###");
+				df2.setRoundingMode(RoundingMode.UP);
 				
 				// create vector to record information on one row to then be added to menu_list [0] = id || [1] = name || [2] = price || [3] = availability
 				Vector<String> cur_item = new Vector<String>(); 
@@ -420,17 +422,22 @@ public class DataHelper {
 				String food_price = result.getString("price"); 
 				String availability = result.getString("available");
 				
-				if (food_price.length() > 4) {
+				if (food_price.length() > 4 && food_price.contains(".")) {
 					food_price = food_price.substring(0, food_price.indexOf(".") + 3);
 				}
 				else if (food_price.chars().filter(ch -> ch == '.').count() == 0) { // no decimals in the value, then add decimals
 					food_price += ".00";
 				}
 				
+//				food_price = df2.format(Double.parseDouble(food_price)).toString();
+//				C
+//				if (food_price.chars().filter(ch -> ch == '.').count() == 0) { // no decimals in the value, then add decimals
+//					food_price += ".00";
+//				} else if (food_price.charAt(food_price.length() - 2).equals('.'))
+				
 				cur_item.addElement(food_id);
 				cur_item.addElement(food_name);
 				cur_item.addElement(food_price);
-//				cur_item.addElement(df2.format(Double.parseDouble(food_price)).toString());// round price to 2 digits
 				cur_item.addElement(availability);
 				
 				
@@ -476,7 +483,7 @@ public class DataHelper {
 				String ingredient_name = result.getString("name");
 				String ingredient_price = result.getString("price");
 				
-				if (ingredient_price.length() > 4) {
+				if (ingredient_price.length() > 4 && ingredient_price.contains(".")) {
 					ingredient_price = ingredient_price.substring(0, ingredient_price.indexOf(".") + 3);
 				}
 				else if (ingredient_price.chars().filter(ch -> ch == '.').count() == 0) { // no decimals in the value, then add decimals
@@ -511,10 +518,10 @@ public class DataHelper {
 			ResultSet result = stmt.executeQuery(sql_stmt);
 			while(result.next()) {
 				price = result.getString("price");
-				if (price.length() > 4) {
+				if (price.length() > 4 && price.contains(".")) {
 					price = price.substring(0, price.indexOf(".") + 3);
 				}
-				else if (price.length() == 1) {
+				else if (price.chars().filter(ch -> ch == '.').count() == 0) { // no decimals in the value, then add decimals
 					price += ".00";
 				}
 			}

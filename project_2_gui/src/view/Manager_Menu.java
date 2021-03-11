@@ -86,7 +86,7 @@ public class Manager_Menu extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 515);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 139, 139));
+		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -119,7 +119,7 @@ public class Manager_Menu extends JFrame {
 		pane_menu.setViewportView(table_menu);
 		lblManagerMenu.setFont(new Font("Segoe UI Black", Font.PLAIN, 55));
 		lblManagerMenu.setHorizontalAlignment(SwingConstants.CENTER);
-		lblManagerMenu.setBounds(10, 11, 568, 73);
+		lblManagerMenu.setBounds(43, 11, 501, 73);
 		
 		contentPane.add(lblManagerMenu);
 	}

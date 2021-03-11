@@ -132,7 +132,7 @@ public class customerOptionMenu extends JFrame {
 		btnViewLastMeal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnViewLastMeal) { 
-					prevOrder2 view_prev = new prevOrder2(first, last, user, pass); 
+					prevOrder2 view_prev = new prevOrder2(api_connection);
 					view_prev.setVisible(true);
 					dispose();
 				}

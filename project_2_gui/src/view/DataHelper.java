@@ -806,6 +806,64 @@ public class DataHelper {
 		// }
 
 		return hm;
-	    } 
+	    }
+
+		Map<String, Vector<String>> prevOrder() {
+			Map<String, Vector<String>> prevOrderMap = new HashMap<String, Vector<String>>(); 
+			try {
+				Statement stmt = conn.createStatement();
+				
+				String entree, side, beverage, dessert;
+				Vector<String> entrees = new Vector<String>();
+				Vector<String> sides = new Vector<String>();
+				Vector<String> beverages = new Vector<String>();
+				Vector<String> desserts = new Vector<String>();
+				
+				//INSERT INTO card(credit_debit, cardnumber, type, expiration, securitycode, customerid)
+				//VALUES ('<T/F>', '<card_num>', '<type>', '<expiration>', <security_code_int>, '<customerid>');
+				
+				String where = "WHERE customer.lastname LIKE '" + this.last_name.toUpperCase() + "%' ";
+				String and_str = "AND customer.firstname LIKE '" + this.first_name.toUpperCase() + "%' ";
+				String sql_stmt = 
+						"SELECT m1.name AS entree, m2.name AS side, m3.name AS beverage, m4.name AS dessert " + 
+						"FROM orders " + 
+						"FULL OUTER JOIN customer ON orders.customerid = customer.id " + 
+						"FULL OUTER JOIN menu m1 ON orders.entrees = m1.id " + 
+						"FULL OUTER JOIN menu m2 ON orders.sides = m2.id " + 
+						"FULL OUTER JOIN menu m3 ON orders.beverages = m3.id " + 
+						"FULL OUTER JOIN menu m4 ON orders.desserts = m4.id " + 
+						 where + and_str + 
+						"ORDER BY orders.date DESC " + 
+						"LIMIT 5";
+				ResultSet result = stmt.executeQuery(sql_stmt);	
+				System.out.println("Finished Executing Statement: " + sql_stmt);
+				
+				while (result.next()) {
+					entree = result.getString("entree");
+					entrees.add(entree);
+					
+					side = result.getString("side");
+					sides.add(side);
+					
+					beverage = result.getString("beverage");
+					beverages.add(beverage);
+					
+					dessert = result.getString("dessert");
+					desserts.add(dessert);
+				}
+				
+				prevOrderMap.put("Entrees", entrees);
+				prevOrderMap.put("Sides", sides);
+				prevOrderMap.put("Beverages", beverages);
+				prevOrderMap.put("Desserts", desserts);
+				
+				return prevOrderMap;
+				
+			} catch (Exception e) {
+				System.out.println("Failed to execute previous order.");
+			}
+			return null;
+		}
+		
 	
 }

@@ -66,13 +66,13 @@ public class rewards extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public rewards(String first_name, String last_name, String username, String password, DataHelper api) {
-		first = first_name;
-		last = last_name;
-		user = username;
-		pass = password;
+	public rewards(DataHelper api) {
+		api_connection = api;
 		
-		//api_connection = api;
+		first = api.getFirst_name();
+		last = api.getLast_name();
+		user = api.getId();
+		pass = api.getPassword();
 		
 		initGUI();
 	}

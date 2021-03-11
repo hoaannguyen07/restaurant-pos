@@ -142,7 +142,7 @@ public class CartHelper {
 		for(int i = 0; i < menu_list.size(); i++)
 		{
 			Vector<String> cur_item_info = menu_list.elementAt(i);
-			this.menu_map.put(cur_item_info.elementAt(0), new Item_Info(cur_item_info.elementAt(2), Double.parseDouble(cur_item_info.elementAt(3))));
+			this.menu_map.put(cur_item_info.elementAt(0), new Item_Info(cur_item_info.elementAt(1), Double.parseDouble(cur_item_info.elementAt(2))));
 		}
 	}
 	
@@ -157,7 +157,7 @@ public class CartHelper {
 		for(int i = 0; i < ingredients_list.size(); i++)
 		{
 			Vector<String> cur_item_info = ingredients_list.elementAt(i);
-			this.ingredients_map.put(cur_item_info.elementAt(0), new Item_Info(cur_item_info.elementAt(2), Double.parseDouble(cur_item_info.elementAt(3))));
+			this.ingredients_map.put(cur_item_info.elementAt(0), new Item_Info(cur_item_info.elementAt(1), Double.parseDouble(cur_item_info.elementAt(2))));
 		}
 	}
 	

@@ -85,7 +85,6 @@ public class DataHelper {
 		return password;
 	}
 
-	
 	/**
 	 * @return the cart_helper
 	 */
@@ -389,7 +388,9 @@ public class DataHelper {
 		// every time front end asks for menu, need to query menu from database and use it to update
 		// the menu map in cart_helper to keep everything in synced, menu-wise
 		query_menu();
+		System.out.println("Finished Menu Query");
 		cart_helper.update_menu_map(menu_list);
+		System.out.println("Finished Updating Menu Map in CartHelper");
 		return menu_list;
 	}
 	
@@ -422,7 +423,7 @@ public class DataHelper {
 				if (food_price.length() > 4) {
 					food_price = food_price.substring(0, food_price.indexOf(".") + 3);
 				}
-				else if (food_price.length() == 1) {
+				else if (food_price.chars().filter(ch -> ch == '.').count() == 0) { // no decimals in the value, then add decimals
 					food_price += ".00";
 				}
 				

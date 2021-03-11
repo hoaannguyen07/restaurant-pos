@@ -15,6 +15,7 @@ public class DataHelper {
 	public String password;
 	Vector<Vector<String>> menu_list; // [0] = id || [1] = name || [2] = price || [3] = availability
 	Vector<Vector<String>> ingredients_list; // [0] = key || [1] = name || [2] = price
+	CartHelper cart_helper;
 	
 	DataHelper()
 	{
@@ -30,12 +31,28 @@ public class DataHelper {
 	        System.exit(0);
 	     }//end try catch
 	     System.out.println("Opened database successfully");
+	     
+	     last_name = "";
+	     first_name = "";
+	     id = "";
+	     password = "";
+	     menu_list = new Vector<Vector<String>>();
+	     ingredients_list = new Vector<Vector<String>>();
+	     cart_helper = new CartHelper();
 	}
 	
 	DataHelper (Connection conn)
 	{
 		this.conn = conn;
 		System.out.println("Transfer of Connection Successfully");
+		
+		last_name = "";
+		first_name = "";
+		id = "";
+		password = "";
+		menu_list = new Vector<Vector<String>>();
+		ingredients_list = new Vector<Vector<String>>();
+		cart_helper = new CartHelper();
 	}
 	
 	
@@ -67,6 +84,16 @@ public class DataHelper {
 	public String getPassword() {
 		return password;
 	}
+
+	
+	/**
+	 * @return the cart_helper
+	 */
+	public CartHelper getCart_helper() {
+		return cart_helper;
+	}
+	
+	
 
 	// add new person to the system
 	@SuppressWarnings("deprecation")
@@ -153,6 +180,7 @@ public class DataHelper {
 		}
 		 
 	}
+	
 	@SuppressWarnings("deprecation")
 //	 account verification for manager sign in
 	int verify_manager(JTextField username, JPasswordField password)
@@ -358,6 +386,15 @@ public class DataHelper {
 	
 	Vector<Vector<String>> get_menu_data()
 	{
+		// every time front end asks for menu, need to query menu from database and use it to update
+		// the menu map in cart_helper to keep everything in synced, menu-wise
+		query_menu();
+		cart_helper.update_menu_map(menu_list);
+		return menu_list;
+	}
+	
+	void query_menu()
+	{
 		Vector<Vector<String>> menu = new Vector<Vector<String>>();
 
 		try
@@ -407,11 +444,16 @@ public class DataHelper {
 		}
 		
 		this.menu_list = menu;
-		
-		return menu;
 	}
 	
 	Vector<Vector<String>> get_ingredients_data()
+	{
+		query_ingredients();
+		cart_helper.update_ingredients_map(ingredients_list);
+		return ingredients_list;
+	}
+	
+	void query_ingredients()
 	{
 		Vector<Vector<String>> ingredients = new Vector<Vector<String>>();
 
@@ -448,8 +490,6 @@ public class DataHelper {
 		
 		System.out.println(ingredients);
 		this.ingredients_list = ingredients;
-		
-		return ingredients;
 	}
 	
 	String getPrice(String item) {

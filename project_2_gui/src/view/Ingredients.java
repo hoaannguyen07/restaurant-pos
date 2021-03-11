@@ -48,8 +48,6 @@ public class Ingredients extends JFrame {
 	JTable table_menu;
 	JScrollPane pane_menu;
 	private final JLabel lblCustomizationOptions = new JLabel("CUSTOMIZATION OPTIONS");
-	private final JLabel lblNewLabel = new JLabel("Click on the ingredient that you want to customize.");
-	private final JLabel lblNewLabel_1 = new JLabel("* Note that any customization will be finalized and cannot be changed");
 	private final JPanel panel = new JPanel();
 	private final JLabel lblNewLabel_2 = new JLabel("SAVE CHANGES");
 	
@@ -126,6 +124,17 @@ public class Ingredients extends JFrame {
 		show_data_in_table();
 	}
 	
+	public Ingredients(DataHelper api) {
+		if (MENU_HEADER.size() == 0)
+		{
+			MENU_HEADER.addElement("Ingredient Name");
+			MENU_HEADER.addElement("Price");
+		}
+		this.api_connection = api;
+		initGUI();
+		show_data_in_table();
+	}
+	
 	public class SwingAction extends AbstractAction {
         private static final long serialVersionUID = 1L;
         public SwingAction() {
@@ -181,29 +190,25 @@ public class Ingredients extends JFrame {
 		lblCustomizationOptions.setBounds(10, 11, 568, 73);
 		
 		contentPane.add(lblCustomizationOptions);
-		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 20));
-		lblNewLabel.setForeground(new Color(128, 0, 0));
-		lblNewLabel.setBounds(10, 105, 491, 32);
-		
-		contentPane.add(lblNewLabel);
-		lblNewLabel_1.setForeground(new Color(165, 42, 42));
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_1.setBounds(10, 523, 466, 14);
-		
-		contentPane.add(lblNewLabel_1);
 		panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// go back to Customer Menu
-				System.out.println("Cart so far");
-				for(int i = 0; i < orders.size(); i++)
-				{
-					System.out.println(i + ".\t" + orders.elementAt(i));
-				}
-				System.out.println("Total price: " + order_price);
-				menuSelect customer_select_menu = new menuSelect(api_connection, orders, order_price);
-				customer_select_menu.setVisible(true);
+//				System.out.println("Cart so far");
+//				for(int i = 0; i < orders.size(); i++)
+//				{
+//					System.out.println(i + ".\t" + orders.elementAt(i));
+//				}
+//				System.out.println("Total price: " + order_price);
+//				menuSelect customer_select_menu = new menuSelect(api_connection, orders, order_price);
+//				customer_select_menu.setVisible(true);
+//				dispose();
+				
+				api_connection.add_cur_customized_menu_item();
+				Customer_Menu menu = new Customer_Menu(api_connection);
+				menu.setVisible(true);
 				dispose();
+				
 			}
 		});
 		panel.setBackground(new Color(255, 255, 255));
@@ -218,6 +223,12 @@ public class Ingredients extends JFrame {
 		panel.add(lblNewLabel_2);
 		
 		JButton button_back = new JButton("Back");
+		button_back.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
         button_back.setAction(action);
         button_back.setBounds(10, 76, 111, 26);
         contentPane.add(button_back);
@@ -225,6 +236,7 @@ public class Ingredients extends JFrame {
         button_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == button_back) {
+					api_connection.delete_cur_menu_item();
 					Customer_Menu view_cust_option = new Customer_Menu(api_connection);
 					view_cust_option.setVisible(true);
 					dispose();

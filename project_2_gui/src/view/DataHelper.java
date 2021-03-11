@@ -476,6 +476,13 @@ public class DataHelper {
 				String ingredient_name = result.getString("name");
 				String ingredient_price = result.getString("price");
 				
+				if (ingredient_price.length() > 4) {
+					ingredient_price = ingredient_price.substring(0, ingredient_price.indexOf(".") + 3);
+				}
+				else if (ingredient_price.chars().filter(ch -> ch == '.').count() == 0) { // no decimals in the value, then add decimals
+					ingredient_price += ".00";
+				}
+				
 				cur_item.addElement(ingredient_key);
 				cur_item.addElement(ingredient_name);
 				cur_item.addElement(ingredient_price);
@@ -737,4 +744,38 @@ public class DataHelper {
 			return false;
 		}
 	}
+	
+	/**
+	 * 
+	 * @param menu_item_id
+	 * at this point in time, used for transition from customer menu to ingredients menu
+	 * set current menu item key to param to know which menu item the added ingredients will belong to
+	 * reset the current item price to 0.0 before adding in the item to the cart along with its customizations
+	 */
+	void choose_menu_item_to_customize(String menu_item_id)
+	{
+		cart_helper.setCur_menu_item_key(menu_item_id);
+		cart_helper.setCur_customizing_item_price(0.0);
+		cart_helper.add_cur_menu_item();
+	}
+	
+	void delete_cur_menu_item()
+	{
+		cart_helper.delete_cur_menu_item_from_cart();
+		cart_helper.prep_for_next_menu_item();
+	}
+	
+	/**
+	 * everything has been added to cart previously. to finalize the customized item,
+	 * only the cost of that customized item needs to be added to the total cost
+	 * after adding item into cart, need to reset item menu key, ingr. key, and cur 
+	 * item cost to get ready for next item (all in prep for next menu item function)
+	 */
+	void add_cur_customized_menu_item()
+	{
+		cart_helper.add_item_cost_to_tot_cost();
+		cart_helper.prep_for_next_menu_item();
+		System.out.println("Current Cart:\n" + cart_helper.getCart());
+	}
+	
 }

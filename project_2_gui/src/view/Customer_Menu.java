@@ -47,8 +47,6 @@ public class Customer_Menu extends JFrame {
 	public static String pass;
 	private JPanel panel;
 	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
-	private JLabel lblNewLabel_2;
 
 	/**
 	 * Launch the application.
@@ -180,34 +178,40 @@ public class Customer_Menu extends JFrame {
 				
 				System.out.println(name + "\t" + item_id + "\t" + price);
 				
-				int selected_item_orders_id = -1;
+//				int selected_item_orders_id = -1;
+//				
+//				Character first_char = item_id.charAt(0);
+//				// find type of food item it is and code it using the orders code (to later pass onto the ingredients frame)
+//				if (first_char.equals('E')) {
+//					selected_item_orders_id = 0;
+//				}
+//				else if (first_char.equals('S')) {
+//					selected_item_orders_id = 1;
+//				}
+//				else if (first_char.equals('B')) {
+//					selected_item_orders_id = 2;
+//				}
+//				else if (first_char.equals('D')) {
+//					selected_item_orders_id = 3;
+//				}
+//				
+//				System.out.println("Selected Item Orders ID: " + selected_item_orders_id);
+//				
+//				System.out.println("Cart so far");
+//				for(int i = 0; i < orders.size(); i++)
+//				{
+//					System.out.println(i + ".\t" + orders.elementAt(i));
+//				}
+//				System.out.println("Total price: " + total_price);
+//				// add menu item when going to Ingredients frame
+//				Ingredients ingredients_frame = new Ingredients(api_connection, orders, selected_item_orders_id, item_id, total_price + Double.parseDouble(price), true); 
+//				ingredients_frame.setVisible(true);
+//				dispose();
 				
-				Character first_char = item_id.charAt(0);
-				// find type of food item it is and code it using the orders code (to later pass onto the ingredients frame)
-				if (first_char.equals('E')) {
-					selected_item_orders_id = 0;
-				}
-				else if (first_char.equals('S')) {
-					selected_item_orders_id = 1;
-				}
-				else if (first_char.equals('B')) {
-					selected_item_orders_id = 2;
-				}
-				else if (first_char.equals('D')) {
-					selected_item_orders_id = 3;
-				}
-				
-				System.out.println("Selected Item Orders ID: " + selected_item_orders_id);
-				
-				System.out.println("Cart so far");
-				for(int i = 0; i < orders.size(); i++)
-				{
-					System.out.println(i + ".\t" + orders.elementAt(i));
-				}
-				System.out.println("Total price: " + total_price);
-				// add menu item when going to Ingredients frame
-				Ingredients ingredients_frame = new Ingredients(api_connection, orders, selected_item_orders_id, item_id, total_price + Double.parseDouble(price), true); 
-				ingredients_frame.setVisible(true);
+				// let api update information on what menu item is being added to cart
+				api_connection.choose_menu_item_to_customize(item_id);
+				Ingredients ingr_frame = new Ingredients(api_connection);
+				ingr_frame.setVisible(true);
 				dispose();
 			}
 		});
@@ -247,18 +251,6 @@ public class Customer_Menu extends JFrame {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(10, 11, 180, 53);
 		panel.add(lblNewLabel);
-		
-		lblNewLabel_1 = new JLabel("Click on the ingredient that you want to customize.");
-		lblNewLabel_1.setForeground(new Color(128, 0, 0));
-		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 20));
-		lblNewLabel_1.setBounds(46, 107, 491, 32);
-		contentPane.add(lblNewLabel_1);
-		
-		lblNewLabel_2 = new JLabel("* Note that any customization will be finalized and cannot be changed");
-		lblNewLabel_2.setForeground(new Color(165, 42, 42));
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_2.setBounds(59, 529, 466, 14);
-		contentPane.add(lblNewLabel_2);
 	}
 	
 	void delete_all_rows_in_table()

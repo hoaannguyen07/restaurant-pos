@@ -179,8 +179,7 @@ public class CartHelper {
 		else
 		{
 			System.out.println("Selected menu item key [" + cur_menu_item_key + "] (" + menu_map.get(cur_menu_item_key).getName() + ") has been removed from the cart");
-			// about to go back to menu screen for new menu item selection to prep for it
-			prep_for_next_menu_item();
+			System.out.println("New Cart:\n" + cart.toString());
 		}
 	}
 	
@@ -316,16 +315,19 @@ public class CartHelper {
 		}
 		
 		// because adding menu item is a precursor to customizing that ingredient, make sure cur_customizing_item_price is reset to 0
-		if (Math.abs(cur_customizing_item_price - 0.0) <= 0.000001)
+		if (Math.abs(cur_customizing_item_price - 0.0) >= 0.000001)
 		{
-			System.out.println("cur_customizing_item_price has not been reset. Please remember to reset it when finishing with the last item");
+			System.out.println("Menu Item Key [" + cur_menu_item_key + "] has been been added to the card due to error in cur_customizing_item_price. cur_customizing_item_price is $" 
+					+ cur_customizing_item_price + ". Please remember to reset it when finishing with the last item");
 			return;
 		}
 		
 		cart.put(cur_menu_item_key, new Vector<String> ());
+		System.out.println("Current Cart outputted in add_cur_menu_item in CartHelper:\n" + cart);
 		System.out.println("Menu Item key [" + cur_menu_item_key + "] (" + menu_map.get(cur_menu_item_key).getName() + ") has been added to the cart");
 		
 		cur_customizing_item_price += menu_map.get(cur_menu_item_key).getPrice();
+		System.out.println("The current item is priced at $" + cur_customizing_item_price);
 	}
 	
 	void add_item_cost_to_tot_cost()
@@ -335,7 +337,11 @@ public class CartHelper {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		Map<String, Vector<String>> hi = new HashMap<String, Vector<String>>();
+		System.out.println(hi);
 		
+		hi.put("sucks", new Vector<String>());
+		System.out.println(hi);
 	}
 
 	@Override

@@ -131,6 +131,30 @@ public class CartHelper {
 		this.cur_ingredient_item_key = cur_ingredient_item_key;
 	}
 	
+	public String get_menu_item_name(String menu_item_id)
+	{
+		// check for errors that might happen when getting name from map
+		if (!menu_map.containsKey(menu_item_id))
+		{
+			System.out.println("get_menu_item_name() called but an error occured");
+			System.out.println("Menu item id [" + menu_item_id + "] is not in menu map");
+			return "";
+		}
+		return menu_map.get(menu_item_id).getName();
+	}
+	
+	public String get_ingredient_item_name(String ingredient_item_id)
+	{
+		// check for errors that might happen when getting name from map
+		if (!ingredients_map.containsKey(ingredient_item_id))
+		{
+			System.out.println("get_ingredient_item_name() called but an error occured");
+			System.out.println("Ingredient item id [" + ingredient_item_id + "] is not in ingredient map");
+			return "";
+		}
+		return ingredients_map.get(ingredient_item_id).getName();
+	}
+	
 	/**
 	 * 
 	 * @param menu_list
@@ -169,6 +193,13 @@ public class CartHelper {
 	 */
 	void delete_cur_menu_item_from_cart()
 	{
+		if (!cart.containsKey(cur_menu_item_key))
+		{
+			System.out.println("delete_cur_menu_item_from_cart() called but an error occured");
+			System.out.println("Menu item id [" + cur_menu_item_key + "] is not in cart");
+			return;
+		}
+		
 		cart.remove(cur_menu_item_key);
 		
 		// check if key is still in map and throw error accordingly
@@ -356,6 +387,8 @@ public class CartHelper {
 		System.out.println("Current Cart outputted in add_cur_menu_item in CartHelper:\n" + cart);
 		System.out.println("Menu Item key [" + cur_menu_item_key + "] (" + menu_map.get(cur_menu_item_key).getName() + ") has been added to the cart");
 	}
+	
+	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

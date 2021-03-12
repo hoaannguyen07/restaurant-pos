@@ -790,6 +790,14 @@ public class DataHelper {
 		reset_cart_ingredient_id();
 	}
 	
+	void add_free_item_to_cart(String menu_item_id)
+	{
+		cart_helper.setCur_menu_item_key(menu_item_id);
+		cart_helper.setCur_customizing_item_price(0.0);
+		cart_helper.add_menu_item_as_free(menu_item_id);
+		reset_cart_ingredient_id();
+	}
+	
 	/**
 	 * everything has been added to cart previously. to finalize the customized item,
 	 * only the cost of that customized item needs to be added to the total cost

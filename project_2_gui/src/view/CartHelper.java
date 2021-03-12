@@ -335,6 +335,28 @@ public class CartHelper {
 		total_cost += cur_customizing_item_price;
 	}
 	
+	void add_menu_item_as_free(String menu_item_id)
+	{
+		// error checks to make sure that parameter is valid to not have the system throw errors down the line
+		if (!menu_map.containsKey(cur_menu_item_key))
+		{
+			System.out.println("Cannot find menu item id [" + cur_menu_item_key + "] in Menu Map");
+			return;
+		}
+		
+		// because adding menu item is a precursor to customizing that ingredient, make sure cur_customizing_item_price is reset to 0
+		if (Math.abs(cur_customizing_item_price - 0.0) >= 0.000001)
+		{
+			System.out.println("Menu Item Key [" + cur_menu_item_key + "] has been been added to the card due to error in cur_customizing_item_price. cur_customizing_item_price is $" 
+					+ cur_customizing_item_price + ". Please remember to reset it when finishing with the last item");
+			return;
+		}
+		
+		cart.put(cur_menu_item_key, new Vector<String> ());
+		System.out.println("Current Cart outputted in add_cur_menu_item in CartHelper:\n" + cart);
+		System.out.println("Menu Item key [" + cur_menu_item_key + "] (" + menu_map.get(cur_menu_item_key).getName() + ") has been added to the cart");
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Map<String, Vector<String>> hi = new HashMap<String, Vector<String>>();

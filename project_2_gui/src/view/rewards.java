@@ -185,8 +185,7 @@ public class rewards extends JFrame {
 					Vector<Vector<String>> menu_list = api_connection.get_menu_data();
 					
 					// Add medium fries to order
-					// TODO: Make sure the fries are not added to total cost
-					api_connection.choose_menu_item_to_customize("S2");
+					api_connection.add_free_item_to_cart("S2");
 					Ingredients ingr_frame = new Ingredients(api_connection);
 					ingr_frame.setVisible(true);
 					dispose();

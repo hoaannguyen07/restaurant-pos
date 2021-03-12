@@ -52,7 +52,6 @@ public class beverageMenu extends JFrame {
 	private JPanel panel;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
-	private JLabel lblNewLabel_2;
 
 	/**
 	 * Launch the application.
@@ -236,12 +235,6 @@ public class beverageMenu extends JFrame {
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 20));
 		lblNewLabel_1.setBounds(46, 107, 491, 32);
 		contentPane.add(lblNewLabel_1);
-		
-		lblNewLabel_2 = new JLabel("* Note that any customization will be finalized and cannot be changed");
-		lblNewLabel_2.setForeground(new Color(165, 42, 42));
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_2.setBounds(59, 529, 466, 14);
-		contentPane.add(lblNewLabel_2);
 	}
 	
 	void delete_all_rows_in_table()

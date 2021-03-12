@@ -3,18 +3,15 @@
  */
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.SystemColor;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
@@ -22,6 +19,7 @@ import javax.swing.Action;
 
 public class FinishPayment extends JFrame {
 	
+	private static final long serialVersionUID = 1L;
 	private double price;
 	private JPanel contentPane;
 	private final Action action = new SwingAction();
@@ -59,7 +57,7 @@ public class FinishPayment extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 370, 234);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 139, 139));
+		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -92,6 +90,7 @@ public class FinishPayment extends JFrame {
 		contentPane.add(lblNewLabel_2);
 	}
 	private class SwingAction extends AbstractAction {
+		private static final long serialVersionUID = 1L;
 		public SwingAction() {
 			putValue(NAME, "Complete");
 			putValue(SHORT_DESCRIPTION, "Some short description");

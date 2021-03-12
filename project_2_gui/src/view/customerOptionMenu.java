@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import java.awt.Color;
 
 public class customerOptionMenu extends JFrame {
 	
@@ -110,6 +111,7 @@ public class customerOptionMenu extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -132,7 +134,7 @@ public class customerOptionMenu extends JFrame {
 		btnViewLastMeal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnViewLastMeal) { 
-					prevOrder2 view_prev = new prevOrder2(api_connection);
+					prevOrder2 view_prev = new prevOrder2(api_connection); 
 					view_prev.setVisible(true);
 					dispose();
 				}

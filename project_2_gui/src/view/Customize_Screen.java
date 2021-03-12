@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -12,8 +11,6 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Color;
-import javax.swing.JScrollPane;
-import java.awt.Component;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.util.Vector;
@@ -25,6 +22,7 @@ import java.awt.event.MouseEvent;
 
 public class Customize_Screen extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private String order_test;
 	private String ingredient_id;
 	
@@ -94,7 +92,7 @@ public class Customize_Screen extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 328, 300);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(51, 153, 255));
+		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -124,7 +122,7 @@ public class Customize_Screen extends JFrame {
 		
 		JButton button_confirm = new JButton("Confirm");
 		button_confirm.setAction(action);
-		button_confirm.setBackground(new Color(255, 255, 255));
+		button_confirm.setBackground(new Color(204, 0, 0));
 		button_confirm.setBounds(107, 212, 91, 23);
 		contentPane.add(button_confirm);
 		button_back.addMouseListener(new MouseAdapter() {
@@ -143,6 +141,7 @@ public class Customize_Screen extends JFrame {
 		contentPane.add(button_back);
 	}
 	private class SwingAction extends AbstractAction {
+		private static final long serialVersionUID = 1L;
 		public SwingAction() {
 			putValue(NAME, "Confirm");
 			putValue(SHORT_DESCRIPTION, "Some short description");

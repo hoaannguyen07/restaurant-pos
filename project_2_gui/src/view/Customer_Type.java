@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Action;
 import javax.swing.JButton;
+import java.awt.Color;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -84,10 +85,10 @@ public class Customer_Type extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panel_layout.setBackground(new java.awt.Color(0, 139, 139));
+        panel_layout.setBackground(new Color(0, 153, 204));
         panel_layout.setForeground(new java.awt.Color(51, 51, 255));
 
-        panel_customer.setBackground(new java.awt.Color(0, 102, 102));
+        panel_customer.setBackground(new Color(204, 0, 0));
         panel_customer.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         label_customer.setFont(new java.awt.Font("Tahoma", 1, 40)); // NOI18N
@@ -114,7 +115,7 @@ public class Customer_Type extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panel_manager.setBackground(new java.awt.Color(0, 102, 102));
+        panel_manager.setBackground(new java.awt.Color(204, 0, 0));
         panel_manager.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         label_manager.setFont(new java.awt.Font("Tahoma", 1, 40)); // NOI18N

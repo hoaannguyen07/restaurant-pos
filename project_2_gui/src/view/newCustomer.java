@@ -18,6 +18,7 @@ import javax.swing.JPasswordField;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import java.awt.Color;
 
 public class newCustomer extends JFrame {
 	
@@ -98,6 +99,7 @@ public class newCustomer extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

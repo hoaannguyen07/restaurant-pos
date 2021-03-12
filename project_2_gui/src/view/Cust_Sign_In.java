@@ -168,7 +168,7 @@ public class Cust_Sign_In extends JFrame {
 		
 		JButton button_back = new JButton("Back");
         button_back.setAction(action);
-        button_back.setBounds(239, 303, 111, 26);
+        button_back.setBounds(21, 11, 58, 26);
         contentPane.add(button_back);
         
         button_back.addActionListener(new ActionListener() {

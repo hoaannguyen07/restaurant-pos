@@ -193,7 +193,7 @@ public class Manager_Sign_In extends JFrame {
 			}
 		});
 		panel_log_in.setBackground(new Color(0, 51, 51));
-		panel_log_in.setBounds(193, 263, 202, 54);
+		panel_log_in.setBounds(193, 246, 202, 54);
 		
 		contentPane.add(panel_log_in);
 		panel_log_in.setLayout(null);
@@ -212,7 +212,6 @@ public class Manager_Sign_In extends JFrame {
 		
 		JButton button_back = new JButton("Back");
 		button_back.setForeground(new Color(255, 255, 255));
-//		button_back.setForeground(new Color(0, 0, 0));
 		button_back.setBackground(new Color(0, 51, 51));
         button_back.setAction(action);
         button_back.setBounds(25, 11, 55, 26);

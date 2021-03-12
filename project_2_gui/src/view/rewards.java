@@ -1,32 +1,21 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import javax.swing.SpinnerListModel;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 
-import java.awt.Button;
 import java.awt.Color;
 import javax.swing.SwingConstants;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.Font;
-import javax.swing.JSpinner;
-import javax.swing.JProgressBar;
-import java.beans.PropertyChangeListener;
-import java.util.Vector;
-import java.beans.PropertyChangeEvent;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class rewards extends JFrame {
+	private static final long serialVersionUID = 1L;
 	DataHelper api_connection;		
 	public static String first;
 	public static String last;
@@ -87,6 +76,7 @@ public class rewards extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -96,9 +86,7 @@ public class rewards extends JFrame {
 		free_entree_text.setBounds(138, 145, 116, 26);
 		contentPane.add(free_entree_text);
 		
-		String[] visits = {"0", "1", "2", "3", "4"};
-		SpinnerListModel visitslist = new SpinnerListModel(visits);
-		panel_3.setBackground(new Color(128, 128, 128));
+		panel_3.setBackground(new Color(204, 0, 0));
 		panel_3.setBounds(24, 145, 85, 33);
 		
 		contentPane.add(panel_3);
@@ -181,9 +169,6 @@ public class rewards extends JFrame {
 		btnAddToCart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnAddToCart) { 
-					// Must update menu first
-					Vector<Vector<String>> menu_list = api_connection.get_menu_data();
-					
 					// Add medium fries to order
 					api_connection.add_free_item_to_cart("S2");
 					Ingredients ingr_frame = new Ingredients(api_connection);

@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import java.awt.Color;
 
 public class prevOrder2 extends JFrame {
 	
@@ -68,6 +69,7 @@ public class prevOrder2 extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 451, 457);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

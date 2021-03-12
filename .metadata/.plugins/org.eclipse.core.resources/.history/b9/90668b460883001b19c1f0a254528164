@@ -6,7 +6,6 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
-import java.util.Calendar;
 
 import javax.swing.*;
 
@@ -899,53 +898,5 @@ public class DataHelper {
 		return null;
 	}
 	
-	Vector<Vector<String>> getOrders(Calendar startDate, Calendar endDate) {
-		String startYear = Integer.toString(startDate.get(Calendar.YEAR));
-		String startMonth = Integer.toString(startDate.get(Calendar.MONTH) + 1);
-		String startDay = Integer.toString(startDate.get(Calendar.DATE));
-		String endYear = Integer.toString(endDate.get(Calendar.YEAR));
-		String endMonth = Integer.toString(endDate.get(Calendar.MONTH) + 1);
-		String endDay = Integer.toString(endDate.get(Calendar.DATE));
-		
-		if (startMonth.length() < 2) {
-			startMonth = "0" + startMonth;
-		}
-		if (startDay.length() < 2) {
-			startDay = "0" + startDay;
-		}
-		if (endMonth.length() < 2) {
-			endMonth = "0" + endMonth;
-		}
-		if (endDay.length() < 2) {
-			endDay = "0" + endDay;
-		}
-		
-		Vector<Vector<String>> orders = new Vector<Vector<String>>();
-		
-		try {
-			Statement stmt = conn.createStatement();
-			
-			String sql_stmt = "SELECT * FROM orders WHERE date BETWEEN '" + startYear + startMonth + startDay + "' and '" + endYear + endMonth + endDay + "'";
-			System.out.println(sql_stmt);
-			ResultSet result = stmt.executeQuery(sql_stmt);	
-			
-			while (result.next()) {
-				Vector<String> row = new Vector<String>();
-				row.add(result.getString("totalcost"));
-				row.add(result.getString("entrees"));
-				row.add(result.getString("sides"));
-				row.add(result.getString("beverages"));
-				row.add(result.getString("desserts"));
-				orders.add(row);
-			}
-			
-			return orders;
-			
-		} catch (Exception e) {
-			System.out.println("Failed");
-		}
-		
-		return null;
-	}
 	
 }

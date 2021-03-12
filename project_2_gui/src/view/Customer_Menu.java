@@ -154,7 +154,7 @@ public class Customer_Menu extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 574);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(51, 153, 255));
+		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

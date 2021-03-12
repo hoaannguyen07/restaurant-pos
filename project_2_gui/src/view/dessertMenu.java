@@ -1,17 +1,12 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -28,6 +23,7 @@ import java.awt.event.ActionEvent;
 
 public class dessertMenu extends JFrame {
 	
+	private static final long serialVersionUID = 1L;
 	DataHelper api_connection;
 	private Vector<String> orders = new Vector<String>(); // [0] = entree || [1] = side || [2] = beverage || [3] = dessert
 	
@@ -153,7 +149,7 @@ public class dessertMenu extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 676);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 139, 139));
+		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -231,7 +227,7 @@ public class dessertMenu extends JFrame {
 		panel.add(lblNewLabel);
 		
 		lblNewLabel_1 = new JLabel("Click on the ingredient that you want to customize.");
-		lblNewLabel_1.setForeground(new Color(128, 0, 0));
+		lblNewLabel_1.setForeground(Color.WHITE);
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 20));
 		lblNewLabel_1.setBounds(46, 107, 491, 32);
 		contentPane.add(lblNewLabel_1);
@@ -267,4 +263,3 @@ public class dessertMenu extends JFrame {
 		
 	}
 }
-

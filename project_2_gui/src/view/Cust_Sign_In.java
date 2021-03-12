@@ -85,7 +85,7 @@ public class Cust_Sign_In extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 128, 128));
+		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -168,7 +168,7 @@ public class Cust_Sign_In extends JFrame {
 		
 		JButton button_back = new JButton("Back");
         button_back.setAction(action);
-        button_back.setBounds(239, 329, 111, 26);
+        button_back.setBounds(239, 303, 111, 26);
         contentPane.add(button_back);
         
         button_back.addActionListener(new ActionListener() {
@@ -210,7 +210,7 @@ public class Cust_Sign_In extends JFrame {
 			}
 		});
 		panel.setBackground(new Color(0, 51, 51));
-		panel.setBounds(191, 263, 202, 54);
+		panel.setBounds(191, 237, 202, 54);
 		
 		contentPane.add(panel);
 		panel.setLayout(null);

@@ -19,6 +19,7 @@ import javax.swing.JPasswordField;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import java.awt.Color;
+import java.awt.Font;
 
 public class newCustomer extends JFrame {
 	
@@ -29,7 +30,7 @@ public class newCustomer extends JFrame {
 	private JPanel contentPane;
 	private final JLabel lblFirstName = new JLabel("First Name: ");
 	private final JTextField firstname_text_field = new JTextField("Click here to enter your first name.");
-	private final JLabel lblNewLabel = new JLabel("Last Name");
+	private final JLabel lblNewLabel = new JLabel("Last Name:");
 	private final JTextField lastname_text_field = new JTextField("Click here to enter your last name.");
 	private final JLabel lblUsername = new JLabel("Username:");
 	private final JLabel lblPassword = new JLabel("Password:");
@@ -60,27 +61,30 @@ public class newCustomer extends JFrame {
 	 */
 	public newCustomer(DataHelper api) {
 		api_connection = api;
+		username_textfield.setFont(new Font("Arial", Font.BOLD, 12));
 		username_textfield.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				username_textfield.setText("");
 			}
 		});
-		username_textfield.setBounds(157, 128, 238, 19);
+		username_textfield.setBounds(157, 128, 238, 38);
 		username_textfield.setColumns(10);
+		lastname_text_field.setFont(new Font("Arial", Font.BOLD, 12));
 		lastname_text_field.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) { 
 				lastname_text_field.setText("");
 			}
 		});
-		lastname_text_field.setBounds(157, 77, 238, 19);
+		lastname_text_field.setBounds(157, 77, 238, 40);
 		lastname_text_field.setColumns(10);
+		firstname_text_field.setFont(new Font("Arial", Font.BOLD, 12));
 		firstname_text_field.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) { 
 				firstname_text_field.setText("");
 			}
 		});
-		firstname_text_field.setBounds(157, 30, 238, 19);
+		firstname_text_field.setBounds(157, 30, 238, 36);
 		firstname_text_field.setColumns(10);
 		initGUI();
 	}
@@ -97,45 +101,55 @@ public class newCustomer extends JFrame {
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 482, 330);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		lblFirstName.setBounds(50, 24, 100, 30);
+		lblFirstName.setFont(new Font("Arial", Font.BOLD, 20));
+		lblFirstName.setBounds(21, 30, 117, 30);
 		
 		contentPane.add(lblFirstName);
 		
 		contentPane.add(firstname_text_field);
-		lblNewLabel.setBounds(50, 79, 100, 15);
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		lblNewLabel.setBounds(21, 87, 117, 15);
 		
 		contentPane.add(lblNewLabel);
 		
 		contentPane.add(lastname_text_field);
-		lblUsername.setBounds(50, 128, 100, 19);
+		lblUsername.setFont(new Font("Arial", Font.BOLD, 20));
+		lblUsername.setBounds(21, 135, 117, 19);
 		
 		contentPane.add(lblUsername);
-		lblPassword.setBounds(50, 177, 100, 19);
+		lblPassword.setFont(new Font("Arial", Font.BOLD, 20));
+		lblPassword.setBounds(21, 186, 117, 19);
 		
 		contentPane.add(lblPassword);
 		
 		contentPane.add(username_textfield);
 		
-		JButton button_back = new JButton("Back");
-        button_back.setAction(action);
-        button_back.setBounds(134, 225, 66, 26);
-        contentPane.add(button_back);
+		JButton btnBack = new JButton("Back:");
+		btnBack.setForeground(new Color(255, 255, 255));
+		btnBack.setBackground(new Color(153, 0, 0));
+		btnBack.setFont(new Font("Arial", Font.BOLD, 20));
+        btnBack.setAction(action);
+        btnBack.setBounds(118, 237, 86, 26);
+        contentPane.add(btnBack);
         
-        button_back.addActionListener(new ActionListener() {
+        btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(arg0.getSource() == button_back) {
+				if(arg0.getSource() == btnBack) {
 					Customer_Type view_cust_option = new Customer_Type(api_connection);
 					view_cust_option.setVisible(true);
 					dispose();
 				}
 			}
 		});
+		btnConfirm.setForeground(new Color(255, 255, 255));
+		btnConfirm.setBackground(new Color(153, 0, 0));
+		btnConfirm.setFont(new Font("Arial", Font.BOLD, 20));
         
 		btnConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -165,10 +179,10 @@ public class newCustomer extends JFrame {
 				}
 			}
 		});
-		btnConfirm.setBounds(202, 226, 117, 25);
+		btnConfirm.setBounds(228, 238, 117, 25);
 		
 		contentPane.add(btnConfirm);
-		passwordField.setBounds(157, 177, 238, 19);
+		passwordField.setBounds(157, 177, 238, 37);
 		
 		contentPane.add(passwordField);
 	}

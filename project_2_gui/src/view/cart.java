@@ -16,6 +16,11 @@ import javax.swing.JScrollPane;
 import java.awt.Component;
 import javax.swing.JTable;
 import java.util.Vector;
+import java.awt.Color;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class cart extends JFrame {
 	
@@ -75,14 +80,31 @@ public class cart extends JFrame {
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 604, 718);
+		setBounds(100, 100, 604, 537);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		btnPayment.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Recommendations rec = new Recommendations(api_connection);
+				rec.setVisible(true);
+				dispose();
+			}
+		});
 		btnPayment.setBounds(465, 0, 117, 25);
 		
 		contentPane.add(btnPayment);
+		btnBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				customerOptionMenu com = new customerOptionMenu(api_connection);
+				com.setVisible(true);
+				dispose();
+			}
+		});
 		btnBack.setBounds(12, 0, 117, 25);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -93,7 +115,9 @@ public class cart extends JFrame {
 		});
 		
 		contentPane.add(btnBack);
-		lblYourCart.setBounds(182, 31, 82, 33);
+		lblYourCart.setFont(new Font("Arial Black", Font.BOLD, 20));
+		lblYourCart.setHorizontalAlignment(SwingConstants.CENTER);
+		lblYourCart.setBounds(221, 53, 149, 53);
 		
 		contentPane.add(lblYourCart);
 		

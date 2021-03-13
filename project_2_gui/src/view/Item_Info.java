@@ -7,7 +7,7 @@ package view;
  */
 public class Item_Info {
 	private String name;
-	private double price;
+	private Double price;
 	
 	Item_Info()
 	{
@@ -15,7 +15,7 @@ public class Item_Info {
 		this.price = 0.0;
 	}
 	
-	Item_Info(String item_name, double item_price)
+	Item_Info(String item_name, Double item_price)
 	{
 		this.name = item_name;
 		this.price = item_price;
@@ -31,7 +31,7 @@ public class Item_Info {
 	/**
 	 * @return the price
 	 */
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
@@ -45,7 +45,7 @@ public class Item_Info {
 	/**
 	 * @param price the price to set
 	 */
-	public void setPrice(double item_price) {
+	public void setPrice(Double item_price) {
 		this.price = item_price;
 	}
 

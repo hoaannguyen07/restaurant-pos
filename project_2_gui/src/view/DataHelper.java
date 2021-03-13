@@ -1133,6 +1133,34 @@ public class DataHelper {
 		return ordered_trending_items;
 	}
 	
+	Vector<Vector<String>> trending_options_for_rec(String type)
+	{
+		System.out.println("Type: " + type);
+		Vector<Vector<String>> ordered_trending_items = new Vector<Vector<String>>(); 
+		
+//		if(!type.equals("E") || !type.equals("S") || !type.equals("D") || !type.equals("B")) { 
+//			System.out.println("Proper input was not put in..."); 
+//			System.out.println("Auto choosing entree...");
+//			type = "E";
+//		}
+		
+		Map<String, Integer> trending_map = getOrderAmounts(type);
+		
+		for(Map.Entry<String, Integer> item : trending_map.entrySet())
+		{
+			Vector<String> cur_item = new Vector<String>();
+			String item_name = cart_helper.get_menu_item_name(item.getKey());
+			Double item_price = cart_helper.get_menu_item_price(item.getKey());
+			
+			cur_item.addElement(item_name);
+			cur_item.addElement(item_price.toString());
+			
+			ordered_trending_items.addElement(cur_item);
+		}
+		
+		return ordered_trending_items;
+	}
+	
 	void writeOrdertoDatabase() { 
 		int order_id; 
 		Statement stmt;
@@ -1149,8 +1177,6 @@ public class DataHelper {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 	}
 	
 	void closeConnection() { 

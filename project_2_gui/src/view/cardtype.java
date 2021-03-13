@@ -52,7 +52,7 @@ public class cardtype extends JFrame {
 	private final Action action = new SwingAction();
 	
 	//query variables
-	protected static double price; 
+	protected static double total_cost; 
 	private static String year;
 	private static String month;
 	private static String sec_code_str;
@@ -60,7 +60,7 @@ public class cardtype extends JFrame {
 	private static String expiration_date;
 	
 	DataHelper api_connection;
-	CartHelper cart;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -80,13 +80,13 @@ public class cardtype extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public cardtype(double current_price) {
+	public cardtype(double current_total_cost) {
 		security_code.setBounds(299, 237, 46, 20);
 		security_code.setColumns(10);
 		card_num_entry.setBounds(299, 130, 130, 20);
 		card_num_entry.setColumns(16);
-		price = current_price;
-		System.out.println(price);
+		total_cost = current_total_cost;
+		System.out.println(total_cost);
 		initGUI();
 	}
 	
@@ -99,8 +99,9 @@ public class cardtype extends JFrame {
 		card_num_entry.setBounds(299, 130, 218, 26);
 		card_num_entry.setColumns(16);
 		
-		price = this.cart.getTotal_cost();
+		
 		this.api_connection = api;
+		total_cost = this.api_connection.cart_helper.getTotal_cost();
 		
 		System.out.println("API name in cardtype constructor: " + this.api_connection.getFirst_name());
 		
@@ -250,7 +251,7 @@ public class cardtype extends JFrame {
 					} if (sign_in_status == true) {
 						card_verify_text.setText("Security code: " + security_code.getText() 
 							+ " and card number: " + card_num_entry.getText());
-						FinishPayment view_payment = new FinishPayment(price, api_connection);
+						FinishPayment view_payment = new FinishPayment(total_cost, api_connection);
 						view_payment.setVisible(true);
 						dispose();
 					}

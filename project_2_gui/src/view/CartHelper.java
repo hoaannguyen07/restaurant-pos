@@ -143,6 +143,18 @@ public class CartHelper {
 		return menu_map.get(menu_item_id).getName();
 	}
 	
+	public Double get_menu_item_price(String menu_item_id)
+	{
+		// check for errors that might happen when getting name from map
+		if (!menu_map.containsKey(menu_item_id))
+		{
+			System.out.println("get_menu_item_name() called but an error occured");
+			System.out.println("Menu item id [" + menu_item_id + "] is not in menu map");
+			return -1.0;
+		}
+		return menu_map.get(menu_item_id).getPrice();
+	}
+	
 	public String get_ingredient_item_name(String ingredient_item_id)
 	{
 		// check for errors that might happen when getting name from map
@@ -153,6 +165,18 @@ public class CartHelper {
 			return "";
 		}
 		return ingredients_map.get(ingredient_item_id).getName();
+	}
+	
+	public Double get_ingredient_item_price(String ingredient_item_id)
+	{
+		// check for errors that might happen when getting name from map
+		if (!ingredients_map.containsKey(ingredient_item_id))
+		{
+			System.out.println("get_ingredient_item_name() called but an error occured");
+			System.out.println("Ingredient item id [" + ingredient_item_id + "] is not in ingredient map");
+			return -1.0;
+		}
+		return ingredients_map.get(ingredient_item_id).getPrice();
 	}
 	
 	/**

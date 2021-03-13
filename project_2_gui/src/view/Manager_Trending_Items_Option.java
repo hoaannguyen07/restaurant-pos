@@ -35,17 +35,12 @@ public class Manager_Trending_Items_Option extends JFrame {
 	
 	public static final Vector<String> TRENDING_HEADER = new Vector<String>();
 	public static final Vector<Vector<String>> NULL_DATA = new Vector<Vector<String>>();
-	public DefaultTableModel model_trending_up;
-	public DefaultTableModel model_trending_down;
+	public DefaultTableModel model_trending;
 	private JPanel contentPane;
-	private JPanel contentEntree;
-	private JScrollPane scrollpanel_trending_up;
-	private JTable table_trending_up;
-	private JScrollPane scrollpanel_trending_down = new JScrollPane();
-	private JTable table_trending_down;
+	private JScrollPane scrollpanel_trending;
+	private JTable table_trending;
 	private final JButton button_back = new JButton("Back");
-	private final JLabel label_trending_up = new JLabel("TRENDING UP");
-	private final JLabel label_trending_up_1 = new JLabel("TRENDING DOWN");
+	private final JLabel lblTrending = new JLabel("TRENDING");
 
 	/**
 	 * Launch the application.
@@ -100,8 +95,7 @@ public class Manager_Trending_Items_Option extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				ordered_times = api_connection.trending_options("E");
 				System.out.println(ordered_times);
-				show_data_trending_up();
-				show_data_trending_down();
+				show_trending_data_descending();
 			}
 		});
 		btnEntrees.setBounds(35, 89, 163, 48);
@@ -116,8 +110,7 @@ public class Manager_Trending_Items_Option extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				ordered_times = api_connection.trending_options("S");
 				System.out.println(ordered_times);
-				show_data_trending_up();
-				show_data_trending_down();
+				show_trending_data_descending();
 			}
 		});
 		btnSides.setBounds(241, 89, 163, 48);
@@ -132,8 +125,7 @@ public class Manager_Trending_Items_Option extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				ordered_times = api_connection.trending_options("D");
 				System.out.println(ordered_times);
-				show_data_trending_up();
-				show_data_trending_down();
+				show_trending_data_descending();
 			}
 		});
 		btnDesserts.setBounds(35, 159, 163, 48);
@@ -148,8 +140,7 @@ public class Manager_Trending_Items_Option extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				ordered_times = api_connection.trending_options("B");
 				System.out.println(ordered_times);
-				show_data_trending_up();
-				show_data_trending_down();
+				show_trending_data_descending();
 			}
 		});
 		btnBeverage.setBounds(241, 159, 163, 48);
@@ -158,23 +149,14 @@ public class Manager_Trending_Items_Option extends JFrame {
 		btnBeverage.setFont(new Font("Arial", Font.BOLD, 20));
 		contentPane.add(btnBeverage);
 		
-		table_trending_up = new JTable(NULL_DATA,TRENDING_HEADER);
-		scrollpanel_trending_up = new JScrollPane(table_trending_up);
-		scrollpanel_trending_up.setBounds(35, 255, 369, 62);
-		model_trending_up = (DefaultTableModel)table_trending_up.getModel();
+		table_trending = new JTable(NULL_DATA,TRENDING_HEADER);
+		scrollpanel_trending = new JScrollPane(table_trending);
+		scrollpanel_trending.setBounds(35, 255, 369, 164);
+		model_trending = (DefaultTableModel)table_trending.getModel();
 		
-		contentPane.add(scrollpanel_trending_up);
+		contentPane.add(scrollpanel_trending);
 		
-		scrollpanel_trending_up.setViewportView(table_trending_up);
-		
-		table_trending_down = new JTable(NULL_DATA,TRENDING_HEADER);
-		scrollpanel_trending_down = new JScrollPane(table_trending_down);
-		scrollpanel_trending_down.setBounds(35, 380, 369, 62);
-		model_trending_down = (DefaultTableModel)table_trending_down.getModel();
-		
-		contentPane.add(scrollpanel_trending_down);
-		
-		scrollpanel_trending_down.setViewportView(table_trending_down);
+		scrollpanel_trending.setViewportView(table_trending);
 		button_back.setBackground(new Color(204, 0, 0));
 		button_back.addMouseListener(new MouseAdapter() {
 			@Override
@@ -187,16 +169,11 @@ public class Manager_Trending_Items_Option extends JFrame {
 		button_back.setBounds(10, 11, 55, 23);
 		
 		contentPane.add(button_back);
-		label_trending_up.setHorizontalAlignment(SwingConstants.CENTER);
-		label_trending_up.setFont(new Font("Arial", Font.BOLD, 20));
-		label_trending_up.setBounds(141, 230, 156, 26);
+		lblTrending.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTrending.setFont(new Font("Arial", Font.BOLD, 20));
+		lblTrending.setBounds(141, 230, 156, 26);
 		
-		contentPane.add(label_trending_up);
-		label_trending_up_1.setHorizontalAlignment(SwingConstants.CENTER);
-		label_trending_up_1.setFont(new Font("Arial", Font.BOLD, 20));
-		label_trending_up_1.setBounds(125, 355, 187, 26);
-		
-		contentPane.add(label_trending_up_1);
+		contentPane.add(lblTrending);
 	}
 	
 	void delete_all_rows_in_table(DefaultTableModel model)
@@ -209,45 +186,15 @@ public class Manager_Trending_Items_Option extends JFrame {
 		}
 	}
 	
-	void show_data_trending_up()
+	void show_trending_data_descending()
 	{
-		this.delete_all_rows_in_table(model_trending_up);
+		this.delete_all_rows_in_table(model_trending);
 		
 		System.out.println("Show data trending up");
 		
-		// if there are only 2 items, only have 1 up trending
-		if (ordered_times.size() < 4)
+		for(int i = ordered_times.size() - 1; i >= 0; i--)
 		{
-			model_trending_up.addRow(ordered_times.elementAt(ordered_times.size() - 1)); // take last one only b/c there is only 3
+			model_trending.addRow(ordered_times.elementAt(i));
 		}
-		else
-		{
-			for(int i = ordered_times.size() - 1; i >= ordered_times.size() - 2; i--)
-			{
-				model_trending_up.addRow(ordered_times.elementAt(i));
-			}
-		}
-		
-	}
-	
-	void show_data_trending_down()
-	{
-		this.delete_all_rows_in_table(model_trending_down);
-		
-		System.out.println("Show data trending down");
-		
-		// if there are only 2 items, only have 1 up trending
-		if (ordered_times.size() < 4)
-		{
-			model_trending_down.addRow(ordered_times.elementAt(0)); // only show top trending down b/c there are only < 3
-		}
-		else
-		{
-			for(int i = 0; i < 2; i++)
-			{
-				model_trending_down.addRow(ordered_times.elementAt(i));
-			}
-		}
-		
 	}
 }

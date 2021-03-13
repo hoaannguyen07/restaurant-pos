@@ -219,6 +219,10 @@ public class Ingredients extends JFrame {
 						dessertMenu view_cust_dessert = new dessertMenu(api_connection);
 						view_cust_dessert.setVisible(true);
 						break;
+					case 5:
+						Recommendations rec = new Recommendations(api_connection);
+						rec.setVisible(true);
+						break;
 					case 6:
 						rewards view_rewards = new rewards(api_connection);
 						view_rewards.setVisible(true);

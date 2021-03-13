@@ -84,6 +84,9 @@ public class menuSelect extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JButton btnFullMenu = new JButton("Full Menu");
+		btnFullMenu.setForeground(new Color(255, 255, 255));
+		btnFullMenu.setBackground(new Color(153, 0, 0));
+		btnFullMenu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnFullMenu.setBounds(162, 62, 109, 31);
 		btnFullMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -97,6 +100,9 @@ public class menuSelect extends JFrame {
 		contentPane.add(btnFullMenu);
 		
 		JButton btnEntrees = new JButton("Entrees");
+		btnEntrees.setBackground(new Color(153, 0, 0));
+		btnEntrees.setForeground(new Color(255, 255, 255));
+		btnEntrees.setFont(new Font("Arial", Font.BOLD, 15));
 		btnEntrees.setBounds(81, 119, 109, 31);
 		btnEntrees.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -110,6 +116,9 @@ public class menuSelect extends JFrame {
 		contentPane.add(btnEntrees);
 		
 		JButton btnBeverages = new JButton("Beverages");
+		btnBeverages.setBackground(new Color(153, 0, 0));
+		btnBeverages.setForeground(new Color(255, 255, 255));
+		btnBeverages.setFont(new Font("Arial", Font.BOLD, 14));
 		btnBeverages.setBounds(81, 183, 109, 31);
 		btnBeverages.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -123,6 +132,9 @@ public class menuSelect extends JFrame {
 		contentPane.add(btnBeverages);
 		
 		JButton btnSides = new JButton("Sides");
+		btnSides.setForeground(new Color(255, 255, 255));
+		btnSides.setBackground(new Color(153, 0, 0));
+		btnSides.setFont(new Font("Arial", Font.BOLD, 15));
 		btnSides.setBounds(243, 119, 109, 31);
 		btnSides.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -136,6 +148,9 @@ public class menuSelect extends JFrame {
 		contentPane.add(btnSides);
 		
 		JButton btnDesserts = new JButton("Desserts");
+		btnDesserts.setForeground(new Color(255, 255, 255));
+		btnDesserts.setBackground(new Color(153, 0, 0));
+		btnDesserts.setFont(new Font("Arial", Font.BOLD, 15));
 		btnDesserts.setBounds(243, 183, 109, 31);
 		btnDesserts.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -149,6 +164,9 @@ public class menuSelect extends JFrame {
 		contentPane.add(btnDesserts);
 		
 		JButton btnBack = new JButton("Back");
+		btnBack.setForeground(new Color(255, 255, 255));
+		btnBack.setBackground(new Color(153, 0, 0));
+		btnBack.setFont(new Font("Arial", Font.BOLD, 15));
 		btnBack.setBounds(10, 14, 72, 23);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

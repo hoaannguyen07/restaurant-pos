@@ -151,7 +151,7 @@ public class beverageMenu extends JFrame {
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 676);
+		setBounds(100, 100, 600, 408);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -185,7 +185,7 @@ public class beverageMenu extends JFrame {
 		});
 		JScrollPane pane_menu = new JScrollPane(table_menu);
 		model = (DefaultTableModel)table_menu.getModel();
-		pane_menu.setBounds(10, 144, 568, 374);
+		pane_menu.setBounds(10, 144, 568, 119);
 //		table_menu.setPreferredSize(568,374)
 		contentPane.add(pane_menu);
 		pane_menu.setViewportView(table_menu);
@@ -196,6 +196,9 @@ public class beverageMenu extends JFrame {
 		contentPane.add(lblEntreeMenu);
 		
 		btnBack = new JButton("Back");
+		btnBack.setFont(new Font("Arial", Font.BOLD, 15));
+		btnBack.setForeground(new Color(255, 255, 255));
+		btnBack.setBackground(new Color(153, 0, 0));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnBack) { 
@@ -209,12 +212,13 @@ public class beverageMenu extends JFrame {
 		contentPane.add(btnBack);
 		
 		panel = new JPanel();
-		panel.setBackground(new Color(255, 255, 255));
-		panel.setBounds(46, 551, 200, 75);
+		panel.setBackground(new Color(153, 0, 0));
+		panel.setBounds(46, 283, 200, 75);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		lblNewLabel = new JLabel("ADD TO CART");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Arial Black", Font.BOLD, 20));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(10, 11, 180, 53);
@@ -235,12 +239,13 @@ public class beverageMenu extends JFrame {
 				dispose();
 			}
 		});
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBounds(301, 551, 200, 75);
+		panel_1.setBackground(new Color(153, 0, 0));
+		panel_1.setBounds(292, 283, 200, 75);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
 		lblCheckout = new JLabel("CHECKOUT");
+		lblCheckout.setForeground(new Color(255, 255, 255));
 		lblCheckout.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCheckout.setFont(new Font("Arial Black", Font.BOLD, 20));
 		lblCheckout.setBounds(10, 11, 180, 53);

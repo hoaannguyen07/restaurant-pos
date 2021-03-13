@@ -11,6 +11,7 @@ import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Font;
 
 public class customerOptionMenu extends JFrame {
 	
@@ -118,6 +119,9 @@ public class customerOptionMenu extends JFrame {
 		labelUserGivenName.setText(user);
 		lblFirstName.setText(first);
 		lblLastName.setText(last);
+		btnViewMenu.setForeground(new Color(255, 255, 255));
+		btnViewMenu.setFont(new Font("Arial", Font.BOLD, 20));
+		btnViewMenu.setBackground(new Color(153, 0, 0));
 		
 		btnViewMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -131,6 +135,9 @@ public class customerOptionMenu extends JFrame {
 		btnViewMenu.setBounds(88, 30, 250, 48);
 		
 		contentPane.add(btnViewMenu);
+		btnViewLastMeal.setFont(new Font("Arial", Font.BOLD, 20));
+		btnViewLastMeal.setBackground(new Color(153, 0, 0));
+		btnViewLastMeal.setForeground(new Color(255, 255, 255));
 		btnViewLastMeal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnViewLastMeal) { 
@@ -143,6 +150,9 @@ public class customerOptionMenu extends JFrame {
 		btnViewLastMeal.setBounds(88, 90, 250, 48);
 		
 		contentPane.add(btnViewLastMeal);
+		btnPaymentInformation.setFont(new Font("Arial", Font.BOLD, 20));
+		btnPaymentInformation.setForeground(new Color(255, 255, 255));
+		btnPaymentInformation.setBackground(new Color(153, 0, 0));
 		btnPaymentInformation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnPaymentInformation) { 
@@ -155,6 +165,9 @@ public class customerOptionMenu extends JFrame {
 		btnPaymentInformation.setBounds(88, 150, 250, 48);
 		
 		contentPane.add(btnPaymentInformation);
+		btnRewards.setBackground(new Color(153, 0, 0));
+		btnRewards.setForeground(new Color(255, 255, 255));
+		btnRewards.setFont(new Font("Arial", Font.BOLD, 20));
 		btnRewards.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnRewards) { 

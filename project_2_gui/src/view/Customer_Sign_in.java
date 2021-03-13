@@ -81,48 +81,6 @@ public class Customer_Sign_in extends JFrame {
 					String user_id= textField.getText();
 					String user_password = textField_1.getText();
 					String first_name = null, last_name = null;
-					
-					//api_connection.verify_customer(user_id,  user_password);
-					
-//					Connection conn = null;
-//					try {
-//						Class.forName("org.postgresql.Driver");
-//						conn = DriverManager.getConnection("jdbc:postgresql://csce-315-db.engr.tamu.edu/db907_group9_project2",
-//								"zali110", "227009838");
-//					} catch(Exception e) { 
-//						 e.printStackTrace();
-//					     System.err.println(e.getClass().getName()+": "+e.getMessage());
-//					     System.exit(0);
-//					}
-//					
-//					try { 
-//						Statement stmnt = conn.createStatement();
-//						String sqlStatement = "SELECT customer.id, customer.password FROM customer WHERE customer.id LIKE '" + user_id + 
-//								"%'" + "AND customer.password LIKE '" + user_password + "' LIMIT 1";
-//						ResultSet rs = stmnt.executeQuery(sqlStatement);
-//						sqlStatement = "SELECT customer.firstname, customer.lastname FROM customer WHERE id like '" + user_id + "'";
-//						rs = stmnt.executeQuery(sqlStatement);
-//						while(rs.next()) { 
-//							first_name = rs.getString("firstname");
-//							last_name = rs.getString("lastname");
-//						}
-//						
-//						customerOptionMenu view_cust_options = new customerOptionMenu(first_name, last_name, user_id, user_password, 0);
-//						view_cust_options.setVisible(true);
-//						dispose();
-//						
-//					} catch (Exception e) { 
-//						JOptionPane.showMessageDialog(null,"Failed to log in, try again");
-//						Customer_Sign_in try_again = new Customer_Sign_in();
-//						try_again.setVisible(true);
-//						try {
-//							conn.close();
-//						} catch (SQLException e1) {
-//							e1.printStackTrace();
-//						}
-//						dispose();
-//						
-//					}
 				}
 			}
 		});

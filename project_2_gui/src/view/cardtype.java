@@ -60,6 +60,7 @@ public class cardtype extends JFrame {
 	private static String expiration_date;
 	
 	DataHelper api_connection;
+	CartHelper cart;
 	/**
 	 * Launch the application.
 	 */
@@ -98,6 +99,7 @@ public class cardtype extends JFrame {
 		card_num_entry.setBounds(299, 130, 218, 26);
 		card_num_entry.setColumns(16);
 		
+		price = this.cart.getTotal_cost();
 		this.api_connection = api;
 		
 		System.out.println("API name in cardtype constructor: " + this.api_connection.getFirst_name());

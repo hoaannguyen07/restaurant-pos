@@ -52,7 +52,7 @@ public class managerOptionMenu extends JFrame {
 		
 	void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 384);
+		setBounds(100, 100, 450, 535);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -111,6 +111,33 @@ public class managerOptionMenu extends JFrame {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(95, 11, 247, 54);
 		contentPane.add(lblNewLabel);
+		
+		JButton btnNewButton_1 = new JButton("Recommendations");
+		btnNewButton_1.setForeground(new Color(255, 255, 255));
+		btnNewButton_1.setBackground(new Color(153, 0, 0));
+		btnNewButton_1.setFont(new Font("Arial", Font.BOLD, 20));
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_1.setBounds(103, 331, 228, 54);
+		contentPane.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Exit");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == btnNewButton_2) { 
+					User_Type user_choose = new User_Type(api_connection);
+					user_choose.setVisible(true);
+					dispose();
+				}
+			}
+		});
+		btnNewButton_2.setBackground(new Color(153, 0, 0));
+		btnNewButton_2.setForeground(new Color(255, 255, 255));
+		btnNewButton_2.setFont(new Font("Arial", Font.BOLD, 20));
+		btnNewButton_2.setBounds(103, 415, 228, 54);
+		contentPane.add(btnNewButton_2);
 	}
 }
 

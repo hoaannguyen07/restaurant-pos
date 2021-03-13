@@ -100,8 +100,12 @@ public class cart extends JFrame {
 		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				customerOptionMenu com = new customerOptionMenu(api_connection);
-				com.setVisible(true);
+//				pretty sure this is a bug, should go back to menuSelect()
+//				customerOptionMenu com = new customerOptionMenu(api_connection);
+//				com.setVisible(true);
+				menuSelect menu = new menuSelect(api_connection);
+				menu.setVisible(true);
+
 				dispose();
 			}
 		});
@@ -109,7 +113,11 @@ public class cart extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnBack) { 
-//					prevOrder2 go_back = new PrevOrder2 (first, last, user, pass);
+					// just makes it so you can click anywhere and it will still go back
+					// same functionality as line 103, can be deleted as necessary
+					menuSelect menu = new menuSelect(api_connection);
+					menu.setVisible(true);
+					dispose();
 				}
 			}
 		});

@@ -34,11 +34,13 @@ public class cart extends JFrame {
 	public DefaultTableModel model;
 	
 	private JPanel contentPane;
-	private JButton btnPayment = new JButton("Payment");
-	private JButton btnBack = new JButton("Back");
-	private JLabel lblYourCart = new JLabel("Your Cart");
+	private JButton button_payment = new JButton("Payment");
+	private JButton button_back = new JButton("Back");
+	private JLabel label_title = new JLabel("YOUR CART");
 	private JScrollPane scrollpane_menu = new JScrollPane((Component) null);
 	private JTable table_cart;
+	private final JLabel label_message = new JLabel("");
+	private final JLabel label_price = new JLabel("New label");
 
 	/**
 	 * Launch the application.
@@ -81,24 +83,37 @@ public class cart extends JFrame {
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 604, 537);
+		setBounds(100, 100, 604, 568);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		btnPayment.addMouseListener(new MouseAdapter() {
+		button_payment.setForeground(new Color(255, 255, 255));
+		button_payment.setFont(new Font("Arial", Font.BOLD, 18));
+		button_payment.setBackground(new Color(153, 0, 0));
+		button_payment.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Recommendations rec = new Recommendations(api_connection);
-				rec.setVisible(true);
-				dispose();
+				if (table_cart.getRowCount() == 0) // nothing in cart so there's nothing ot pay
+				{
+					label_message.setText("Your cart is empty");
+				}
+				else
+				{
+					Recommendations rec = new Recommendations(api_connection);
+					rec.setVisible(true);
+					dispose();
+				}
 			}
 		});
-		btnPayment.setBounds(465, 0, 117, 25);
+		button_payment.setBounds(465, 12, 117, 25);
 		
-		contentPane.add(btnPayment);
-		btnBack.addMouseListener(new MouseAdapter() {
+		contentPane.add(button_payment);
+		button_back.setForeground(new Color(255, 255, 255));
+		button_back.setFont(new Font("Arial", Font.BOLD, 15));
+		button_back.setBackground(new Color(153, 0, 0));
+		button_back.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 //				pretty sure this is a bug, should go back to menuSelect()
@@ -110,10 +125,10 @@ public class cart extends JFrame {
 				dispose();
 			}
 		});
-		btnBack.setBounds(12, 0, 117, 25);
-		btnBack.addActionListener(new ActionListener() {
+		button_back.setBounds(10, 11, 69, 25);
+		button_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(arg0.getSource() == btnBack) { 
+				if(arg0.getSource() == button_back) { 
 					// just makes it so you can click anywhere and it will still go back
 					// same functionality as line 103, can be deleted as necessary
 					menuSelect menu = new menuSelect(api_connection);
@@ -123,12 +138,12 @@ public class cart extends JFrame {
 			}
 		});
 		
-		contentPane.add(btnBack);
-		lblYourCart.setFont(new Font("Arial Black", Font.BOLD, 20));
-		lblYourCart.setHorizontalAlignment(SwingConstants.CENTER);
-		lblYourCart.setBounds(221, 53, 149, 53);
+		contentPane.add(button_back);
+		label_title.setFont(new Font("Arial Black", Font.BOLD, 30));
+		label_title.setHorizontalAlignment(SwingConstants.CENTER);
+		label_title.setBounds(177, 44, 238, 53);
 		
-		contentPane.add(lblYourCart);
+		contentPane.add(label_title);
 		
 		table_cart = new JTable(NULL_DATA, CART_HEADER);
 		table_cart.addMouseListener(new MouseAdapter() {
@@ -152,12 +167,22 @@ public class cart extends JFrame {
 		
 		model = (DefaultTableModel)table_cart.getModel();
 		scrollpane_menu = new JScrollPane(table_cart);
-		scrollpane_menu.setBounds(10, 105, 572, 374);
+		scrollpane_menu.setBounds(10, 136, 572, 374);
 		
 		
 		contentPane.add(scrollpane_menu);
 		
 		scrollpane_menu.setViewportView(table_cart);
+		label_message.setForeground(new Color(128, 0, 0));
+		label_message.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label_message.setBounds(20, 108, 343, 24);
+		
+		contentPane.add(label_message);
+		label_price.setFont(new Font("Arial Black", Font.BOLD, 15));
+		label_price.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_price.setBounds(478, 111, 104, 21);
+		label_price.setText("$" + api_connection.cart_helper.getTotal_cost());
+		contentPane.add(label_price);
 	}
 	
 	void delete_all_rows_in_table()

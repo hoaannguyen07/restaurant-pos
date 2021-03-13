@@ -45,13 +45,10 @@ public class dessertMenu extends JFrame {
 	public static String last;
 	public static String user;
 	public static String pass;
-	private JPanel panel;
-	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	
 	private static final int DESSERT_MENU_ID = 4;
-	private JPanel panel_1;
-	private JLabel lblCheckout;
+	private JButton btnCheckout;
 
 	/**
 	 * Launch the application.
@@ -151,7 +148,7 @@ public class dessertMenu extends JFrame {
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 346);
+		setBounds(100, 100, 600, 273);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -185,13 +182,13 @@ public class dessertMenu extends JFrame {
 		});
 		JScrollPane pane_menu = new JScrollPane(table_menu);
 		model = (DefaultTableModel)table_menu.getModel();
-		pane_menu.setBounds(10, 144, 568, 64);
+		pane_menu.setBounds(10, 150, 568, 64);
 //		table_menu.setPreferredSize(568,374)
 		contentPane.add(pane_menu);
 		pane_menu.setViewportView(table_menu);
 		lblEntreeMenu.setFont(new Font("Segoe UI Black", Font.PLAIN, 52));
 		lblEntreeMenu.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEntreeMenu.setBounds(8, 23, 568, 73);
+		lblEntreeMenu.setBounds(10, 39, 568, 73);
 		
 		contentPane.add(lblEntreeMenu);
 		
@@ -208,31 +205,18 @@ public class dessertMenu extends JFrame {
 				}
 			}
 		});
-		btnBack.setBounds(10, 11, 67, 25);
+		btnBack.setBounds(10, 11, 75, 25);
 		contentPane.add(btnBack);
 		
-		panel = new JPanel();
-		panel.setForeground(new Color(255, 255, 255));
-		panel.setBackground(new Color(153, 0, 0));
-		panel.setBounds(46, 219, 200, 75);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		lblNewLabel = new JLabel("ADD TO CART");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Arial Black", Font.BOLD, 20));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(10, 11, 180, 53);
-		panel.add(lblNewLabel);
-		
-		lblNewLabel_1 = new JLabel("Click on the ingredient that you want to customize.");
+		lblNewLabel_1 = new JLabel("Click on the dessert you want to customize.");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setForeground(Color.WHITE);
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 20));
 		lblNewLabel_1.setBounds(46, 107, 491, 32);
 		contentPane.add(lblNewLabel_1);
 		
-		panel_1 = new JPanel();
-		panel_1.addMouseListener(new MouseAdapter() {
+		btnCheckout = new JButton("CHECKOUT");
+		btnCheckout.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				cart c = new cart(api_connection);
@@ -240,17 +224,11 @@ public class dessertMenu extends JFrame {
 				dispose();
 			}
 		});
-		panel_1.setBackground(new Color(153, 0, 0));
-		panel_1.setBounds(297, 219, 200, 76);
-		contentPane.add(panel_1);
-		panel_1.setLayout(null);
-		
-		lblCheckout = new JLabel("CHECKOUT");
-		lblCheckout.setForeground(new Color(255, 255, 255));
-		lblCheckout.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCheckout.setFont(new Font("Arial Black", Font.BOLD, 20));
-		lblCheckout.setBounds(10, 11, 180, 54);
-		panel_1.add(lblCheckout);
+		btnCheckout.setForeground(Color.WHITE);
+		btnCheckout.setFont(new Font("Arial", Font.BOLD, 18));
+		btnCheckout.setBackground(new Color(153, 0, 0));
+		btnCheckout.setBounds(443, 11, 135, 25);
+		contentPane.add(btnCheckout);
 	}
 	
 	void delete_all_rows_in_table()

@@ -45,12 +45,10 @@ public class entreeMenu extends JFrame {
 	public static String last;
 	public static String user;
 	public static String pass;
-	private JPanel panel;
-	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	
 	private static final int ENTREE_MENU_ID = 1;
-	private JLabel lblNewLabel_2;
+	private JButton btnCheckout;
 
 	/**
 	 * Launch the application.
@@ -157,7 +155,7 @@ public class entreeMenu extends JFrame {
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 459);
+		setBounds(100, 100, 600, 345);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -197,7 +195,7 @@ public class entreeMenu extends JFrame {
 		pane_menu.setViewportView(table_menu);
 		lblEntreeMenu.setFont(new Font("Segoe UI Black", Font.PLAIN, 52));
 		lblEntreeMenu.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEntreeMenu.setBounds(10, 23, 568, 73);
+		lblEntreeMenu.setBounds(10, 37, 568, 73);
 		
 		contentPane.add(lblEntreeMenu);
 		
@@ -214,31 +212,22 @@ public class entreeMenu extends JFrame {
 				}
 			}
 		});
-		btnBack.setBounds(10, 11, 67, 25);
+		btnBack.setBounds(10, 11, 78, 25);
 		contentPane.add(btnBack);
 		
-		panel = new JPanel();
-		panel.setForeground(new Color(255, 255, 255));
-		panel.setBackground(new Color(153, 0, 0));
-		panel.setBounds(46, 313, 200, 75);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		lblNewLabel = new JLabel("ADD TO CART");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Arial Black", Font.BOLD, 20));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(10, 11, 180, 53);
-		panel.add(lblNewLabel);
-		
-		lblNewLabel_1 = new JLabel("Click on the ingredient that you want to customize.");
+		lblNewLabel_1 = new JLabel("Click on the entree you want to customize.");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setForeground(Color.WHITE);
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 20));
 		lblNewLabel_1.setBounds(46, 107, 491, 32);
 		contentPane.add(lblNewLabel_1);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.addMouseListener(new MouseAdapter() {
+		btnCheckout = new JButton("CHECKOUT");
+		btnCheckout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnCheckout.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				cart c = new cart(api_connection);
@@ -246,17 +235,11 @@ public class entreeMenu extends JFrame {
 				dispose();
 			}
 		});
-		panel_1.setBackground(new Color(153, 0, 0));
-		panel_1.setBounds(310, 313, 200, 75);
-		contentPane.add(panel_1);
-		panel_1.setLayout(null);
-		
-		lblNewLabel_2 = new JLabel("CHECKOUT");
-		lblNewLabel_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_2.setFont(new Font("Arial Black", Font.BOLD, 20));
-		lblNewLabel_2.setBackground(new Color(153, 0, 0));
-		lblNewLabel_2.setBounds(23, 11, 156, 53);
-		panel_1.add(lblNewLabel_2);
+		btnCheckout.setForeground(Color.WHITE);
+		btnCheckout.setFont(new Font("Arial", Font.BOLD, 18));
+		btnCheckout.setBackground(new Color(153, 0, 0));
+		btnCheckout.setBounds(443, 11, 135, 25);
+		contentPane.add(btnCheckout);
 	}
 	
 	void delete_all_rows_in_table()

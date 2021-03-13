@@ -53,6 +53,8 @@ public class Ingredients extends JFrame {
 	private final JLabel lblNewLabel_2 = new JLabel("SAVE CHANGES");
 	
 	private final Action action = new SwingAction();
+	private final JLabel lblNewLabel_1 = new JLabel("Click on the ingredient you want to customize.");
+	private final JLabel label_menu_item_chosen = new JLabel("New label");
 
 	/**
 	 * Launch the application.
@@ -152,7 +154,7 @@ public class Ingredients extends JFrame {
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 690);
+		setBounds(100, 100, 600, 715);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -183,13 +185,13 @@ public class Ingredients extends JFrame {
 		});
 		JScrollPane pane_menu = new JScrollPane(table_menu);
 		model = (DefaultTableModel)table_menu.getModel();
-		pane_menu.setBounds(10, 138, 568, 374);
+		pane_menu.setBounds(10, 192, 568, 374);
 //		table_menu.setPreferredSize(568,374)
 		contentPane.add(pane_menu);
 		pane_menu.setViewportView(table_menu);
 		lblCustomizationOptions.setFont(new Font("Segoe UI Black", Font.PLAIN, 40));
 		lblCustomizationOptions.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCustomizationOptions.setBounds(10, 11, 568, 73);
+		lblCustomizationOptions.setBounds(10, 86, 568, 73);
 		
 		contentPane.add(lblCustomizationOptions);
 		panel.addMouseListener(new MouseAdapter() {
@@ -237,8 +239,8 @@ public class Ingredients extends JFrame {
 				
 			}
 		});
-		panel.setBackground(new Color(255, 255, 255));
-		panel.setBounds(190, 568, 229, 76);
+		panel.setBackground(new Color(153, 0, 0));
+		panel.setBounds(179, 577, 229, 76);
 		
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -249,6 +251,7 @@ public class Ingredients extends JFrame {
 		panel.add(lblNewLabel_2);
 		
 		JButton button_back = new JButton("Back");
+		button_back.setBackground(new Color(153, 0, 0));
 		button_back.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -256,8 +259,23 @@ public class Ingredients extends JFrame {
 			}
 		});
         button_back.setAction(action);
-        button_back.setBounds(10, 76, 111, 26);
+        button_back.setBounds(10, 11, 64, 26);
         contentPane.add(button_back);
+        lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel_1.setForeground(Color.WHITE);
+        lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 20));
+        lblNewLabel_1.setBounds(48, 151, 491, 32);
+        
+        contentPane.add(lblNewLabel_1);
+        label_menu_item_chosen.setForeground(new Color(153, 0, 0));
+        label_menu_item_chosen.setFont(new Font("Arial", Font.BOLD, 20));
+        label_menu_item_chosen.setHorizontalAlignment(SwingConstants.CENTER);
+        label_menu_item_chosen.setBounds(136, 53, 316, 26);
+        String menu_item_key = api_connection.cart_helper.getCur_menu_item_key();
+        
+        label_menu_item_chosen.setText("Chosen Item: " + api_connection.getItemName(menu_item_key));
+        
+        contentPane.add(label_menu_item_chosen);
         
         button_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

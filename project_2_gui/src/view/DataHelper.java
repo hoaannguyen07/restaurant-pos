@@ -653,6 +653,48 @@ public class DataHelper {
 		}
 	}
 	
+	String getIngredientID(String ingredient_name) {
+		try {
+			Statement stmt = conn.createStatement(); // statement object
+			// create the actual statement to populate the statement object
+			String id = "";
+			String sql_stmt = "SELECT key FROM ingredients WHERE name = '" + ingredient_name + "'";
+			System.out.println("Executing Statement: " + sql_stmt);
+			
+			ResultSet result = stmt.executeQuery(sql_stmt);
+			while(result.next()) {
+				id = result.getString("key");
+			}
+			
+			return id;
+			
+		} catch (Exception e) {
+			System.out.println(e);
+			return "";
+		}
+	}
+	
+	String getIngredientName(String ingredient_id) {
+		try {
+			Statement stmt = conn.createStatement(); // statement object
+			// create the actual statement to populate the statement object
+			String id = "";
+			String sql_stmt = "SELECT name FROM ingredients WHERE key = '" + ingredient_id + "'";
+			System.out.println("Executing Statement: " + sql_stmt);
+			
+			ResultSet result = stmt.executeQuery(sql_stmt);
+			while(result.next()) {
+				id = result.getString("name");
+			}
+			
+			return id;
+			
+		} catch (Exception e) {
+			System.out.println(e);
+			return "";
+		}
+	}
+	
 	Boolean addNewCustomer(String first, String last, String user, String pass) {
 		try {
 			Statement stmt = conn.createStatement(); // statement object

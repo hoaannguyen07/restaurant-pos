@@ -48,6 +48,7 @@ public class Customer_Menu extends JFrame {
 	private final JButton btnCheckout = new JButton("CHECKOUT");
 	
 	private static final int CUSTOMER_MENU_ID = 0;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -154,7 +155,7 @@ public class Customer_Menu extends JFrame {
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 574);
+		setBounds(100, 100, 600, 530);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -188,14 +189,14 @@ public class Customer_Menu extends JFrame {
 		});
 		JScrollPane pane_menu = new JScrollPane(table_menu);
 		model = (DefaultTableModel)table_menu.getModel();
-		pane_menu.setBounds(10, 144, 568, 374);
+		pane_menu.setBounds(10, 169, 568, 305);
 //		table_menu.setPreferredSize(568,374)
 		contentPane.add(pane_menu);
 		pane_menu.setViewportView(table_menu);
-		label_menu_title.setForeground(new Color(255, 255, 255));
+		label_menu_title.setForeground(new Color(0, 0, 0));
 		label_menu_title.setFont(new Font("Segoe UI Black", Font.PLAIN, 52));
 		label_menu_title.setHorizontalAlignment(SwingConstants.CENTER);
-		label_menu_title.setBounds(10, 47, 568, 73);
+		label_menu_title.setBounds(10, 45, 568, 73);
 		
 		contentPane.add(label_menu_title);
 		
@@ -212,7 +213,7 @@ public class Customer_Menu extends JFrame {
 				}
 			}
 		});
-		btnBack.setBounds(10, 11, 67, 25);
+		btnBack.setBounds(10, 11, 74, 25);
 		contentPane.add(btnBack);
 		btnCheckout.addMouseListener(new MouseAdapter() {
 			@Override
@@ -225,9 +226,17 @@ public class Customer_Menu extends JFrame {
 		btnCheckout.setForeground(new Color(255, 255, 255));
 		btnCheckout.setBackground(new Color(153, 0, 0));
 		btnCheckout.setFont(new Font("Arial", Font.BOLD, 18));
-		btnCheckout.setBounds(414, 9, 164, 25);
+		btnCheckout.setBounds(443, 9, 135, 25);
 		
 		contentPane.add(btnCheckout);
+		
+		lblNewLabel = new JLabel("Click on the item you want to customize.");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		lblNewLabel.setBackground(Color.WHITE);
+		lblNewLabel.setBounds(48, 126, 491, 32);
+		contentPane.add(lblNewLabel);
 	}
 	
 	void delete_all_rows_in_table()

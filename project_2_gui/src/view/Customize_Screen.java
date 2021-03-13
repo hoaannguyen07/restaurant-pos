@@ -44,6 +44,7 @@ public class Customize_Screen extends JFrame {
 	
 	DataHelper api_connection;
 	private final JButton button_back = new JButton("Back");
+	private JLabel lblNewLabel;
 	
 	/**
 	 * Launch the application.
@@ -102,14 +103,14 @@ public class Customize_Screen extends JFrame {
 		
 		button_reg = new JRadioButton("Regular");
 		button_reg.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		button_reg.setBackground(new Color(51, 153, 255));
-		button_reg.setBounds(56, 119, 91, 23);
+		button_reg.setBackground(new Color(0, 153, 204));
+		button_reg.setBounds(58, 134, 91, 23);
 		contentPane.add(button_reg);
 		
 		button_extra = new JRadioButton("Extra");
 		button_extra.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		button_extra.setBackground(new Color(51, 153, 255));
-		button_extra.setBounds(188, 119, 91, 23);
+		button_extra.setBackground(new Color(0, 153, 204));
+		button_extra.setBounds(190, 134, 91, 23);
 		contentPane.add(button_extra);
 		
 		ButtonGroup group = new ButtonGroup();
@@ -118,14 +119,14 @@ public class Customize_Screen extends JFrame {
 		
 		JLabel label_title = new JLabel("Ingredient Options");
 		label_title.setBackground(new Color(240, 240, 240));
-		label_title.setFont(new Font("Tahoma", Font.BOLD, 18));
+		label_title.setFont(new Font("Tahoma", Font.BOLD, 25));
 		label_title.setHorizontalAlignment(SwingConstants.CENTER);
-		label_title.setBounds(57, 34, 201, 41);
+		label_title.setBounds(28, 49, 259, 44);
 		contentPane.add(label_title);
 		
 		JButton button_confirm = new JButton("Confirm");
 		button_confirm.setAction(action);
-		button_confirm.setBackground(SystemColor.menu);
+		button_confirm.setBackground(new Color(153, 0, 0));
 		button_confirm.setBounds(107, 212, 91, 23);
 		contentPane.add(button_confirm);
 		button_back.addMouseListener(new MouseAdapter() {
@@ -137,11 +138,19 @@ public class Customize_Screen extends JFrame {
 				dispose();
 			}
 		});
-		button_back.setBackground(new Color(0, 51, 51));
+		button_back.setBackground(new Color(153, 0, 0));
 		button_back.setFont(new Font("Arial", Font.PLAIN, 11));
 		button_back.setBounds(10, 11, 63, 23);
 		
 		contentPane.add(button_back);
+		
+		String ingredient_id = api_connection.cart_helper.getCur_ingredient_item_key();
+		lblNewLabel = new JLabel(api_connection.getIngredientName(ingredient_id));
+		lblNewLabel.setForeground(new Color(153, 0, 0));
+		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(70, 104, 175, 23);
+		contentPane.add(lblNewLabel);
 	}
 	private class SwingAction extends AbstractAction {
 		private static final long serialVersionUID = 1L;

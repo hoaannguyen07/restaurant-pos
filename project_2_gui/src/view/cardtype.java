@@ -94,9 +94,9 @@ public class cardtype extends JFrame {
 	 * @wbp.parser.constructor
 	 */
 	public cardtype(DataHelper api) {
-		security_code.setBounds(299, 237, 46, 20);
+		security_code.setBounds(298, 252, 46, 26);
 		security_code.setColumns(10);
-		card_num_entry.setBounds(299, 130, 218, 26);
+		card_num_entry.setBounds(298, 145, 218, 26);
 		card_num_entry.setColumns(16);
 		
 		
@@ -131,41 +131,41 @@ public class cardtype extends JFrame {
 		
 		String[] card_types = { "Credit", "Debit"};
 		JComboBox comboBox = new JComboBox(card_types);
-		comboBox.setBounds(71, 136, 111, 33);
+		comboBox.setBounds(70, 151, 111, 33);
 		contentPane.add(comboBox);
 		int card_type_choice = comboBox.getSelectedIndex(); //saving the boolean option
 		
-		card_type_text.setBounds(71, 109, 130, 26);
+		card_type_text.setBounds(70, 124, 130, 26);
 		contentPane.add(card_type_text);
 		
-		card_carrier_text.setBounds(71, 180, 140, 26);
+		card_carrier_text.setBounds(70, 195, 140, 26);
 		contentPane.add(card_carrier_text);
 		
 		card_carrier_combobox = new JComboBox(new Object[]{"Mastercard", "Visa"});
-		card_carrier_combobox.setBounds(71, 208, 130, 33);
+		card_carrier_combobox.setBounds(70, 223, 130, 33);
 		contentPane.add(card_carrier_combobox);
 		
-		card_number_text.setBounds(299, 109, 130, 26);
+		card_number_text.setBounds(298, 124, 130, 26);
 		contentPane.add(card_number_text);
 		
-		expr_date_text.setBounds(299, 155, 158, 26);
+		expr_date_text.setBounds(298, 170, 158, 26);
 		contentPane.add(expr_date_text);
 		
 		month_combobox = new JComboBox(new Object[]{"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"});
-		month_combobox.setBounds(299, 180, 72, 26);
+		month_combobox.setBounds(298, 195, 72, 26);
 		contentPane.add(month_combobox);
 		
 		year_combobox = new JComboBox(new Object[]{"2021", "2022", "2023", "2024", "2025"});
-		year_combobox.setBounds(373, 180, 84, 26);
+		year_combobox.setBounds(372, 195, 84, 26);
 		contentPane.add(year_combobox);
 		
-		security_code_text.setBounds(299, 211, 140, 26);
+		security_code_text.setBounds(298, 226, 140, 26);
 		contentPane.add(security_code_text);
 		
 		panel_pay.setForeground(new Color(0, 0, 0));
-		panel_pay.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 255)));
-		panel_pay.setBackground(new Color(255, 255, 255));
-		panel_pay.setBounds(185, 300, 149, 54);
+		panel_pay.setBorder(null);
+		panel_pay.setBackground(new Color(153, 0, 0));
+		panel_pay.setBounds(194, 300, 149, 54);
 		contentPane.add(panel_pay);
 		
 		label_pay.setFont(new Font("Arial Black", Font.BOLD, 30));
@@ -174,7 +174,7 @@ public class cardtype extends JFrame {
 		
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 40));
-		lblNewLabel.setBounds(10, 11, 518, 62);
+		lblNewLabel.setBounds(10, 36, 518, 62);
 		contentPane.add(lblNewLabel);
 		
 		contentPane.add(card_num_entry);
@@ -184,11 +184,14 @@ public class cardtype extends JFrame {
 		contentPane.add(card_verify_text);
 		
 		JButton button_back = new JButton("Back");
+		button_back.setForeground(new Color(255, 255, 255));
+		button_back.setFont(new Font("Arial", Font.BOLD, 15));
+		button_back.setBackground(new Color(153, 0, 0));
         button_back.setAction(action);
-        button_back.setBounds(20, 75, 111, 26);
+        button_back.setBounds(10, 11, 72, 26);
         contentPane.add(button_back);
         
-		new_user_pop_up.setBounds(368, 271, 140, 16);
+		new_user_pop_up.setBounds(107, 92, 140, 16);
 		contentPane.add(new_user_pop_up);
         
         button_back.addActionListener(new ActionListener() {
@@ -204,11 +207,11 @@ public class cardtype extends JFrame {
         new_user_pop_up.setText("Are you a new user?");
 		
 		JRadioButton yes_button = new JRadioButton("Yes");
-		yes_button.setBounds(373, 300, 141, 23);
+		yes_button.setBounds(227, 89, 46, 23);
 		contentPane.add(yes_button);
 		
 		JRadioButton no_button = new JRadioButton("No");
-		no_button.setBounds(373, 331, 141, 23);
+		no_button.setBounds(317, 89, 46, 23);
 		contentPane.add(no_button);
 		
 		ButtonGroup group = new ButtonGroup();

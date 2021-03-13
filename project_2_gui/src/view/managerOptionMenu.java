@@ -112,16 +112,24 @@ public class managerOptionMenu extends JFrame {
 		lblNewLabel.setBounds(95, 11, 247, 54);
 		contentPane.add(lblNewLabel);
 		
-		JButton btnNewButton_1 = new JButton("Recommendations");
-		btnNewButton_1.setForeground(new Color(255, 255, 255));
-		btnNewButton_1.setBackground(new Color(153, 0, 0));
-		btnNewButton_1.setFont(new Font("Arial", Font.BOLD, 20));
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnRecommendation = new JButton("Recommendations");
+		btnRecommendation.setForeground(new Color(255, 255, 255));
+		btnRecommendation.setBackground(new Color(153, 0, 0));
+		btnRecommendation.setFont(new Font("Arial", Font.BOLD, 20));
+		btnRecommendation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == btnRecommendation) { 
+					if(e.getSource() == btnRecommendation) { 
+						Manager_Recommendation man_rec = new Manager_Recommendation(api_connection);
+						man_rec.setVisible(true);
+						dispose();
+					}
+					
+				}
 			}
 		});
-		btnNewButton_1.setBounds(103, 331, 228, 54);
-		contentPane.add(btnNewButton_1);
+		btnRecommendation.setBounds(103, 331, 228, 54);
+		contentPane.add(btnRecommendation);
 		
 		JButton btnNewButton_2 = new JButton("Exit");
 		btnNewButton_2.addActionListener(new ActionListener() {

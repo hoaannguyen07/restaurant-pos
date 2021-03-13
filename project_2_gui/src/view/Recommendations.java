@@ -94,6 +94,9 @@ public class Recommendations extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		btnPayment.setForeground(new Color(255, 255, 255));
+		btnPayment.setBackground(new Color(153, 0, 0));
+		btnPayment.setFont(new Font("Arial", Font.BOLD, 15));
 		btnPayment.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -102,9 +105,12 @@ public class Recommendations extends JFrame {
 				dispose();
 			}
 		});
-		btnPayment.setBounds(263, 0, 89, 25);
+		btnPayment.setBounds(261, 11, 93, 25);
 		
 		contentPane.add(btnPayment);
+		btnBack.setForeground(new Color(255, 255, 255));
+		btnBack.setBackground(new Color(153, 0, 0));
+		btnBack.setFont(new Font("Arial", Font.BOLD, 15));
 		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -113,7 +119,7 @@ public class Recommendations extends JFrame {
 				dispose();
 			}
 		});
-		btnBack.setBounds(10, 0, 76, 25);
+		btnBack.setBounds(10, 11, 76, 25);
 				
 		contentPane.add(btnBack);
 		lblYourCart.setFont(new Font("Arial", Font.BOLD, 15));

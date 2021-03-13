@@ -23,17 +23,17 @@ import java.awt.event.MouseEvent;
 public class Customize_Screen extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private String order_test;
-	private String ingredient_id;
+//	private String order_test;
+//	private String ingredient_id;
 	
 	Vector<String> orders; // [0] = entree || [1] = side || [2] = beverage || [3] = dessert
-	private int order_type_id = -1;
+//	private int order_type_id = -1;
 	
-	private String menu_item = "";
-	private String cur_order = "";
+//	private String menu_item = "";
+//	private String cur_order = "";
 	
-	private double cur_price = 0.0;
-	private double ingredient_price = 0.0;
+//	private double cur_price = 0.0;
+//	private double ingredient_price = 0.0;
 	
 	private JPanel contentPane;
 	private JRadioButton button_reg;
@@ -42,6 +42,8 @@ public class Customize_Screen extends JFrame {
 	
 	DataHelper api_connection;
 	private final JButton button_back = new JButton("Back");
+	
+	private static final int CUSTOMIZE_SCREEN_ID = 5;
 	
 	/**
 	 * Launch the application.
@@ -71,19 +73,19 @@ public class Customize_Screen extends JFrame {
 	
 	public Customize_Screen(DataHelper api,  String cur_order, String id) {
 		this.api_connection = api;
-		this.ingredient_id = id;
-		this.order_test = cur_order;
+//		this.ingredient_id = id;
+//		this.order_test = cur_order;
 		initGUI();
 	}
 	
 	public Customize_Screen(DataHelper api, Vector<String> all_orders, int order_type_id, String item_id, String ingredient_id, double cur_price, double ingredient_price) {
 		this.api_connection = api;
 		this.orders = all_orders;
-		this.order_type_id = order_type_id;
-		this.menu_item = item_id;
-		this.ingredient_id = ingredient_id;
-		this.cur_price = cur_price;
-		this.ingredient_price = ingredient_price;
+//		this.order_type_id = order_type_id;
+//		this.menu_item = item_id;
+//		this.ingredient_id = ingredient_id;
+//		this.cur_price = cur_price;
+//		this.ingredient_price = ingredient_price;
 		
 		initGUI();
 	}
@@ -129,7 +131,7 @@ public class Customize_Screen extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				api_connection.reset_cart_ingredient_id();
-				Ingredients ingredients_frame = new Ingredients(api_connection);
+				Ingredients ingredients_frame = new Ingredients(api_connection, CUSTOMIZE_SCREEN_ID);
 				ingredients_frame.setVisible(true);
 				dispose();
 			}
@@ -182,7 +184,7 @@ public class Customize_Screen extends JFrame {
 				api_connection.add_cur_ingredient_as_customization(2);
 			}
 			
-			Ingredients ingredients_frame = new Ingredients(api_connection);
+			Ingredients ingredients_frame = new Ingredients(api_connection, CUSTOMIZE_SCREEN_ID);
 			ingredients_frame.setVisible(true);
 			dispose();
 		}

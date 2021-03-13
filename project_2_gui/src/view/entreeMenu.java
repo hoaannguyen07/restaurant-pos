@@ -48,6 +48,8 @@ public class entreeMenu extends JFrame {
 	private JPanel panel;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
+	
+	private static final int ENTREE_MENU_ID = 1;
 
 	/**
 	 * Launch the application.
@@ -180,19 +182,9 @@ public class entreeMenu extends JFrame {
 				
 				System.out.println(name + "\t" + item_id + "\t" + price);
 				
-				int selected_item_orders_id = 0; // entree = [0]
-				
-				System.out.println("Selected Item Orders ID: " + selected_item_orders_id);
-				
-				System.out.println("Cart so far");
-				for(int i = 0; i < orders.size(); i++)
-				{
-					System.out.println(i + ".\t" + orders.elementAt(i));
-				}
-				System.out.println("Total price: " + total_price);
-				// add menu item when going to Ingredients frame
-				Ingredients ingredients_frame = new Ingredients(api_connection, orders, selected_item_orders_id, item_id, total_price + Double.parseDouble(price), true); 
-				ingredients_frame.setVisible(true);
+				api_connection.choose_menu_item_to_customize(item_id);
+				Ingredients ingr_frame = new Ingredients(api_connection, ENTREE_MENU_ID);
+				ingr_frame.setVisible(true);
 				dispose();
 			}
 		});

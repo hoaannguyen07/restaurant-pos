@@ -1,4 +1,4 @@
-package view;
+//package view;
 
 import java.awt.EventQueue;
 
@@ -35,6 +35,8 @@ public class rewards extends JFrame {
 	private final JButton btnCart = new JButton("Cart");
 	private final JLabel lblReward = new JLabel("You have a reward!");
 	private final JButton btnAddToCart = new JButton("Add to cart");
+	
+	private static final int REWARDS_MENU_ID = 6;
 	
 	/**
 	 * Launch the application.
@@ -86,6 +88,8 @@ public class rewards extends JFrame {
 		free_entree_text.setBounds(138, 145, 116, 26);
 		contentPane.add(free_entree_text);
 		
+//		String[] visits = {"0", "1", "2", "3", "4"};
+//		SpinnerListModel visitslist = new SpinnerListModel(visits);
 		panel_3.setBackground(new Color(204, 0, 0));
 		panel_3.setBounds(24, 145, 85, 33);
 		
@@ -169,9 +173,12 @@ public class rewards extends JFrame {
 		btnAddToCart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnAddToCart) { 
+					// Must update menu first
+//					Vector<Vector<String>> menu_list = api_connection.get_menu_data();
+					
 					// Add medium fries to order
 					api_connection.add_free_item_to_cart("S2");
-					Ingredients ingr_frame = new Ingredients(api_connection);
+					Ingredients ingr_frame = new Ingredients(api_connection, REWARDS_MENU_ID);
 					ingr_frame.setVisible(true);
 					dispose();
 				}

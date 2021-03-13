@@ -36,9 +36,10 @@ public class Ingredients extends JFrame {
 	private int order_type_id;
 	
 	private String menu_item;
-	private String cur_order = "";
+	private final int menu_id;
+//	private String cur_order = "";
 	
-	private double order_price = 0.0;
+//	private double order_price = 0.0;
 	
 	private JPanel contentPane;
 	public static final Vector<String> MENU_HEADER = new Vector<String>();
@@ -60,7 +61,7 @@ public class Ingredients extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Ingredients frame = new Ingredients();
+					Ingredients frame = new Ingredients(new DataHelper(), -1); //for testing locally, so it doesn't matter
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -72,19 +73,20 @@ public class Ingredients extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Ingredients() {
+	public Ingredients(int ingr_menu_id) {
 		if (MENU_HEADER.size() == 0)
 		{
 			MENU_HEADER.addElement("Ingredient Name");
 			MENU_HEADER.addElement("Price");
 		}
 		initGUI();
+		this.menu_id = ingr_menu_id;
 		show_data_in_table();
 	}
 	
 	/* Constructor used when transferring data from customer menu to ingredients
 	*/
-	public Ingredients(DataHelper api, Vector<String> all_orders, int order_type_id, String item_id, double cur_order_price, Boolean add_menu_item) {
+	public Ingredients(DataHelper api, Vector<String> all_orders, int order_type_id, String item_id, double cur_order_price, Boolean add_menu_item, int ingr_menu_id) {
 		System.out.println("GOT INTO INGREDIENTS");
 		
 		if (MENU_HEADER.size() == 0)
@@ -96,8 +98,9 @@ public class Ingredients extends JFrame {
 		this.orders = all_orders;
 		this.order_type_id = order_type_id;
 		this.menu_item = item_id;
+		this.menu_id = ingr_menu_id;
 //		this.cur_order += ":" + item_id; // ":" signify end of last cart menu and beginning of new set of items & its customization
-		this.order_price = cur_order_price;
+//		this.order_price = cur_order_price;
 		
 		System.out.println("BEFORE ADDING MENU ITEM TO ORDERS");
 		System.out.println("Size of Orders Table: " + orders.size());
@@ -124,13 +127,14 @@ public class Ingredients extends JFrame {
 		show_data_in_table();
 	}
 	
-	public Ingredients(DataHelper api) {
+	public Ingredients(DataHelper api, int ingr_menu_id) {
 		if (MENU_HEADER.size() == 0)
 		{
 			MENU_HEADER.addElement("Ingredient Name");
 			MENU_HEADER.addElement("Price");
 		}
 		this.api_connection = api;
+		this.menu_id = ingr_menu_id;
 		initGUI();
 		show_data_in_table();
 	}
@@ -170,14 +174,6 @@ public class Ingredients extends JFrame {
 				
 				System.out.println(name + "\t" + ingredient_id + "\t" + ingredient_price);
 				
-//				System.out.println("Current Order that is being customized");
-//				System.out.println("Order: " + cur_order);
-//				System.out.println("Price: " + order_price);
-//				
-//				Customize_Screen customize_frame = new Customize_Screen(api_connection, orders, order_type_id, menu_item, ingredient_id, order_price, Double.parseDouble(ingredient_price));
-//				customize_frame.setVisible(true);
-//				dispose();
-				
 				api_connection.choose_ingredient_item_to_customize(ingredient_id);
 				Customize_Screen customize = new Customize_Screen(api_connection);
 				customize.setVisible(true);
@@ -199,11 +195,6 @@ public class Ingredients extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// go back to Customer Menu
-//				System.out.println("Cart so far");
-//				for(int i = 0; i < orders.size(); i++)
-//				{
-//					System.out.println(i + ".\t" + orders.elementAt(i));
-//				}
 //				System.out.println("Total price: " + order_price);
 //				menuSelect customer_select_menu = new menuSelect(api_connection, orders, order_price);
 //				customer_select_menu.setVisible(true);
@@ -242,8 +233,37 @@ public class Ingredients extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == button_back) {
 					api_connection.delete_cur_menu_item();
-					Customer_Menu view_cust_option = new Customer_Menu(api_connection);
-					view_cust_option.setVisible(true);
+					
+					switch (menu_id) {
+						case 0:
+							Customer_Menu view_cust_option = new Customer_Menu(api_connection);
+							view_cust_option.setVisible(true);
+							break;
+						case 1:
+							entreeMenu view_cust_entree = new entreeMenu(api_connection);
+							view_cust_entree.setVisible(true);
+							break;
+						case 2:
+							sideMenu view_cust_side = new sideMenu(api_connection);
+							view_cust_side.setVisible(true);
+							break;
+						case 3:
+							beverageMenu view_cust_bev = new beverageMenu(api_connection);
+							view_cust_bev.setVisible(true);
+							break;
+						case 4:
+							dessertMenu view_cust_dessert = new dessertMenu(api_connection);
+							view_cust_dessert.setVisible(true);
+							break;
+						case 5:
+							Customize_Screen view_customize = new Customize_Screen(api_connection);
+							view_customize.setVisible(true);
+							break;
+						case 6:
+							rewards view_rewards = new rewards(api_connection);
+							view_rewards.setVisible(true);
+							break;
+					}
 					dispose();
 				}
 			}

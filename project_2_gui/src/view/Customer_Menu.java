@@ -46,6 +46,8 @@ public class Customer_Menu extends JFrame {
 	public static String user;
 	public static String pass;
 	private final JButton button_cart = new JButton("CART");
+	
+	private static final int CUSTOMER_MENU_ID = 0;
 
 	/**
 	 * Launch the application.
@@ -177,39 +179,9 @@ public class Customer_Menu extends JFrame {
 				
 				System.out.println(name + "\t" + item_id + "\t" + price);
 				
-//				int selected_item_orders_id = -1;
-//				
-//				Character first_char = item_id.charAt(0);
-//				// find type of food item it is and code it using the orders code (to later pass onto the ingredients frame)
-//				if (first_char.equals('E')) {
-//					selected_item_orders_id = 0;
-//				}
-//				else if (first_char.equals('S')) {
-//					selected_item_orders_id = 1;
-//				}
-//				else if (first_char.equals('B')) {
-//					selected_item_orders_id = 2;
-//				}
-//				else if (first_char.equals('D')) {
-//					selected_item_orders_id = 3;
-//				}
-//				
-//				System.out.println("Selected Item Orders ID: " + selected_item_orders_id);
-//				
-//				System.out.println("Cart so far");
-//				for(int i = 0; i < orders.size(); i++)
-//				{
-//					System.out.println(i + ".\t" + orders.elementAt(i));
-//				}
-//				System.out.println("Total price: " + total_price);
-//				// add menu item when going to Ingredients frame
-//				Ingredients ingredients_frame = new Ingredients(api_connection, orders, selected_item_orders_id, item_id, total_price + Double.parseDouble(price), true); 
-//				ingredients_frame.setVisible(true);
-//				dispose();
-				
 				// let api update information on what menu item is being added to cart
 				api_connection.choose_menu_item_to_customize(item_id);
-				Ingredients ingr_frame = new Ingredients(api_connection);
+				Ingredients ingr_frame = new Ingredients(api_connection, CUSTOMER_MENU_ID);
 				ingr_frame.setVisible(true);
 				dispose();
 			}

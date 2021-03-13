@@ -250,7 +250,7 @@ public class cardtype extends JFrame {
 					} if (sign_in_status == true) {
 						card_verify_text.setText("Security code: " + security_code.getText() 
 							+ " and card number: " + card_num_entry.getText());
-						FinishPayment view_payment = new FinishPayment(price);
+						FinishPayment view_payment = new FinishPayment(price, api_connection);
 						view_payment.setVisible(true);
 						dispose();
 					}

@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
+import java.awt.event.ActionListener;
 
 public class FinishPayment extends JFrame {
 	
@@ -23,6 +24,7 @@ public class FinishPayment extends JFrame {
 	private double price;
 	private JPanel contentPane;
 	private final Action action = new SwingAction();
+	DataHelper api_connection;
 
 	/**
 	 * Launch the application.
@@ -48,8 +50,9 @@ public class FinishPayment extends JFrame {
 		initGUI();
 	}
 	
-	public FinishPayment(double price) {
-		this.price = price;
+	public FinishPayment(double price, DataHelper api) {
+		api_connection = api;
+		this.price = api.cart_helper.getTotal_cost();
 		initGUI();
 	}
 	
@@ -63,8 +66,19 @@ public class FinishPayment extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton finalButton = new JButton("Finalize");
+		finalButton.setBackground(new Color(153, 0, 0));
+		finalButton.setFont(new Font("Arial", Font.BOLD, 20));
+		finalButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == finalButton) { 
+					api_connection.writeOrdertoDatabase();
+					api_connection.closeConnection();
+					dispose();
+				}
+			}
+		});
 		finalButton.setAction(action);
-		finalButton.setBounds(117, 147, 120, 42);
+		finalButton.setBounds(103, 147, 143, 42);
 		contentPane.add(finalButton);
 		
 		JLabel lblNewLabel = new JLabel("Total Cost");

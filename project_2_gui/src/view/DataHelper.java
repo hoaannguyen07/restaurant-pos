@@ -1117,4 +1117,33 @@ public class DataHelper {
 		return ordered_trending_items;
 		
 	}
+	
+	void writeOrdertoDatabase() { 
+		int order_id; 
+		Statement stmt;
+		try {
+			stmt = conn.createStatement();
+			String sqlStatement = "SELECT COUNT(id) FROM orders"; 
+			ResultSet rs = stmt.executeQuery(sqlStatement);
+			while(rs.next()) { 
+				order_id = rs.getInt("count");
+			}
+			Map<String, Vector<String>> cart_map = cart_helper.getCart();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	void closeConnection() { 
+		try {
+			conn.close();
+			System.out.println("Successfully closed connection...");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

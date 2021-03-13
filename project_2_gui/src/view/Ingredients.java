@@ -72,6 +72,7 @@ public class Ingredients extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @wbp.parser.constructor
 	 */
 	public Ingredients(int ingr_menu_id) {
 		if (MENU_HEADER.size() == 0)
@@ -175,7 +176,7 @@ public class Ingredients extends JFrame {
 				System.out.println(name + "\t" + ingredient_id + "\t" + ingredient_price);
 				
 				api_connection.choose_ingredient_item_to_customize(ingredient_id);
-				Customize_Screen customize = new Customize_Screen(api_connection);
+				Customize_Screen customize = new Customize_Screen(api_connection, menu_id);
 				customize.setVisible(true);
 				dispose();
 			}
@@ -194,15 +195,40 @@ public class Ingredients extends JFrame {
 		panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// go back to Customer Menu
-//				System.out.println("Total price: " + order_price);
-//				menuSelect customer_select_menu = new menuSelect(api_connection, orders, order_price);
-//				customer_select_menu.setVisible(true);
-//				dispose();
-				
+	
 				api_connection.add_cur_customized_menu_item();
-				Customer_Menu menu = new Customer_Menu(api_connection);
-				menu.setVisible(true);
+				
+				switch (menu_id) {
+					case 0:
+						Customer_Menu view_cust_option = new Customer_Menu(api_connection);
+						view_cust_option.setVisible(true);
+						break;
+					case 1:
+						entreeMenu view_cust_entree = new entreeMenu(api_connection);
+						view_cust_entree.setVisible(true);
+						break;
+					case 2:
+						sideMenu view_cust_side = new sideMenu(api_connection);
+						view_cust_side.setVisible(true);
+						break;
+					case 3:
+						beverageMenu view_cust_bev = new beverageMenu(api_connection);
+						view_cust_bev.setVisible(true);
+						break;
+					case 4:
+						dessertMenu view_cust_dessert = new dessertMenu(api_connection);
+						view_cust_dessert.setVisible(true);
+						break;
+					case 6:
+						rewards view_rewards = new rewards(api_connection);
+						view_rewards.setVisible(true);
+						break;
+					default:
+						Customize_Screen view_customize = new Customize_Screen(api_connection, menu_id);
+						view_customize.setVisible(true);
+						break;
+						
+				}
 				dispose();
 				
 			}
@@ -233,37 +259,8 @@ public class Ingredients extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == button_back) {
 					api_connection.delete_cur_menu_item();
-					
-					switch (menu_id) {
-						case 0:
-							Customer_Menu view_cust_option = new Customer_Menu(api_connection);
-							view_cust_option.setVisible(true);
-							break;
-						case 1:
-							entreeMenu view_cust_entree = new entreeMenu(api_connection);
-							view_cust_entree.setVisible(true);
-							break;
-						case 2:
-							sideMenu view_cust_side = new sideMenu(api_connection);
-							view_cust_side.setVisible(true);
-							break;
-						case 3:
-							beverageMenu view_cust_bev = new beverageMenu(api_connection);
-							view_cust_bev.setVisible(true);
-							break;
-						case 4:
-							dessertMenu view_cust_dessert = new dessertMenu(api_connection);
-							view_cust_dessert.setVisible(true);
-							break;
-						case 5:
-							Customize_Screen view_customize = new Customize_Screen(api_connection);
-							view_customize.setVisible(true);
-							break;
-						case 6:
-							rewards view_rewards = new rewards(api_connection);
-							view_rewards.setVisible(true);
-							break;
-					}
+					Customer_Menu menu = new Customer_Menu(api_connection);
+					menu.setVisible(true);
 					dispose();
 				}
 			}

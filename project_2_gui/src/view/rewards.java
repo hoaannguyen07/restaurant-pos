@@ -120,16 +120,6 @@ public class rewards extends JFrame {
 		
 		/* All functional code down below */
 		
-		/* TEST: Default customer info to test
-		 * Delete later */
-		DataHelper api_connection = new DataHelper();
-		api_connection.first_name = "Mary";
-		api_connection.last_name = "Smith";
-		api_connection.id = "7"; //For test purposes: ID 1 has 1 visit, ID 7 had 260 visits
-		api_connection.password = "7";	
-		
-		/* End TEST code to delete later */
-		
 		System.out.println("ID: " + api_connection.getId());
 		System.out.println("Num of Visits: " + api_connection.get_num_visits());
 		

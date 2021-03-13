@@ -19,12 +19,12 @@ import javax.swing.Action;
 import javax.swing.ButtonGroup;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.SystemColor;
 
 public class Customize_Screen extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 //	private String order_test;
-//	private String ingredient_id;
 	
 	Vector<String> orders; // [0] = entree || [1] = side || [2] = beverage || [3] = dessert
 //	private int order_type_id = -1;
@@ -40,10 +40,10 @@ public class Customize_Screen extends JFrame {
 	private JRadioButton button_extra;
 	private final Action action = new SwingAction();
 	
+	private final int id;
+	
 	DataHelper api_connection;
 	private final JButton button_back = new JButton("Back");
-	
-	private static final int CUSTOMIZE_SCREEN_ID = 5;
 	
 	/**
 	 * Launch the application.
@@ -52,7 +52,7 @@ public class Customize_Screen extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Customize_Screen frame = new Customize_Screen(new DataHelper(), "E1", "I10");
+					Customize_Screen frame = new Customize_Screen(new DataHelper(), 0);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,14 +66,15 @@ public class Customize_Screen extends JFrame {
 	 * @wbp.parser.constructor
 	 */
 	
-	public Customize_Screen(DataHelper api) {
+	public Customize_Screen(DataHelper api, int ingr_menu_id) {
 		this.api_connection = api;
+		this.id = ingr_menu_id;
 		initGUI();
 	}
 	
-	public Customize_Screen(DataHelper api,  String cur_order, String id) {
+	public Customize_Screen(DataHelper api, String cur_order, int order_type_id) {
 		this.api_connection = api;
-//		this.ingredient_id = id;
+		this.id = order_type_id;
 //		this.order_test = cur_order;
 		initGUI();
 	}
@@ -83,7 +84,7 @@ public class Customize_Screen extends JFrame {
 		this.orders = all_orders;
 //		this.order_type_id = order_type_id;
 //		this.menu_item = item_id;
-//		this.ingredient_id = ingredient_id;
+		this.id = order_type_id;
 //		this.cur_price = cur_price;
 //		this.ingredient_price = ingredient_price;
 		
@@ -124,14 +125,14 @@ public class Customize_Screen extends JFrame {
 		
 		JButton button_confirm = new JButton("Confirm");
 		button_confirm.setAction(action);
-		button_confirm.setBackground(new Color(204, 0, 0));
+		button_confirm.setBackground(SystemColor.menu);
 		button_confirm.setBounds(107, 212, 91, 23);
 		contentPane.add(button_confirm);
 		button_back.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				api_connection.reset_cart_ingredient_id();
-				Ingredients ingredients_frame = new Ingredients(api_connection, CUSTOMIZE_SCREEN_ID);
+				Ingredients ingredients_frame = new Ingredients(api_connection, id);
 				ingredients_frame.setVisible(true);
 				dispose();
 			}
@@ -150,31 +151,7 @@ public class Customize_Screen extends JFrame {
 		}
 		// determine how the ingredient is customized and add to order
 		public void actionPerformed(ActionEvent e) {
-//			String added_ingredient = "";
-//			if (button_reg.isSelected()) {
-//				cur_price += ingredient_price;
-//				added_ingredient += ";" + ingredient_id;
-//			}
-//			else if (button_extra.isSelected()) {
-//				cur_price += ingredient_price;
-//				added_ingredient += ";" +"X" + ingredient_id;
-//			}
-//			
-//			String update_order = orders.elementAt(order_type_id);
-//			update_order += added_ingredient;
-//			orders.set(order_type_id, update_order);
-//			
-////			order += added_ingredient;
-//			System.out.println("Cart so far");
-//			for(int i = 0; i < orders.size(); i++)
-//			{
-//				System.out.println(i + ".\t" + orders.elementAt(i));
-//			}
-//			System.out.println("Total price: " + cur_price);
-//			Ingredients ingregdients_frame = new Ingredients(api_connection, orders, order_type_id, menu_item, cur_price, false); // don't add menu item
-//			ingregdients_frame.setVisible(true);
-//			dispose();
-			
+
 			if (button_reg.isSelected())
 			{
 				api_connection.add_cur_ingredient_as_customization(1);
@@ -184,7 +161,7 @@ public class Customize_Screen extends JFrame {
 				api_connection.add_cur_ingredient_as_customization(2);
 			}
 			
-			Ingredients ingredients_frame = new Ingredients(api_connection, CUSTOMIZE_SCREEN_ID);
+			Ingredients ingredients_frame = new Ingredients(api_connection, id);
 			ingredients_frame.setVisible(true);
 			dispose();
 		}

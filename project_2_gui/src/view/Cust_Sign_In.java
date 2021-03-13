@@ -213,7 +213,7 @@ public class Cust_Sign_In extends JFrame {
 			}
 		});
 		panel.setBackground(new Color(0, 51, 51));
-		panel.setBounds(191, 237, 202, 54);
+		panel.setBounds(191, 261, 202, 54);
 		
 		contentPane.add(panel);
 		panel.setLayout(null);

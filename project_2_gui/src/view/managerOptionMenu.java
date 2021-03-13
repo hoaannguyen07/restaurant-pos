@@ -59,10 +59,10 @@ public class managerOptionMenu extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnWeeklyRevenue = new JButton("Weekly Revenue");
+		JButton btnWeeklyRevenue = new JButton("Revenue Stats");
 		btnWeeklyRevenue.setForeground(Color.WHITE);
 		btnWeeklyRevenue.setFont(new Font("Arial", Font.BOLD, 20));
-		btnWeeklyRevenue.setBackground(new Color(204, 0, 0));
+		btnWeeklyRevenue.setBackground(new Color(153, 0, 0));
 		btnWeeklyRevenue.setBounds(103, 172, 228, 54);
 		btnWeeklyRevenue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -77,7 +77,7 @@ public class managerOptionMenu extends JFrame {
 		
 		JButton btnEditMenu = new JButton("Edit Menu");
 		btnEditMenu.setForeground(Color.WHITE);
-		btnEditMenu.setBackground(new Color(204, 0, 0));
+		btnEditMenu.setBackground(new Color(153, 0, 0));
 		btnEditMenu.setFont(new Font("Arial", Font.BOLD, 20));
 		btnEditMenu.setBounds(103, 93, 228, 54);
 		btnEditMenu.addActionListener(new ActionListener() {
@@ -100,7 +100,7 @@ public class managerOptionMenu extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton.setBackground(new Color(204, 0, 0));
+		btnNewButton.setBackground(new Color(153, 0, 0));
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 20));
 		btnNewButton.setBounds(103, 251, 228, 54);

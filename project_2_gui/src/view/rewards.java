@@ -32,7 +32,6 @@ public class rewards extends JFrame {
 	private final JLabel lblNewLabel_1 = new JLabel("more visit(s).");
 	private final JLabel lblNewLabel_2 = new JLabel("0");
 	private final JButton btnBack = new JButton("Back");
-	private final JButton btnCart = new JButton("Cart");
 	private final JLabel lblReward = new JLabel("You have a reward!");
 	private final JButton btnAddToCart = new JButton("Add to cart");
 	
@@ -84,34 +83,38 @@ public class rewards extends JFrame {
 		contentPane.setLayout(null);
 		
 		eligible_text.setBounds(24, 109, 116, 26);
+		free_entree_text.setFont(new Font("Arial", Font.BOLD, 15));
 		
-		free_entree_text.setBounds(138, 145, 116, 26);
+		free_entree_text.setBounds(158, 145, 141, 26);
 		contentPane.add(free_entree_text);
 		
 //		String[] visits = {"0", "1", "2", "3", "4"};
 //		SpinnerListModel visitslist = new SpinnerListModel(visits);
 		panel_3.setBackground(new Color(204, 0, 0));
-		panel_3.setBounds(24, 145, 85, 33);
+		panel_3.setBounds(24, 145, 104, 33);
 		
 		contentPane.add(panel_3);
+		visits_25_text.setForeground(new Color(255, 255, 255));
+		visits_25_text.setFont(new Font("Arial", Font.BOLD, 15));
 		panel_3.add(visits_25_text);
-		lblNewLabel.setBounds(48, 39, 116, 16);
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 15));
+		lblNewLabel.setBounds(24, 38, 139, 22);
 		
 		contentPane.add(lblNewLabel);
-		lblNewLabel_1.setBounds(208, 39, 116, 16);
+		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 15));
+		lblNewLabel_1.setBounds(263, 42, 116, 16);
 		
 		contentPane.add(lblNewLabel_1);
 		lblNewLabel_2.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setBounds(173, 34, 23, 26);
+		btnBack.setForeground(new Color(255, 255, 255));
+		btnBack.setBackground(new Color(153, 0, 0));
+		btnBack.setFont(new Font("Arial", Font.BOLD, 15));
 		
 		btnBack.setBounds(24, 4, 117, 25);
 		
 		contentPane.add(btnBack);
-		btnCart.setBackground(new Color(0, 102, 255));
-		btnCart.setBounds(318, 3, 110, 26);
-		
-		contentPane.add(btnCart);
 		
 		lblReward.setBounds(24, 120, 116, 16);
 		
@@ -147,17 +150,6 @@ public class rewards extends JFrame {
 				}
 			}
 		});
-		
-		/* Cart button functionality */
-		btnCart.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(arg0.getSource() == btnCart) { 
-					cart view_cart = new cart();
-					view_cart.setVisible(true);
-					dispose();
-				}
-			}
-		});	
 		
 		/* Add to cart button functionality */
 		btnAddToCart.addActionListener(new ActionListener() {

@@ -940,7 +940,6 @@ public class DataHelper {
 				row.add(result.getString("sides"));
 				row.add(result.getString("beverages"));
 				row.add(result.getString("desserts"));
-				row.add(result.getString("n_items"));
 				orders.add(row);
 			}
 			

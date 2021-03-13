@@ -162,11 +162,12 @@ public class cardtype extends JFrame {
 		security_code_text.setBounds(298, 226, 140, 26);
 		contentPane.add(security_code_text);
 		
-		panel_pay.setForeground(new Color(0, 0, 0));
+		panel_pay.setForeground(new Color(255, 255, 255));
 		panel_pay.setBorder(null);
 		panel_pay.setBackground(new Color(153, 0, 0));
 		panel_pay.setBounds(194, 300, 149, 54);
 		contentPane.add(panel_pay);
+		label_pay.setForeground(new Color(255, 255, 255));
 		
 		label_pay.setFont(new Font("Arial Black", Font.BOLD, 30));
 		label_pay.setHorizontalAlignment(SwingConstants.CENTER);

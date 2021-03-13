@@ -167,8 +167,11 @@ public class Cust_Sign_In extends JFrame {
 		panel_password.add(pf_password);
 		
 		JButton button_back = new JButton("Back");
+		button_back.setBackground(new Color(153, 0, 0));
+		button_back.setForeground(new Color(255, 255, 255));
+		button_back.setFont(new Font("Arial", Font.BOLD, 15));
         button_back.setAction(action);
-        button_back.setBounds(21, 11, 58, 26);
+        button_back.setBounds(21, 11, 80, 26);
         contentPane.add(button_back);
         
         button_back.addActionListener(new ActionListener() {

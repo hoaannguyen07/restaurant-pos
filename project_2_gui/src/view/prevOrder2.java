@@ -12,6 +12,8 @@ import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JTextArea;
 
 public class prevOrder2 extends JFrame {
 	
@@ -20,24 +22,15 @@ public class prevOrder2 extends JFrame {
 	DataHelper api_connection;
 
 	private JPanel contentPane;
-	private final JLabel lblEntrees = new JLabel("Entrees");
-	private final JLabel lblSides = new JLabel("Sides");
-	private final JLabel lblBeverage = new JLabel("Beverage");
-	private final JLabel lblDesserts = new JLabel("Desserts");
-	@SuppressWarnings("rawtypes")
-	private JList entreeList = new JList();
-	@SuppressWarnings("rawtypes")
-	private JList bevList = new JList();
-	@SuppressWarnings("rawtypes")
-	private JList sideList = new JList();
-	@SuppressWarnings("rawtypes")
-	private JList dessList = new JList();
 	protected static String first;
 	protected static String last;
 	protected static String user;
 	protected static String pass;
 	protected static double price;
 	private final JButton btnBack = new JButton("Back");
+	private final JLabel lblNewLabel = new JLabel("YOUR LAST ORDERS:");
+	JTextArea textPrevOrder = new JTextArea();
+	private final JTextArea textPrevOrder2 = new JTextArea();
 
 	/**
 	 * Launch the application.
@@ -67,36 +60,14 @@ public class prevOrder2 extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 451, 457);
+		setBounds(100, 100, 460, 289);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		lblEntrees.setBounds(71, 36, 70, 15);
-		
-		contentPane.add(lblEntrees);
-		lblSides.setBounds(283, 36, 70, 15);
-		
-		contentPane.add(lblSides);
-		lblBeverage.setBounds(71, 214, 70, 15);
-		
-		contentPane.add(lblBeverage);
-		lblDesserts.setBounds(283, 214, 70, 15);
-		
-		contentPane.add(lblDesserts);
-		entreeList.setBounds(12, 63, 188, 139);
-		
-		contentPane.add(entreeList);
-		bevList.setBounds(12, 254, 188, 139);
-		
-		contentPane.add(bevList);
-		sideList.setBounds(233, 63, 175, 139);
-		
-		contentPane.add(sideList);
-		dessList.setBounds(233, 254, 175, 141);
-		
-		contentPane.add(dessList);
+		btnBack.setBackground(new Color(153, 0, 0));
+		btnBack.setForeground(new Color(255, 255, 255));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnBack) {
@@ -106,16 +77,64 @@ public class prevOrder2 extends JFrame {
 				}
 			}
 		});
-		btnBack.setBounds(161, 0, 117, 25);
+		btnBack.setBounds(12, 11, 117, 25);
 		
 		Map<String, Vector<String>> PrevOrderMap = api_connection.prevOrder();
-		if (PrevOrderMap != null) {
-			entreeList = new JList(PrevOrderMap.get("Entrees"));
-			bevList = new JList(PrevOrderMap.get("Beverages"));
-			sideList = new JList(PrevOrderMap.get("Sides"));
-			dessList = new JList(PrevOrderMap.get("Dessert"));
+		Vector<String> orders = new Vector<String>();
+		orders.addElement(PrevOrderMap.get("Entrees").elementAt(0));
+		orders.addElement(PrevOrderMap.get("Sides").elementAt(0));
+		orders.addElement(PrevOrderMap.get("Beverages").elementAt(0));
+		orders.addElement(PrevOrderMap.get("Desserts").elementAt(0));
+		System.out.println(orders);
+		
+		Vector<String> orders_2 = new Vector<String>();
+		if(PrevOrderMap.get("Entrees").size() > 1) { 
+			orders_2.addElement(PrevOrderMap.get("Entrees").elementAt(1));
+			orders_2.addElement(PrevOrderMap.get("Sides").elementAt(1));
+			orders_2.addElement(PrevOrderMap.get("Beverages").elementAt(1));
+			orders_2.addElement(PrevOrderMap.get("Desserts").elementAt(1));
 		}
 		
+		String temp = "";
+		for(int i = 0; i < orders.size(); i++) { 
+			if(orders.get(i) == null) { 
+				;
+			} else { 
+				temp = temp + orders.get(i) + "\n";
+			}
+		}
+		textPrevOrder.setForeground(new Color(255, 255, 255));
+		textPrevOrder.setFont(new Font("Arial", Font.PLAIN, 15));
+		textPrevOrder.setBackground(new Color(153, 0, 0));
+		textPrevOrder.setText(temp);
+		
+		if(PrevOrderMap.size() > 2) { 
+			temp = "";
+			for(int i = 0; i < orders_2.size(); i++) {
+				if(orders_2.get(i) == null) {
+					;
+				} else { 
+					temp = temp + orders_2.get(i) + "\n";
+				}
+			}
+		}
+		
+		textPrevOrder2.setForeground(new Color(255, 255, 255));
+		textPrevOrder2.setFont(new Font("Arial", Font.PLAIN, 15));
+		textPrevOrder2.setBackground(new Color(153, 0, 0));
+		textPrevOrder2.setText(temp);
+		
+		
 		contentPane.add(btnBack);
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		lblNewLabel.setBounds(85, 55, 231, 32);
+		
+		contentPane.add(lblNewLabel);
+		
+		textPrevOrder.setBounds(12, 120, 202, 119);
+		contentPane.add(textPrevOrder);
+		textPrevOrder2.setBounds(224, 120, 202, 119);
+		
+		contentPane.add(textPrevOrder2);
 	}
 }

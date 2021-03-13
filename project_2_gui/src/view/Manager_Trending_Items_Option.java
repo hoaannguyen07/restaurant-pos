@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
+import javax.swing.JTable;
 
 public class Manager_Trending_Items_Option extends JFrame {
 
@@ -52,7 +53,7 @@ public class Manager_Trending_Items_Option extends JFrame {
 	
 	void initGUI() { 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 541);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -68,7 +69,8 @@ public class Manager_Trending_Items_Option extends JFrame {
 		btnEntrees.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == btnEntrees) { 
-					entreeGUI();
+					// show entrees
+					;
 				}
 			}
 		});
@@ -76,37 +78,43 @@ public class Manager_Trending_Items_Option extends JFrame {
 		contentPane.add(btnEntrees);
 		
 		JButton btnSides = new JButton("Sides");
+		btnSides.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == btnSides) { 
+					// show sides
+					;
+				}
+			}
+		});
 		btnSides.setFont(new Font("Arial", Font.BOLD, 20));
 		btnSides.setBounds(208, 89, 163, 48);
 		contentPane.add(btnSides);
 		
 		JButton btnDesserts = new JButton("Desserts");
+		btnDesserts.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == btnDesserts) {
+					// show desserts
+					;
+				}
+			}
+		});
 		btnDesserts.setFont(new Font("Arial", Font.BOLD, 20));
 		btnDesserts.setBounds(35, 159, 163, 48);
 		contentPane.add(btnDesserts);
 		
 		JButton btnBeverage = new JButton("Beverages");
+		btnBeverage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == btnBeverage) {
+					// show beverage
+					;
+				}
+			}
+		});
 		btnBeverage.setFont(new Font("Arial", Font.BOLD, 20));
 		btnBeverage.setBounds(211, 159, 163, 48);
 		contentPane.add(btnBeverage);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 434, 261);
-		contentPane.add(panel);
 	}
 	
-	void entreeGUI() { 
-		Map<String, Integer> entreeMapping = new HashMap<String, Integer>();
-		entreeMapping = api_connection.getOrderAmounts("S");
-		Vector<Integer> num_values = new Vector<Integer>();
-		Vector<String> name_entrees = new Vector<String>();
-		for(Entry<String, Integer> me: entreeMapping.entrySet()) { 
-			name_entrees.add(me.getKey());
-			num_values.add(me.getValue());
-		}
-		
-		System.out.println(entreeMapping);
-		
-		
-	}
 }

@@ -1104,4 +1104,17 @@ public class DataHelper {
 		return orderAmounts;
 		
 	}
+	
+	Vector<Vector<String>> trending_options(String type) { 
+		Vector<Vector<String>> ordered_trending_items = new Vector<Vector<String>>(); 
+		String menu_item = type.toUpperCase(); 
+		if(menu_item != "E" || menu_item != "S" || menu_item != "D" || menu_item != "B") { 
+			System.out.println("Proper input was not put in..."); 
+			System.out.println("Auto choosing entree...");
+			menu_item = "E";
+		}
+		
+		return ordered_trending_items;
+		
+	}
 }

@@ -1,6 +1,5 @@
 package view;
 
-//import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -22,6 +21,7 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Action;
+import javax.swing.ButtonGroup;
 
 public class cardtype extends JFrame {
 
@@ -47,6 +47,7 @@ public class cardtype extends JFrame {
 	private final JTextField security_code = new JTextField();
 	
 	private final JLabel card_verify_text = new JLabel("");
+	private final JLabel new_user_pop_up = new JLabel("");
 	
 	private final Action action = new SwingAction();
 	
@@ -140,7 +141,6 @@ public class cardtype extends JFrame {
 		card_carrier_combobox = new JComboBox(new Object[]{"Mastercard", "Visa"});
 		card_carrier_combobox.setBounds(71, 208, 130, 33);
 		contentPane.add(card_carrier_combobox);
-		String card_carrier = card_carrier_combobox.getSelectedItem().toString();
 		
 		card_number_text.setBounds(299, 109, 130, 26);
 		contentPane.add(card_number_text);
@@ -151,14 +151,10 @@ public class cardtype extends JFrame {
 		month_combobox = new JComboBox(new Object[]{"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"});
 		month_combobox.setBounds(299, 180, 72, 26);
 		contentPane.add(month_combobox);
-		month = month_combobox.getSelectedItem().toString();
 		
 		year_combobox = new JComboBox(new Object[]{"2021", "2022", "2023", "2024", "2025"});
 		year_combobox.setBounds(373, 180, 84, 26);
 		contentPane.add(year_combobox);
-		year = year_combobox.getSelectedItem().toString();
-		
-		expiration_date = month + "-" + year;
 		
 		security_code_text.setBounds(299, 211, 140, 26);
 		contentPane.add(security_code_text);
@@ -189,6 +185,9 @@ public class cardtype extends JFrame {
         button_back.setBounds(20, 75, 111, 26);
         contentPane.add(button_back);
         
+		new_user_pop_up.setBounds(368, 271, 140, 16);
+		contentPane.add(new_user_pop_up);
+        
         button_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == button_back) {
@@ -198,6 +197,20 @@ public class cardtype extends JFrame {
 				}
 			}
 		});
+        
+        new_user_pop_up.setText("Are you a new user?");
+		
+		JRadioButton yes_button = new JRadioButton("Yes");
+		yes_button.setBounds(373, 300, 141, 23);
+		contentPane.add(yes_button);
+		
+		JRadioButton no_button = new JRadioButton("No");
+		no_button.setBounds(373, 331, 141, 23);
+		contentPane.add(no_button);
+		
+		ButtonGroup group = new ButtonGroup();
+		group.add(yes_button);
+		group.add(no_button);
 		
 		panel_pay.addMouseListener(new MouseAdapter() {
 			@Override
@@ -210,6 +223,11 @@ public class cardtype extends JFrame {
 				System.out.println("Security code: " + sec_code_str);
 				System.out.println("Card num: " + card_num);
 				
+				month = month_combobox.getSelectedItem().toString();
+				year = year_combobox.getSelectedItem().toString();
+				expiration_date = month + "-" + year;
+				String card_carrier = card_carrier_combobox.getSelectedItem().toString();
+				
 				if (security_code.getText().equals("") || card_num_entry.getText().equals("")) {
 					card_verify_text.setText("Please enter the required fields.");
 				} else if ((sec_code_str.length() != 3) //not a three-character code
@@ -220,27 +238,14 @@ public class cardtype extends JFrame {
 					Boolean sign_in_status = api_connection.verifyPayment(card_num_entry, security_code, card_type_choice, card_carrier, expiration_date);
 					
 					if (sign_in_status == false) {
-						card_verify_text.setText("Invalid card.");
-						JLabel new_user_pop_up = new JLabel("Are you a new user?");
-						new_user_pop_up.setBounds(368, 271, 140, 16);
-						contentPane.add(new_user_pop_up);
-						
-						JRadioButton yes_button = new JRadioButton("Yes");
-						yes_button.setBounds(373, 300, 141, 23);
-						contentPane.add(yes_button);
-						
-						JRadioButton no_button = new JRadioButton("No");
-						no_button.setBounds(373, 331, 141, 23);
-						contentPane.add(no_button);
-						
 						if (yes_button.isSelected()) {
 							api_connection.createPayment(card_num_entry, security_code, card_type_choice, card_carrier, expiration_date);
+							sign_in_status = true;
 						} else if (no_button.isSelected()) {
 							card_verify_text.setText("Invalid card, try again.");
 						}
-
 						
-					} else if (sign_in_status == true) {
+					} if (sign_in_status == true) {
 						card_verify_text.setText("Security code: " + security_code.getText() 
 							+ " and card number: " + card_num_entry.getText());
 						FinishPayment view_payment = new FinishPayment(price);

@@ -32,7 +32,7 @@ Team members that worked on this project:
 - Zuhayr Ali - (zali110@tamu.edu) - (227009838)
 - Adryn Gonzales - (nikolai11@tamu.edu) - (427008061)
 - Hoa Nguyen - (hoaannguyen07@tamu.edu) - (527001521)
-- Nikolas Turman - (reproach1@tamu.edu) - (927003527 )
+- Nikolas Turman - (reproach1@tamu.edu) - (927003527)
 - Sophia Stutes - (sms0325@tamu.edu) - (728006674)
 
 For any questions about the code base, feel free to email anyone from the list above. 

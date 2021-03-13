@@ -1038,4 +1038,48 @@ public class DataHelper {
 		
 		return cur_item;
 	}
+	
+	Map<String, Integer> getOrderAmounts(String type) { 
+		HashMap<String, Integer> orderAmounts = new HashMap<String, Integer>();
+		try {
+			Statement stmt = conn.createStatement();
+			String number = ""; 
+			String menu_item = "";
+			int limit = 0;
+			if(type == "E") { 
+				number = type; 
+				limit = 7;
+				menu_item  = "entrees";
+			} else if (type == "S") { 
+				number = type;
+				limit = 4;
+				menu_item  = "sides";
+			} else if (type == "B") { 
+				number = type; 
+				limit = 4;
+				menu_item  = "beverages";
+			} else if (type == "D") { 
+				number = type;
+				limit = 2;
+				menu_item  = "desserts";
+			}
+			int num = 1, sum = 0;
+			for(int i = 0; i < limit; i++) { 
+				number += String.valueOf(num);
+				String sqlStatement = "SELECT sum(case when " + menu_item + " LIKE '%" + number + "%' then 1 else 0 end) FROM orders "
+						+ "where date >= '2020-01-01'";
+				ResultSet rs = stmt.executeQuery(sqlStatement); 
+				while(rs.next()) { 
+					sum = rs.getInt("sum");
+				}
+				orderAmounts.put(number, sum);
+				num++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return orderAmounts;
+		
+	}
 }

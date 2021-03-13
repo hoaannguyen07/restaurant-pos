@@ -20,6 +20,7 @@ import java.util.Map.Entry;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
+import java.awt.Color;
 
 public class Manager_Trending_Items_Option extends JFrame {
 
@@ -55,6 +56,7 @@ public class Manager_Trending_Items_Option extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 541);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -65,6 +67,7 @@ public class Manager_Trending_Items_Option extends JFrame {
 		contentPane.add(lblChooser);
 		
 		JButton btnEntrees = new JButton("Entrees");
+		btnEntrees.setBackground(new Color(153, 0, 0));
 		btnEntrees.setFont(new Font("Arial", Font.BOLD, 20));
 		btnEntrees.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -78,6 +81,7 @@ public class Manager_Trending_Items_Option extends JFrame {
 		contentPane.add(btnEntrees);
 		
 		JButton btnSides = new JButton("Sides");
+		btnSides.setBackground(new Color(153, 0, 0));
 		btnSides.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == btnSides) { 
@@ -91,6 +95,7 @@ public class Manager_Trending_Items_Option extends JFrame {
 		contentPane.add(btnSides);
 		
 		JButton btnDesserts = new JButton("Desserts");
+		btnDesserts.setBackground(new Color(153, 0, 0));
 		btnDesserts.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == btnDesserts) {
@@ -104,6 +109,7 @@ public class Manager_Trending_Items_Option extends JFrame {
 		contentPane.add(btnDesserts);
 		
 		JButton btnBeverage = new JButton("Beverages");
+		btnBeverage.setBackground(new Color(153, 0, 0));
 		btnBeverage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == btnBeverage) {

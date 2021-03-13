@@ -100,8 +100,6 @@ public class DataHelper {
 	public CartHelper getCart_helper() {
 		return cart_helper;
 	}
-	
-	
 
 	// add new person to the system
 	@SuppressWarnings("deprecation")

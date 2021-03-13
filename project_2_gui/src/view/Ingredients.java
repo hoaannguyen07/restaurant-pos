@@ -270,7 +270,7 @@ public class Ingredients extends JFrame {
         label_menu_item_chosen.setForeground(new Color(153, 0, 0));
         label_menu_item_chosen.setFont(new Font("Arial", Font.BOLD, 20));
         label_menu_item_chosen.setHorizontalAlignment(SwingConstants.CENTER);
-        label_menu_item_chosen.setBounds(136, 53, 316, 26);
+        label_menu_item_chosen.setBounds(15, 53, 558, 26);
         String menu_item_key = api_connection.cart_helper.getCur_menu_item_key();
         
         label_menu_item_chosen.setText("Chosen Item: " + api_connection.getItemName(menu_item_key));

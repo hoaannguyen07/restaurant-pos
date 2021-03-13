@@ -83,7 +83,7 @@ public class cart extends JFrame {
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 604, 568);
+		setBounds(100, 100, 604, 373);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -167,7 +167,7 @@ public class cart extends JFrame {
 		
 		model = (DefaultTableModel)table_cart.getModel();
 		scrollpane_menu = new JScrollPane(table_cart);
-		scrollpane_menu.setBounds(10, 136, 572, 374);
+		scrollpane_menu.setBounds(10, 136, 572, 187);
 		
 		
 		contentPane.add(scrollpane_menu);
@@ -181,7 +181,16 @@ public class cart extends JFrame {
 		label_price.setFont(new Font("Arial Black", Font.BOLD, 15));
 		label_price.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_price.setBounds(478, 111, 104, 21);
-		label_price.setText("$" + api_connection.cart_helper.getTotal_cost());
+		
+		String price = api_connection.cart_helper.getTotal_cost().toString();
+		if (price.length() > 4 && price.contains(".")) {
+			price = price.substring(0, price.indexOf(".") + 3);
+		}
+		else if (price.chars().filter(ch -> ch == '.').count() == 0) { // no decimals in the value, then add decimals
+			price += ".00";
+		}
+		
+		label_price.setText("$" +  price);
 		contentPane.add(label_price);
 	}
 	
@@ -201,15 +210,10 @@ public class cart extends JFrame {
 		this.delete_all_rows_in_table();
 		
 		cart_list = api_connection.compile_cart_for_display(); // [0] = id || [1] = name || [2] = price
-//		DefaultTableModel model = (DefaultTableModel) table_cart.getModel();
 		
 		// only display item name and price
 		for(int i = 0; i < cart_list.size(); i++)
 		{
-//			Vector<String> displaying_list = new Vector<String>();
-//			displaying_list.addElement(menu_list.elementAt(i).elementAt(1));
-//			displaying_list.addElement("$ " + menu_list.elementAt(i).elementAt(2));
-//			model.addRow(displaying_list);
 			model.addRow(cart_list.elementAt(i));
 		}
 	}

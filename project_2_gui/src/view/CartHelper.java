@@ -192,7 +192,15 @@ public class CartHelper {
 		for(int i = 0; i < menu_list.size(); i++)
 		{
 			Vector<String> cur_item_info = menu_list.elementAt(i);
-			this.menu_map.put(cur_item_info.elementAt(0), new Item_Info(cur_item_info.elementAt(1), Double.parseDouble(cur_item_info.elementAt(2))));
+			String price = cur_item_info.elementAt(2);
+			if (price.length() > 4 && price.contains(".")) {
+				price = price.substring(0, price.indexOf(".") + 3);
+			}
+			else if (price.chars().filter(ch -> ch == '.').count() == 0) { // no decimals in the value, then add decimals
+				price += ".00";
+			}
+			
+			this.menu_map.put(cur_item_info.elementAt(0), new Item_Info(cur_item_info.elementAt(1), Double.parseDouble(price)));
 		}
 	}
 
@@ -208,7 +216,16 @@ public class CartHelper {
 		for(int i = 0; i < ingredients_list.size(); i++)
 		{
 			Vector<String> cur_item_info = ingredients_list.elementAt(i);
-			this.ingredients_map.put(cur_item_info.elementAt(0), new Item_Info(cur_item_info.elementAt(1), Double.parseDouble(cur_item_info.elementAt(2))));
+			
+			String price = cur_item_info.elementAt(2);
+			if (price.length() > 4 && price.contains(".")) {
+				price = price.substring(0, price.indexOf(".") + 3);
+			}
+			else if (price.chars().filter(ch -> ch == '.').count() == 0) { // no decimals in the value, then add decimals
+				price += ".00";
+			}
+			
+			this.ingredients_map.put(cur_item_info.elementAt(0), new Item_Info(cur_item_info.elementAt(1), Double.parseDouble(price)));
 		}
 	}
 	

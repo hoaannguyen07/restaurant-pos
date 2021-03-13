@@ -45,7 +45,7 @@ public class Customer_Menu extends JFrame {
 	public static String last;
 	public static String user;
 	public static String pass;
-	private final JButton button_cart = new JButton("CART");
+	private final JButton btnCheckout = new JButton("CHECKOUT");
 	
 	private static final int CUSTOMER_MENU_ID = 0;
 
@@ -200,7 +200,9 @@ public class Customer_Menu extends JFrame {
 		contentPane.add(label_menu_title);
 		
 		btnBack = new JButton("Back");
-		btnBack.setBackground(new Color(0, 51, 51));
+		btnBack.setForeground(Color.WHITE);
+		btnBack.setFont(new Font("Arial", Font.BOLD, 15));
+		btnBack.setBackground(new Color(153, 0, 0));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnBack) { 
@@ -212,7 +214,7 @@ public class Customer_Menu extends JFrame {
 		});
 		btnBack.setBounds(10, 11, 67, 25);
 		contentPane.add(btnBack);
-		button_cart.addMouseListener(new MouseAdapter() {
+		btnCheckout.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				cart c = new cart(api_connection);
@@ -220,12 +222,12 @@ public class Customer_Menu extends JFrame {
 				dispose();
 			}
 		});
-		button_cart.setForeground(new Color(255, 255, 255));
-		button_cart.setBackground(new Color(0, 51, 51));
-		button_cart.setFont(new Font("Arial", Font.BOLD, 18));
-		button_cart.setBounds(478, 9, 100, 25);
+		btnCheckout.setForeground(new Color(255, 255, 255));
+		btnCheckout.setBackground(new Color(153, 0, 0));
+		btnCheckout.setFont(new Font("Arial", Font.BOLD, 18));
+		btnCheckout.setBounds(414, 9, 164, 25);
 		
-		contentPane.add(button_cart);
+		contentPane.add(btnCheckout);
 	}
 	
 	void delete_all_rows_in_table()

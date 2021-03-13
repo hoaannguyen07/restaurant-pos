@@ -21,6 +21,7 @@ import javax.swing.JTable;
 import java.util.Vector;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class Recommendations extends JFrame {
 	
@@ -37,7 +38,7 @@ public class Recommendations extends JFrame {
 	private JPanel contentPane;
 	private JButton btnPayment = new JButton("Payment");
 	private JButton btnBack = new JButton("Back");
-	private JLabel lblYourCart = new JLabel("We also recommend these items");
+	private JLabel lblYourCart = new JLabel("We also recommend these items!");
 	private JScrollPane scrollpane_menu = new JScrollPane((Component) null);
 	private JTable table_menu;
 
@@ -87,7 +88,7 @@ public class Recommendations extends JFrame {
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 380, 378);
+		setBounds(100, 100, 380, 293);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -115,8 +116,9 @@ public class Recommendations extends JFrame {
 		btnBack.setBounds(10, 0, 76, 25);
 				
 		contentPane.add(btnBack);
+		lblYourCart.setFont(new Font("Arial", Font.BOLD, 15));
 		lblYourCart.setHorizontalAlignment(SwingConstants.LEFT);
-		lblYourCart.setBounds(10, 72, 194, 33);
+		lblYourCart.setBounds(63, 71, 249, 33);
 		
 		contentPane.add(lblYourCart);
 		
@@ -147,7 +149,7 @@ public class Recommendations extends JFrame {
 		
 		model = (DefaultTableModel)table_menu.getModel();
 		scrollpane_menu = new JScrollPane(table_menu);
-		scrollpane_menu.setBounds(10, 105, 344, 198);
+		scrollpane_menu.setBounds(10, 105, 344, 109);
 		
 		
 		contentPane.add(scrollpane_menu);

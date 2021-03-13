@@ -50,6 +50,8 @@ public class beverageMenu extends JFrame {
 	private JLabel lblNewLabel_1;
 	
 	private static final int BEVERAGE_MENU_ID = 3;
+	private JPanel panel_1;
+	private JLabel lblCheckout;
 
 	/**
 	 * Launch the application.
@@ -208,7 +210,7 @@ public class beverageMenu extends JFrame {
 		
 		panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
-		panel.setBounds(196, 554, 200, 75);
+		panel.setBounds(46, 551, 200, 75);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -223,6 +225,26 @@ public class beverageMenu extends JFrame {
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 20));
 		lblNewLabel_1.setBounds(46, 107, 491, 32);
 		contentPane.add(lblNewLabel_1);
+		
+		panel_1 = new JPanel();
+		panel_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cart c = new cart(api_connection);
+				c.setVisible(true);
+				dispose();
+			}
+		});
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBounds(301, 551, 200, 75);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		lblCheckout = new JLabel("CHECKOUT");
+		lblCheckout.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCheckout.setFont(new Font("Arial Black", Font.BOLD, 20));
+		lblCheckout.setBounds(10, 11, 180, 53);
+		panel_1.add(lblCheckout);
 	}
 	
 	void delete_all_rows_in_table()

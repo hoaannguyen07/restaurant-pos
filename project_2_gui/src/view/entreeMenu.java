@@ -50,6 +50,7 @@ public class entreeMenu extends JFrame {
 	private JLabel lblNewLabel_1;
 	
 	private static final int ENTREE_MENU_ID = 1;
+	private JLabel lblNewLabel_2;
 
 	/**
 	 * Launch the application.
@@ -215,7 +216,7 @@ public class entreeMenu extends JFrame {
 		
 		panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
-		panel.setBounds(196, 554, 200, 75);
+		panel.setBounds(56, 551, 200, 75);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -230,6 +231,26 @@ public class entreeMenu extends JFrame {
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 20));
 		lblNewLabel_1.setBounds(46, 107, 491, 32);
 		contentPane.add(lblNewLabel_1);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cart c = new cart(api_connection);
+				c.setVisible(true);
+				dispose();
+			}
+		});
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBounds(296, 551, 200, 75);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		lblNewLabel_2 = new JLabel("CHECKOUT");
+		lblNewLabel_2.setFont(new Font("Arial Black", Font.BOLD, 20));
+		lblNewLabel_2.setBackground(new Color(255, 255, 255));
+		lblNewLabel_2.setBounds(23, 11, 156, 53);
+		panel_1.add(lblNewLabel_2);
 	}
 	
 	void delete_all_rows_in_table()

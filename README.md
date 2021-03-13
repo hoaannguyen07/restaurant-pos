@@ -12,14 +12,20 @@ into a list of orders based off of the [Chick-fil-A Express](https://www.menuwit
 ## Usage 
 - Downloaded the code base to your local machine 
 - While in the /view directory run the following command
----   ```java -cp ".:postgresql-42.2.8.jar User_Type``` if on  a UNIX machine 
----   ```java -cp ".;postgresql-42.2.8.jar User_Type``` if on  a Windows machine 
+
+   ```java -cp ".:postgresql-42.2.8.jar User_Type``` if on  a UNIX machine 
+
+   ```java -cp ".;postgresql-42.2.8.jar User_Type``` if on  a Windows machine 
 - If you want to go through the manager side, log in with: 
- -- ```User: john.smith```
- --```Passsword: password```
+
+   ```User: john.smith```
+   
+   ```Passsword: password```
 - If you want to go through the customer side, log in with any number in the range: 
--- ```User: any number in range(0,100000)```
--- ```Password: same as id```
+
+   ```User: any number in range(0,100000)```
+
+    ```Password: same as id```
 
 Team members that worked on this project: 
 

@@ -611,12 +611,12 @@ public class DataHelper {
 		}
 	}
 	
-	String getItemID(String item) {
+	String getItemID(String item_name) {
 		try {
 			Statement stmt = conn.createStatement(); // statement object
 			// create the actual statement to populate the statement object
 			String id = "";
-			String sql_stmt = "SELECT id FROM menu WHERE name = '" + item + "'";
+			String sql_stmt = "SELECT id FROM menu WHERE name = '" + item_name + "'";
 			System.out.println("Executing Statement: " + sql_stmt);
 			
 			ResultSet result = stmt.executeQuery(sql_stmt);
@@ -627,6 +627,28 @@ public class DataHelper {
 			return id;
 			
 		} catch (Exception e) {
+			System.out.println(e);
+			return "";
+		}
+	}
+	
+	String getItemName(String item_id) {
+		try {
+			Statement stmt = conn.createStatement(); // statement object
+			// create the actual statement to populate the statement object
+			String id = "";
+			String sql_stmt = "SELECT name FROM menu WHERE id = '" + item_id + "'";
+			System.out.println("Executing Statement: " + sql_stmt);
+			
+			ResultSet result = stmt.executeQuery(sql_stmt);
+			while(result.next()) {
+				id = result.getString("name");
+			}
+			
+			return id;
+			
+		} catch (Exception e) {
+			System.out.println(e);
 			return "";
 		}
 	}
@@ -781,6 +803,11 @@ public class DataHelper {
 	{
 		cart_helper.delete_cur_menu_item_from_cart();
 		cart_helper.prep_for_next_menu_item();
+	}
+	
+	void delete_menu_item(String menu_item_id)
+	{
+		cart_helper.delete_menu_item_from_cart(menu_item_id);
 	}
 	
 	void reset_cart_ingredient_id()
@@ -1008,11 +1035,12 @@ public class DataHelper {
 		return cart_vector;
 	}
 	
+	// USES getItemName
 	Vector<String> create_cur_item_info_display(Map.Entry<String, Vector<String>> item)
 	{
 		Vector<String> cur_item = new Vector<String>();
 		
-		String item_name = cart_helper.get_menu_item_name(item.getKey());
+		String item_name = getItemName(item.getKey());
 		cur_item.addElement(item_name);
 		
 		Vector<String> cur_item_customizations = item.getValue();
@@ -1046,6 +1074,7 @@ public class DataHelper {
 		return cur_item;
 	}
 	
+	// USES getItemName
 	Map<String, Integer> getOrderAmounts(String type) { 
 		HashMap<String, Integer> orderAmounts = new HashMap<String, Integer>();
 		try {
@@ -1122,7 +1151,7 @@ public class DataHelper {
 		for(Map.Entry<String, Integer> item : trending_map.entrySet())
 		{
 			Vector<String> cur_item = new Vector<String>();
-			String item_name = cart_helper.get_menu_item_name(item.getKey());
+			String item_name = getItemName(item.getKey());
 			String num_ordered = item.getValue().toString();
 			
 			cur_item.addElement(item_name);
@@ -1134,6 +1163,7 @@ public class DataHelper {
 		return ordered_trending_items;
 	}
 	
+	// USES getItemName
 	Vector<Vector<String>> trending_options_for_rec(String type)
 	{
 		System.out.println("Type: " + type);
@@ -1150,7 +1180,7 @@ public class DataHelper {
 		for(Map.Entry<String, Integer> item : trending_map.entrySet())
 		{
 			Vector<String> cur_item = new Vector<String>();
-			String item_name = cart_helper.get_menu_item_name(item.getKey());
+			String item_name = getItemName(item.getKey()); 
 			Double item_price = cart_helper.get_menu_item_price(item.getKey());
 			
 			cur_item.addElement(item_name);

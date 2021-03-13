@@ -36,14 +36,14 @@ public class CartHelper {
 	/**
 	 * @return the menu_map
 	 */
-	public Map<String, Item_Info> getMenu_map() {
+	public Map<String, Item_Info> getMenu__map() {
 		return menu_map;
 	}
 
 	/**
 	 * @return the ingredient_map
 	 */
-	public Map<String, Item_Info> getIngredients_map() {
+	public Map<String, Item_Info> getingredients_map() {
 		return ingredients_map;
 	}
 
@@ -85,14 +85,14 @@ public class CartHelper {
 	/**
 	 * @param menu_map the menu_map to set
 	 */
-	public void setMenu_map(Map<String, Item_Info> menu_map) {
+	public void setmenu_map(Map<String, Item_Info> menu_map) {
 		this.menu_map = menu_map;
 	}
 
 	/**
 	 * @param ingredient_map the ingredient_map to set
 	 */
-	public void setIngredients_map(Map<String, Item_Info> ingredient_map) {
+	public void setingredients_map(Map<String, Item_Info> ingredient_map) {
 		this.ingredients_map = ingredient_map;
 	}
 
@@ -154,6 +154,7 @@ public class CartHelper {
 		}
 		return menu_map.get(menu_item_id).getPrice();
 	}
+
 	
 	public String get_ingredient_item_name(String ingredient_item_id)
 	{
@@ -178,6 +179,7 @@ public class CartHelper {
 		}
 		return ingredients_map.get(ingredient_item_id).getPrice();
 	}
+
 	
 	/**
 	 * 
@@ -193,6 +195,7 @@ public class CartHelper {
 			this.menu_map.put(cur_item_info.elementAt(0), new Item_Info(cur_item_info.elementAt(1), Double.parseDouble(cur_item_info.elementAt(2))));
 		}
 	}
+
 	
 	/**
 	 * 
@@ -257,6 +260,8 @@ public class CartHelper {
 	 */
 	void delete_menu_item_from_cart(String menu_item_id)
 	{
+		System.out.println("");
+		System.out.println("Attempting to delete [" + menu_item_id + "] from the cart using delete_menu_item_from_cart()");
 		// error checks to make sure that parameter is valid to not have the system throw errors down the line
 		if (!menu_map.containsKey(menu_item_id))
 		{
@@ -270,7 +275,7 @@ public class CartHelper {
 		}
 		
 		// find the total cost of the item order (item price + ingredients price)
-		double deducting_price = 0.0;
+		Double deducting_price = 0.0;
 		
 		deducting_price += menu_map.get(menu_item_id).getPrice();
 		Vector<String> item_ingredients = cart.get(menu_item_id);
@@ -278,14 +283,16 @@ public class CartHelper {
 		{
 			String cur_ingredient = "";
 			// 'X' stands for extra, and is not part of ingredient key
-			for(int j = 0; j < item_ingredients.elementAt(i).length(); j++)
+			Character cur_char = item_ingredients.elementAt(i).charAt(0);
+			if (cur_char.equals('X'))
 			{
-				Character cur_char = item_ingredients.elementAt(i).charAt(j);
-				if (!cur_char.equals('X')) 
-				{
-					cur_ingredient += cur_char;
-				}
+				cur_ingredient = item_ingredients.elementAt(i).substring(1, item_ingredients.elementAt(i).length()); // take out the first character leaves with the id
 			}
+			else
+			{
+				cur_ingredient = item_ingredients.elementAt(i);
+			}
+			
 			
 			if (!ingredients_map.containsKey(cur_ingredient))
 			{

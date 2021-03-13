@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -37,7 +38,7 @@ public class cart extends JFrame {
 	private JButton btnBack = new JButton("Back");
 	private JLabel lblYourCart = new JLabel("Your Cart");
 	private JScrollPane scrollpane_menu = new JScrollPane((Component) null);
-	private JTable table_menu;
+	private JTable table_cart;
 
 	/**
 	 * Launch the application.
@@ -129,16 +130,34 @@ public class cart extends JFrame {
 		
 		contentPane.add(lblYourCart);
 		
-		table_menu = new JTable(NULL_DATA, CART_HEADER);
+		table_cart = new JTable(NULL_DATA, CART_HEADER);
+		table_cart.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int index = table_cart.getSelectedRow();
+				
+				TableModel table_model = table_cart.getModel();
+				
+				String name = table_model.getValueAt(index, 0).toString();
+				String customizations = table_model.getValueAt(index, 1).toString();
+				String item_id = api_connection.getItemID(name);
+				System.out.println(name + "\t" + customizations) ;
+				
+				
+				Item_Delete_Option delete_frame = new Item_Delete_Option(api_connection, item_id);
+				delete_frame.setVisible(true);
+				dispose();
+			}
+		});
 		
-		model = (DefaultTableModel)table_menu.getModel();
-		scrollpane_menu = new JScrollPane(table_menu);
+		model = (DefaultTableModel)table_cart.getModel();
+		scrollpane_menu = new JScrollPane(table_cart);
 		scrollpane_menu.setBounds(10, 105, 572, 374);
 		
 		
 		contentPane.add(scrollpane_menu);
 		
-		scrollpane_menu.setViewportView(table_menu);
+		scrollpane_menu.setViewportView(table_cart);
 	}
 	
 	void delete_all_rows_in_table()
@@ -157,7 +176,7 @@ public class cart extends JFrame {
 		this.delete_all_rows_in_table();
 		
 		cart_list = api_connection.compile_cart_for_display(); // [0] = id || [1] = name || [2] = price
-//		DefaultTableModel model = (DefaultTableModel) table_menu.getModel();
+//		DefaultTableModel model = (DefaultTableModel) table_cart.getModel();
 		
 		// only display item name and price
 		for(int i = 0; i < cart_list.size(); i++)

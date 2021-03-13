@@ -185,7 +185,7 @@ public class Manager_Sign_In extends JFrame {
 					else if (sign_in_status == 2)
 					{
 //						label_log_in_msg.setText("User: " + tf_username.getText() + " and Pass: " + pf_password.getText());
-						Manager_Menu manager_menu = new Manager_Menu(api);
+						managerOptionMenu manager_menu = new managerOptionMenu(api);
 						manager_menu.setVisible(true);
 						dispose();
 					}

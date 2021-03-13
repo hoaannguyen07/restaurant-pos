@@ -57,6 +57,7 @@ public class revenueChange extends JFrame {
 	double new_revenue = 0;
 	private JLabel lblRevenue_adjusted;
 	private JLabel lblNewLabel_7;
+	private JButton btnBack;
 
 	/**
 	 * Launch the application.
@@ -65,7 +66,7 @@ public class revenueChange extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					revenueChange frame = new revenueChange();
+					revenueChange frame = new revenueChange(new DataHelper());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -77,15 +78,14 @@ public class revenueChange extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public revenueChange() {
+	public revenueChange(DataHelper api) {
 		if (MENU_HEADER.size() == 0)
 		{
 			MENU_HEADER.addElement("ID");
 			MENU_HEADER.addElement("Name");
 			MENU_HEADER.addElement("Price");
-			MENU_HEADER.addElement("Availability");
 		}
-		api_connection = new DataHelper();
+		api_connection = api;
 		initGUI();
 		show_data_in_table();
 	}
@@ -99,7 +99,7 @@ public class revenueChange extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Effect of Price Change over 1 Week");
+		JLabel lblNewLabel = new JLabel("Weekly Revenue");
 		lblNewLabel.setBounds(69, 11, 314, 30);
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 17));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -140,7 +140,7 @@ public class revenueChange extends JFrame {
 		contentPane.add(startMonth);
 		
 		startYear = new JComboBox<String>();
-		startYear.setBounds(160, 299, 58, 22);
+		startYear.setBounds(160, 299, 72, 22);
 		buildYearsList(startYear);
 		contentPane.add(startYear);
 		
@@ -151,7 +151,7 @@ public class revenueChange extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("Start of the Week");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_1.setBounds(64, 259, 117, 22);
+		lblNewLabel_1.setBounds(69, 259, 117, 22);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblNewLabel_1);
 		
@@ -173,11 +173,11 @@ public class revenueChange extends JFrame {
 		
 		lblNewLabel_5 = new JLabel("Year");
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5.setBounds(166, 280, 46, 14);
+		lblNewLabel_5.setBounds(173, 280, 46, 14);
 		contentPane.add(lblNewLabel_5);
 		
 		priceField = new JTextField();
-		priceField.setBounds(292, 299, 86, 21);
+		priceField.setBounds(292, 296, 86, 28);
 		contentPane.add(priceField);
 		priceField.setColumns(10);
 		
@@ -317,6 +317,19 @@ public class revenueChange extends JFrame {
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_7.setBounds(244, 351, 105, 20);
 		contentPane.add(lblNewLabel_7);
+		
+		btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(arg0.getSource() == btnBack) {
+					managerOptionMenu manager_menu = new managerOptionMenu(api_connection);
+					manager_menu.setVisible(true);
+					dispose();
+				}
+			}
+		});
+		btnBack.setBounds(10, 452, 72, 23);
+		contentPane.add(btnBack);
 	}
 	
     private void buildYearsList(JComboBox<String> yearsList) {
@@ -381,7 +394,6 @@ public class revenueChange extends JFrame {
 		String id = "";
 		String name = "";
 		String price = "";
-		String available = "";
 		
 		for(int i = 0; i < menu_list.size(); i++)
 		{
@@ -391,17 +403,9 @@ public class revenueChange extends JFrame {
 			name = menu_list.elementAt(i).elementAt(1);
 			price = "$ " + menu_list.elementAt(i).elementAt(2);
 			
-			if (menu_list.elementAt(i).elementAt(3).equals("t")) {
-				available = "Available";
-			}
-			else {
-				available = "Not Available";
-			}
-			
 			displaying_list.addElement(id);
 			displaying_list.addElement(name);
 			displaying_list.addElement(price);
-			displaying_list.addElement(available);
 			model.addRow(displaying_list);
 		}
 	}

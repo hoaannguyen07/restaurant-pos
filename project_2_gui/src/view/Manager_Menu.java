@@ -20,8 +20,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JButton;
 
 public class Manager_Menu extends JFrame {
 	
@@ -37,6 +40,7 @@ public class Manager_Menu extends JFrame {
 	JTable table_menu;
 	JScrollPane pane_menu;
 	private final JLabel lblManagerMenu = new JLabel("MANAGER MENU");
+	private JButton btnBack;
 
 	/**
 	 * Launch the application.
@@ -113,7 +117,7 @@ public class Manager_Menu extends JFrame {
 		});
 		JScrollPane pane_menu = new JScrollPane(table_menu);
 		model = (DefaultTableModel)table_menu.getModel();
-		pane_menu.setBounds(10, 95, 568, 374);
+		pane_menu.setBounds(10, 95, 568, 338);
 //		table_menu.setPreferredSize(568,374)
 		contentPane.add(pane_menu);
 		pane_menu.setViewportView(table_menu);
@@ -122,6 +126,19 @@ public class Manager_Menu extends JFrame {
 		lblManagerMenu.setBounds(43, 11, 501, 73);
 		
 		contentPane.add(lblManagerMenu);
+		
+		btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(arg0.getSource() == btnBack) {
+					managerOptionMenu manager_menu = new managerOptionMenu(api_connection);
+					manager_menu.setVisible(true);
+					dispose();
+				}
+			}
+		});
+		btnBack.setBounds(10, 442, 89, 23);
+		contentPane.add(btnBack);
 	}
 	
 	void delete_all_rows_in_table()

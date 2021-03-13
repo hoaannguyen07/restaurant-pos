@@ -9,6 +9,10 @@ import java.awt.event.ActionListener;
 import javax.swing.Action;
 import javax.swing.JButton;
 import java.awt.Color;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Font;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -147,36 +151,55 @@ public class Customer_Type extends javax.swing.JFrame {
         label_welcome1.setForeground(new java.awt.Color(255, 255, 255));
         label_welcome1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_welcome1.setText("Welcome to A.N.G.S.T!");
+        
+        btnBack = new JButton("Back");
+        btnBack.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		if(e.getSource() == btnBack) { 
+        			User_Type view_cust_option = new User_Type(api_connection);
+					view_cust_option.setVisible(true);
+					dispose();
+        		}
+        	}
+        });
+        btnBack.setForeground(new Color(255, 255, 255));
+        btnBack.setBackground(new Color(153, 0, 0));
+        btnBack.setFont(new Font("Arial", Font.BOLD, 15));
 
         javax.swing.GroupLayout panel_layoutLayout = new javax.swing.GroupLayout(panel_layout);
-        panel_layout.setLayout(panel_layoutLayout);
         panel_layoutLayout.setHorizontalGroup(
-            panel_layoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_layoutLayout.createSequentialGroup()
-                .addGap(97, 97, 97)
-                .addComponent(label_welcome1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_layoutLayout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
-                .addGroup(panel_layoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_layoutLayout.createSequentialGroup()
-                        .addComponent(panel_manager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_layoutLayout.createSequentialGroup()
-                        .addComponent(panel_customer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(110, 110, 110))))
+        	panel_layoutLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(panel_layoutLayout.createSequentialGroup()
+        			.addGap(97)
+        			.addComponent(label_welcome1)
+        			.addContainerGap(98, Short.MAX_VALUE))
+        		.addGroup(panel_layoutLayout.createSequentialGroup()
+        			.addContainerGap(120, Short.MAX_VALUE)
+        			.addComponent(panel_customer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addGap(110))
+        		.addGroup(panel_layoutLayout.createSequentialGroup()
+        			.addGap(39)
+        			.addComponent(panel_manager, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(40, Short.MAX_VALUE))
+        		.addGroup(panel_layoutLayout.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(btnBack)
+        			.addContainerGap(501, Short.MAX_VALUE))
         );
         panel_layoutLayout.setVerticalGroup(
-            panel_layoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_layoutLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(label_welcome1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addComponent(panel_customer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addComponent(panel_manager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+        	panel_layoutLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(panel_layoutLayout.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(btnBack)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(label_welcome1, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+        			.addGap(42)
+        			.addComponent(panel_customer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addGap(45)
+        			.addComponent(panel_manager, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(58, Short.MAX_VALUE))
         );
+        panel_layout.setLayout(panel_layoutLayout);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -188,21 +211,6 @@ public class Customer_Type extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panel_layout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        
-        JButton button_back = new JButton("Back");
-        button_back.setAction(action);
-        button_back.setBounds(240, 350, 111, 26);
-        panel_layout.add(button_back);
-        
-        button_back.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(arg0.getSource() == button_back) {
-					User_Type view_cust_option = new User_Type(api_connection);
-					view_cust_option.setVisible(true);
-					dispose();
-				}
-			}
-		});
 
         pack();
     }// </editor-fold>                        
@@ -249,5 +257,6 @@ public class Customer_Type extends javax.swing.JFrame {
     private javax.swing.JPanel panel_customer;
     private javax.swing.JPanel panel_layout;
     private javax.swing.JPanel panel_manager;
+    private JButton btnBack;
     // End of variables declaration                   
 }

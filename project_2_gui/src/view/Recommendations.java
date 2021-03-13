@@ -38,9 +38,10 @@ public class Recommendations extends JFrame {
 	private JPanel contentPane;
 	private JButton btnPayment = new JButton("Payment");
 	private JButton btnBack = new JButton("Back");
-	private JLabel lblYourCart = new JLabel("We also recommend these items!");
+	private JLabel lblYourCart = new JLabel("We also recommend them!");
 	private JScrollPane scrollpane_menu = new JScrollPane((Component) null);
 	private JTable table_menu;
+	private final JLabel lblNewLabel_2 = new JLabel("These items are quite popular...");
 
 	/**
 	 * Launch the application.
@@ -124,7 +125,7 @@ public class Recommendations extends JFrame {
 		contentPane.add(btnBack);
 		lblYourCart.setFont(new Font("Arial", Font.BOLD, 15));
 		lblYourCart.setHorizontalAlignment(SwingConstants.LEFT);
-		lblYourCart.setBounds(63, 71, 249, 33);
+		lblYourCart.setBounds(77, 71, 249, 33);
 		
 		contentPane.add(lblYourCart);
 		
@@ -155,12 +156,16 @@ public class Recommendations extends JFrame {
 		
 		model = (DefaultTableModel)table_menu.getModel();
 		scrollpane_menu = new JScrollPane(table_menu);
-		scrollpane_menu.setBounds(10, 105, 344, 109);
+		scrollpane_menu.setBounds(10, 115, 344, 109);
 		
 		
 		contentPane.add(scrollpane_menu);
 		
 		scrollpane_menu.setViewportView(table_menu);
+		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 18));
+		lblNewLabel_2.setBounds(39, 43, 299, 38);
+		
+		contentPane.add(lblNewLabel_2);
 	}
 	
 	void delete_all_rows_in_table()

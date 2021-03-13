@@ -66,6 +66,7 @@ public class prevOrder2 extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		btnBack.setFont(new Font("Arial", Font.BOLD, 15));
 		btnBack.setBackground(new Color(153, 0, 0));
 		btnBack.setForeground(new Color(255, 255, 255));
 		btnBack.addActionListener(new ActionListener() {
@@ -77,7 +78,7 @@ public class prevOrder2 extends JFrame {
 				}
 			}
 		});
-		btnBack.setBounds(12, 11, 117, 25);
+		btnBack.setBounds(12, 11, 91, 25);
 		
 		Map<String, Vector<String>> PrevOrderMap = api_connection.prevOrder();
 		Vector<String> orders = new Vector<String>();
@@ -104,7 +105,7 @@ public class prevOrder2 extends JFrame {
 			}
 		}
 		textPrevOrder.setForeground(new Color(255, 255, 255));
-		textPrevOrder.setFont(new Font("Arial", Font.PLAIN, 15));
+		textPrevOrder.setFont(new Font("Arial", Font.BOLD, 15));
 		textPrevOrder.setBackground(new Color(153, 0, 0));
 		textPrevOrder.setText(temp);
 		
@@ -120,14 +121,14 @@ public class prevOrder2 extends JFrame {
 		}
 		
 		textPrevOrder2.setForeground(new Color(255, 255, 255));
-		textPrevOrder2.setFont(new Font("Arial", Font.PLAIN, 15));
+		textPrevOrder2.setFont(new Font("Arial", Font.BOLD, 15));
 		textPrevOrder2.setBackground(new Color(153, 0, 0));
 		textPrevOrder2.setText(temp);
 		
 		
 		contentPane.add(btnBack);
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 20));
-		lblNewLabel.setBounds(85, 55, 231, 32);
+		lblNewLabel.setBounds(112, 65, 231, 32);
 		
 		contentPane.add(lblNewLabel);
 		

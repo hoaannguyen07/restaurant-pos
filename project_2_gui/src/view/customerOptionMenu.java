@@ -29,7 +29,7 @@ public class customerOptionMenu extends JFrame {
 	public static String user = "";
 	public static String pass = "";
 	public static double price = 0;
-	private final JLabel lblUser = new JLabel("User:");
+	private final JLabel lblUser = new JLabel("Welcome!");
 	private final JLabel labelUserGivenName = new JLabel("");
 	private final JLabel lblFirstName = new JLabel("First Name: ");
 	private final JLabel lblLastName = new JLabel("Last Name:");
@@ -110,7 +110,7 @@ public class customerOptionMenu extends JFrame {
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 316);
+		setBounds(100, 100, 450, 336);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -132,7 +132,7 @@ public class customerOptionMenu extends JFrame {
 				}
 			}
 		});
-		btnViewMenu.setBounds(88, 30, 250, 48);
+		btnViewMenu.setBounds(88, 50, 250, 48);
 		
 		contentPane.add(btnViewMenu);
 		btnViewLastMeal.setFont(new Font("Arial", Font.BOLD, 20));
@@ -147,7 +147,7 @@ public class customerOptionMenu extends JFrame {
 				}
 			}
 		});
-		btnViewLastMeal.setBounds(88, 90, 250, 48);
+		btnViewLastMeal.setBounds(88, 109, 250, 48);
 		
 		contentPane.add(btnViewLastMeal);
 		btnPaymentInformation.setFont(new Font("Arial", Font.BOLD, 20));
@@ -162,7 +162,7 @@ public class customerOptionMenu extends JFrame {
 				}
 			}
 		});
-		btnPaymentInformation.setBounds(88, 150, 250, 48);
+		btnPaymentInformation.setBounds(88, 168, 250, 48);
 		
 		contentPane.add(btnPaymentInformation);
 		btnRewards.setBackground(new Color(153, 0, 0));
@@ -177,10 +177,11 @@ public class customerOptionMenu extends JFrame {
 				}
 			}
 		});
-		btnRewards.setBounds(88, 210, 250, 48);
+		btnRewards.setBounds(88, 227, 250, 48);
 		
 		contentPane.add(btnRewards);
-		lblUser.setBounds(12, 3, 70, 15);
+		lblUser.setFont(new Font("Arial", Font.BOLD, 15));
+		lblUser.setBounds(27, 19, 85, 20);
 		
 		contentPane.add(lblUser);
 		labelUserGivenName.setBounds(73, 9, 135, 9);

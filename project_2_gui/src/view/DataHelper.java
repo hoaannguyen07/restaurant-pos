@@ -1083,15 +1083,15 @@ public class DataHelper {
 				number = type;
 			}
 			
-			
 			// used to sort the hashmap
+			// ANY INQUIRIES CAN BE DROPPED AT THIS WEBSITE: https://www.geeksforgeeks.org/sorting-a-hashmap-according-to-values/ 
 			List<Map.Entry<String,Integer>> list = new LinkedList<Map.Entry<String, Integer>>(orderAmounts.entrySet());
 			Collections.sort(list, new Comparator<Map.Entry<String,Integer>>() { 
 					public int compare(
-							Map.Entry<String, Integer> object1,
-							Map.Entry<String, Integer> object2)
+							Map.Entry<String, Integer> 	item1,
+							Map.Entry<String, Integer> item2)
 					{
-						return(object1.getValue()).compareTo(object2.getValue());
+						return(item1.getValue()).compareTo(item2.getValue());
 					}});
 			HashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
 			for(Map.Entry<String, Integer> me: list) { 
@@ -1107,16 +1107,30 @@ public class DataHelper {
 	}
 	
 	Vector<Vector<String>> trending_options(String type) { 
+		System.out.println("Type: " + type);
 		Vector<Vector<String>> ordered_trending_items = new Vector<Vector<String>>(); 
-		String menu_item = type.toUpperCase(); 
-		if(menu_item != "E" || menu_item != "S" || menu_item != "D" || menu_item != "B") { 
-			System.out.println("Proper input was not put in..."); 
-			System.out.println("Auto choosing entree...");
-			menu_item = "E";
+		
+//		if(!type.equals("E") || !type.equals("S") || !type.equals("D") || !type.equals("B")) { 
+//			System.out.println("Proper input was not put in..."); 
+//			System.out.println("Auto choosing entree...");
+//			type = "E";
+//		}
+		
+		Map<String, Integer> trending_map = getOrderAmounts(type);
+		
+		for(Map.Entry<String, Integer> item : trending_map.entrySet())
+		{
+			Vector<String> cur_item = new Vector<String>();
+			String item_name = cart_helper.get_menu_item_name(item.getKey());
+			String num_ordered = item.getValue().toString();
+			
+			cur_item.addElement(item_name);
+			cur_item.addElement(num_ordered);
+			
+			ordered_trending_items.addElement(cur_item);
 		}
 		
 		return ordered_trending_items;
-		
 	}
 	
 	void writeOrdertoDatabase() { 

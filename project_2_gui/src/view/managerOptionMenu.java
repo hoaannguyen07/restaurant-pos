@@ -12,6 +12,10 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 public class managerOptionMenu extends JFrame {
 	
@@ -40,6 +44,9 @@ public class managerOptionMenu extends JFrame {
 	 */
 	public managerOptionMenu(DataHelper api) {
 		api_connection = api;
+		
+		api_connection.get_menu_data();
+		
 		initGUI();
 	}
 		
@@ -56,7 +63,7 @@ public class managerOptionMenu extends JFrame {
 		btnWeeklyRevenue.setForeground(Color.WHITE);
 		btnWeeklyRevenue.setFont(new Font("Arial", Font.BOLD, 20));
 		btnWeeklyRevenue.setBackground(new Color(204, 0, 0));
-		btnWeeklyRevenue.setBounds(103, 156, 228, 54);
+		btnWeeklyRevenue.setBounds(103, 172, 228, 54);
 		btnWeeklyRevenue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnWeeklyRevenue) {
@@ -72,7 +79,7 @@ public class managerOptionMenu extends JFrame {
 		btnEditMenu.setForeground(Color.WHITE);
 		btnEditMenu.setBackground(new Color(204, 0, 0));
 		btnEditMenu.setFont(new Font("Arial", Font.BOLD, 20));
-		btnEditMenu.setBounds(103, 51, 228, 54);
+		btnEditMenu.setBounds(103, 93, 228, 54);
 		btnEditMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnEditMenu) {
@@ -85,11 +92,25 @@ public class managerOptionMenu extends JFrame {
 		contentPane.add(btnEditMenu);
 		
 		JButton btnNewButton = new JButton("Trending Items");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Manager_Trending_Items_Option mtio = new Manager_Trending_Items_Option(api_connection);
+				mtio.setVisible(true);
+				dispose();
+			}
+		});
 		btnNewButton.setBackground(new Color(204, 0, 0));
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 20));
 		btnNewButton.setBounds(103, 251, 228, 54);
 		contentPane.add(btnNewButton);
+		
+		JLabel lblNewLabel = new JLabel("MANAGER OPTIONS");
+		lblNewLabel.setFont(new Font("Arial Black", Font.BOLD, 20));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(95, 11, 247, 54);
+		contentPane.add(lblNewLabel);
 	}
 }
 

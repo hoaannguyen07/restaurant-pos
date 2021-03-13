@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Vector;
 import java.util.Calendar;
 import java.util.Collections;
@@ -1162,16 +1163,104 @@ public class DataHelper {
 	}
 	
 	void writeOrdertoDatabase() { 
-		int order_id; 
+		int order_id = 0; 
 		Statement stmt;
 		try {
 			stmt = conn.createStatement();
 			String sqlStatement = "SELECT COUNT(id) FROM orders"; 
 			ResultSet rs = stmt.executeQuery(sqlStatement);
 			while(rs.next()) { 
-				order_id = rs.getInt("count");
+				order_id = rs.getInt("count") + 1;
 			}
 			Map<String, Vector<String>> cart_map = cart_helper.getCart();
+			String date = "'";
+			date += java.time.LocalDate.now().toString() + "'";
+			// Need to parse the string for the entrees and stuff still
+			String entrees = "'";
+			String sides = "'";
+			String bev = "'";
+			String desserts = "'";
+			
+			for(Entry<String, Vector<String>> me : cart_map.entrySet()) {
+				if(me.getKey().charAt(0) == 'E') {
+					String hold = "";
+					hold += me.getKey() + ":";		
+					for(int i = 0; i < me.getValue().size(); i++) { 
+						if(i == me.getValue().size() -1) {
+							hold += me.getValue().elementAt(i) + ":";
+						} else {
+							hold += me.getValue().elementAt(i) + ";";
+						}
+					}
+					entrees += hold;
+				} else if(me.getKey().charAt(0) == 'S') { 
+					String hold = "";
+					hold += me.getKey() + ":";	
+					for(int i = 0; i < me.getValue().size(); i++) { 
+						if(i == me.getValue().size() -1) {
+							hold += me.getValue().elementAt(i) + ":";
+						} else {
+							hold += me.getValue().elementAt(i) + ";";
+						}
+					}
+					sides += hold;
+				} else if(me.getKey().charAt(0) == 'B') { 
+					String hold = "";
+					hold += me.getKey() + ":";	
+					for(int i = 0; i < me.getValue().size(); i++) { 
+						if(i == me.getValue().size() -1) {
+							hold += me.getValue().elementAt(i) + ":";
+						} else {
+							hold += me.getValue().elementAt(i) + ";";
+						}
+					}
+					bev += hold;
+				} else if(me.getKey().charAt(0) == 'D') { 
+					String hold = "";
+					hold += me.getKey() + ":";	
+					for(int i = 0; i < me.getValue().size(); i++) { 
+						if(i == me.getValue().size() -1) {
+							hold += me.getValue().elementAt(i) + ":";
+						} else {
+							hold += me.getValue().elementAt(i) + ";";
+						}
+					}
+					desserts += hold;
+				}
+			}
+			
+			if(entrees.equals("'")) { 
+				entrees = null;
+			} else {
+				entrees = entrees.substring(0, entrees.length()-1);
+				entrees += "'";
+			}
+			
+			if(sides.equals("'")) { 
+				sides = null;
+			} else {
+				sides = sides.substring(0, sides.length()-1);
+				sides += "'";
+			} 
+			
+			if(bev.equals("'")) { 
+				bev = null;
+			} else {
+				bev = bev.substring(0, bev.length()-1);
+				bev += "'";
+			} 
+			
+			if(desserts.equals("'")) { 
+				desserts = null;
+			} else {
+				desserts = desserts.substring(0, desserts.length()-1);
+				desserts += "'";
+			} 
+			
+			sqlStatement = "INSERT INTO orders VALUES (" + order_id + "," + getId() + "," + date + "," 
+			+ cart_helper.getTotal_cost() + "," + cart_map.size() + "," + entrees + "," + sides + "," 
+			+ bev + "," + desserts + ")";
+			stmt.execute(sqlStatement);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

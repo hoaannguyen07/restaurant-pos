@@ -36,3 +36,5 @@ Team members that worked on this project:
 - Sophia Stutes - (sms0325@tamu.edu) - (728006674)
 
 For any questions about the code base, feel free to email anyone from the list above. 
+
+### An Aggie does not lie, cheat or steal or tolerate those who do.

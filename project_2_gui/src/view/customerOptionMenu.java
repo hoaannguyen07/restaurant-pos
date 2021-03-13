@@ -30,7 +30,6 @@ public class customerOptionMenu extends JFrame {
 	public static String pass = "";
 	public static double price = 0;
 	private final JLabel lblUser = new JLabel("Welcome!");
-	private final JLabel labelUserGivenName = new JLabel("");
 	private final JLabel lblFirstName = new JLabel("First Name: ");
 	private final JLabel lblLastName = new JLabel("Last Name:");
 
@@ -116,8 +115,9 @@ public class customerOptionMenu extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		labelUserGivenName.setText(user);
+		lblFirstName.setFont(new Font("Arial", Font.BOLD, 15));
 		lblFirstName.setText(first);
+		lblLastName.setFont(new Font("Arial", Font.BOLD, 15));
 		lblLastName.setText(last);
 		btnViewMenu.setForeground(new Color(255, 255, 255));
 		btnViewMenu.setFont(new Font("Arial", Font.BOLD, 20));
@@ -181,16 +181,13 @@ public class customerOptionMenu extends JFrame {
 		
 		contentPane.add(btnRewards);
 		lblUser.setFont(new Font("Arial", Font.BOLD, 15));
-		lblUser.setBounds(27, 19, 85, 20);
+		lblUser.setBounds(31, 3, 85, 20);
 		
 		contentPane.add(lblUser);
-		labelUserGivenName.setBounds(73, 9, 135, 9);
-		
-		contentPane.add(labelUserGivenName);
-		lblFirstName.setBounds(197, 3, 118, 15);
+		lblFirstName.setBounds(167, 8, 118, 15);
 		
 		contentPane.add(lblFirstName);
-		lblLastName.setBounds(327, 3, 98, 15);
+		lblLastName.setBounds(326, 8, 98, 15);
 		
 		contentPane.add(lblLastName);
 	}

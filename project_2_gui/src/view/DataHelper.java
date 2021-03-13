@@ -4,9 +4,14 @@ import java.math.RoundingMode;
 import java.sql.*; // to do all SQL commands
 import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.swing.*;
 
@@ -1074,7 +1079,24 @@ public class DataHelper {
 				}
 				orderAmounts.put(number, sum);
 				num++;
+				number = type;
 			}
+			
+			
+			// used to sort the hashmap
+			List<Map.Entry<String,Integer>> list = new LinkedList<Map.Entry<String, Integer>>(orderAmounts.entrySet());
+			Collections.sort(list, new Comparator<Map.Entry<String,Integer>>() { 
+					public int compare(
+							Map.Entry<String, Integer> object1,
+							Map.Entry<String, Integer> object2)
+					{
+						return(object1.getValue()).compareTo(object2.getValue());
+					}});
+			HashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
+			for(Map.Entry<String, Integer> me: list) { 
+				result.put(me.getKey(), me.getValue());
+			}
+			return result;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

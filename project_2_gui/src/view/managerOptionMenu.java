@@ -45,7 +45,7 @@ public class managerOptionMenu extends JFrame {
 		
 	void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 384);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 153, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -83,6 +83,13 @@ public class managerOptionMenu extends JFrame {
 			}
 		});
 		contentPane.add(btnEditMenu);
+		
+		JButton btnNewButton = new JButton("Trending Items");
+		btnNewButton.setBackground(new Color(204, 0, 0));
+		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.setFont(new Font("Arial", Font.BOLD, 20));
+		btnNewButton.setBounds(103, 251, 228, 54);
+		contentPane.add(btnNewButton);
 	}
 }
 

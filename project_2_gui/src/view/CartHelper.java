@@ -387,8 +387,7 @@ public class CartHelper {
 		System.out.println("Current Cart outputted in add_cur_menu_item in CartHelper:\n" + cart);
 		System.out.println("Menu Item key [" + cur_menu_item_key + "] (" + menu_map.get(cur_menu_item_key).getName() + ") has been added to the cart");
 	}
-	
-	
+
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -397,6 +396,16 @@ public class CartHelper {
 		
 		hi.put("sucks", new Vector<String>());
 		System.out.println(hi);
+		
+		String s = "XE3";
+		System.out.println("s: " + s);
+		s = s.substring(1, s.length());
+		System.out.println("s: " + s);
+		
+		String t = s;
+		t = "123";
+		System.out.println("s: " + s);
+		System.out.println("t: " + t);
 	}
 
 	@Override

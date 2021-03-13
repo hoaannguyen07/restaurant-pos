@@ -301,7 +301,6 @@ public class DataHelper {
 		}
 	}
 
-
 	// find number of visits % 25 (b/c 25 is our max 
 	int get_num_visits()
 	{
@@ -948,4 +947,95 @@ public class DataHelper {
 		return null;
 	}
 	
+	Vector<Vector<String>> compile_cart_for_display()
+	{
+		Vector<Vector<String>> cart_vector = new Vector<Vector<String>>();
+		
+		Map<String, Vector<String>> cart_map = cart_helper.getCart();
+		
+		// put entrees first, then sides, dessert, and beverages
+		for(Map.Entry<String, Vector<String>> item : cart_map.entrySet())
+		{
+			String item_key = item.getKey();
+			Character menu_item_first_char = item_key.charAt(0);
+			if (menu_item_first_char.equals('E'))
+			{
+				Vector<String> cur_customized_item_with_names = create_cur_item_info_display(item);
+				cart_vector.addElement(cur_customized_item_with_names);
+			}
+		}
+		
+		for(Map.Entry<String, Vector<String>> item : cart_map.entrySet())
+		{
+			String item_key = item.getKey();
+			Character menu_item_first_char = item_key.charAt(0);
+			if (menu_item_first_char.equals('S'))
+			{
+				Vector<String> cur_customized_item_with_names = create_cur_item_info_display(item);
+				cart_vector.addElement(cur_customized_item_with_names);
+			}
+		}
+		
+		for(Map.Entry<String, Vector<String>> item : cart_map.entrySet())
+		{
+			String item_key = item.getKey();
+			Character menu_item_first_char = item_key.charAt(0);
+			if (menu_item_first_char.equals('D'))
+			{
+				Vector<String> cur_customized_item_with_names = create_cur_item_info_display(item);
+				cart_vector.addElement(cur_customized_item_with_names);
+			}
+		}
+		
+		for(Map.Entry<String, Vector<String>> item : cart_map.entrySet())
+		{
+			String item_key = item.getKey();
+			Character menu_item_first_char = item_key.charAt(0);
+			if (menu_item_first_char.equals('B'))
+			{
+				Vector<String> cur_customized_item_with_names = create_cur_item_info_display(item);
+				cart_vector.addElement(cur_customized_item_with_names);
+			}
+		}
+		
+		return cart_vector;
+	}
+	
+	Vector<String> create_cur_item_info_display(Map.Entry<String, Vector<String>> item)
+	{
+		Vector<String> cur_item = new Vector<String>();
+		
+		String item_name = cart_helper.get_menu_item_name(item.getKey());
+		cur_item.addElement(item_name);
+		
+		Vector<String> cur_item_customizations = item.getValue();
+		String customization_string = "";
+		
+		for(String i : cur_item_customizations)
+		{
+			// if there's nothing in the string yet then don't add "," before ingredient name
+			// otherwise add it because there's a preceding item in the customization
+			if (!customization_string.equals(""))
+			{
+				customization_string += ", ";
+			}
+			
+			// add the word Extra if thats what the customization calls for
+			Character ingr_item_first_char = i.charAt(0);
+			String ingr_id = i;
+			if (ingr_item_first_char.equals('X'))
+			{
+				customization_string += "Extra ";
+				// remove the first character in the ingr_item_first_char because it's not part
+				// of the ingredient id and ingredient id is needed to get ingredient name
+				ingr_id = ingr_id.substring(1, ingr_id.length());
+			}
+			String ingr_name = cart_helper.get_ingredient_item_name(ingr_id);
+			customization_string += ingr_name;
+		}
+		
+		cur_item.addElement(customization_string);
+		
+		return cur_item;
+	}
 }

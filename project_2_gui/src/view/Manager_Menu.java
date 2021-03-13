@@ -1,4 +1,4 @@
-package src.view;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -27,10 +27,14 @@ public class Manager_Menu extends JFrame {
 	
 	DataHelper api_connection;
 	
+	String username;
+	
 	private JPanel contentPane;
 	public static final Vector<String> MENU_HEADER = new Vector<String>();
 	public static final Vector<Vector<String>> NULL_DATA = new Vector<Vector<String>>();
 	public DefaultTableModel model;
+	
+	Vector<Vector<String>> menu_list; // save all items on menu 
 	
 	JTable table_menu;
 	JScrollPane pane_menu;
@@ -56,16 +60,25 @@ public class Manager_Menu extends JFrame {
 	 * Create the frame.
 	 */
 	public Manager_Menu() {
-		MENU_HEADER.addElement("Name");
-		MENU_HEADER.addElement("Price");
+		if (MENU_HEADER.size() == 0)
+		{
+			MENU_HEADER.addElement("Name");
+			MENU_HEADER.addElement("Price");
+		}
+		api_connection = new DataHelper();
+		username = "username";
 		initGUI();
 		show_data_in_table();
 	}
 	
-	public Manager_Menu(DataHelper api) {
-		MENU_HEADER.addElement("Name");
-		MENU_HEADER.addElement("Price");
+	public Manager_Menu(DataHelper api, String username) {
+		if (MENU_HEADER.size() == 0)
+		{
+			MENU_HEADER.addElement("Name");
+			MENU_HEADER.addElement("Price");
+		}
 		this.api_connection = api;
+		this.username = username;
 		initGUI();
 		show_data_in_table();
 	}
@@ -93,7 +106,7 @@ public class Manager_Menu extends JFrame {
 				
 				System.out.println(name + "\t" + price);
 				
-				EditItem openItem = new EditItem("1234", name);
+				EditItem openItem = new EditItem(api_connection, username, name);
 				openItem.setVisible(true);
 				dispose();
 			}
@@ -111,14 +124,31 @@ public class Manager_Menu extends JFrame {
 		contentPane.add(lblManagerMenu);
 	}
 	
+	void delete_all_rows_in_table()
+	{
+		int row_count = model.getRowCount();
+		// remove one row at a time
+		for(int i = row_count - 1; i >= 0; i--)
+		{
+			model.removeRow(i);
+		}
+	}
+	
 	void show_data_in_table()
 	{
-		Vector<Vector<String>> displaying_list = get_menu_data();
+		// first make sure there is nothing in the table before adding stuff in
+		this.delete_all_rows_in_table();
+		
+		menu_list = get_menu_data(); // [0] = id || [1] = name || [2] = price
 //		DefaultTableModel model = (DefaultTableModel) table_menu.getModel();
-
-		for(int i = 0; i < displaying_list.size(); i++)
+		
+		// only display item name and price
+		for(int i = 0; i < menu_list.size(); i++)
 		{
-			model.addRow(displaying_list.elementAt(i));
+			Vector<String> displaying_list = new Vector<String>();
+			displaying_list.addElement(menu_list.elementAt(i).elementAt(1));
+			displaying_list.addElement(menu_list.elementAt(i).elementAt(2));
+			model.addRow(displaying_list);
 		}
 		
 	}
@@ -140,10 +170,12 @@ public class Manager_Menu extends JFrame {
 			
 			while(result.next())
 			{
-				Vector<String> cur_item = new Vector<String>();
+				Vector<String> cur_item = new Vector<String>(); // [0] = id || [1] = name || [2] = price
 				// get name and price of food item
+				String food_id = result.getString("id");
 				String food_name = result.getString("name");
 				String food_price = result.getString("price");
+				cur_item.addElement(food_id);
 				cur_item.addElement(food_name);
 				cur_item.addElement(food_price);
 				// put all info pertaining to item into the menu list
@@ -155,6 +187,7 @@ public class Manager_Menu extends JFrame {
 		{
 			System.out.println("Error adding to manager Datatable.");
 		}
+		System.out.println(menu_list);
 		return menu_list;
 	}
 }

@@ -1,4 +1,4 @@
-package src.view;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -27,6 +27,7 @@ public class Manager_Sign_In extends javax.swing.JFrame {
 	DataHelper api_connection;
 	
     public Manager_Sign_In() {
+    	api_connection = new DataHelper();
         initComponents();
     }
     
@@ -283,6 +284,9 @@ public class Manager_Sign_In extends javax.swing.JFrame {
         else if (api_connection.verify_manager(label_username, label_pass) == 2)
         {
             label_login_msg.setText("Successful Sign In");
+            Manager_Menu menu = new Manager_Menu(api_connection, label_username.getText());
+            menu.setVisible(true);
+            dispose();
         }
         // incorrect username/password
         else

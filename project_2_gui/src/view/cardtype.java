@@ -1,4 +1,4 @@
-package src.view;
+package view;
 
 //import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -15,6 +15,8 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class cardtype extends JFrame {
 
@@ -23,10 +25,13 @@ public class cardtype extends JFrame {
 	private final JLabel card_type_text = new JLabel("Choose card type");
 	private JPanel contentPane;
 	private final JLabel card_carrier_text = new JLabel("Choose card carrier");
+	@SuppressWarnings("rawtypes")
 	private JComboBox card_carrier_combobox;
 	private final JLabel card_number_text = new JLabel("Enter card number");
 	private final JLabel expr_date_text = new JLabel("Choose expiration date");
+	@SuppressWarnings("rawtypes")
 	private JComboBox month_combobox;
+	@SuppressWarnings("rawtypes")
 	private JComboBox year_combobox;
 	private final JLabel security_code_text = new JLabel("Enter security code");
 	private final JPanel panel_pay = new JPanel();
@@ -34,6 +39,7 @@ public class cardtype extends JFrame {
 	private final JLabel lblNewLabel = new JLabel("PAYMENT INFORMATION");
 	private final JTextField textField = new JTextField();
 	private final JTextField textField_1 = new JTextField();
+	protected static double price; 
 	
 	DataHelper api_connection;
 	/**
@@ -43,7 +49,7 @@ public class cardtype extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					cardtype frame = new cardtype();
+					cardtype frame = new cardtype(price);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,15 +61,19 @@ public class cardtype extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public cardtype() {
+	public cardtype(double current_price) {
 		textField_1.setBounds(299, 237, 46, 20);
 		textField_1.setColumns(10);
 		textField.setBounds(299, 130, 130, 20);
 		textField.setColumns(16);
-		
+		price = current_price;
+		System.out.println(price);
 		initGUI();
 	}
 	
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public cardtype(DataHelper api) {
 		textField_1.setBounds(299, 237, 46, 20);
 		textField_1.setColumns(10);
@@ -74,6 +84,7 @@ public class cardtype extends JFrame {
 		
 		initGUI();
 	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 550, 400);
@@ -106,15 +117,23 @@ public class cardtype extends JFrame {
 		contentPane.add(expr_date_text);
 		
 		month_combobox = new JComboBox(new Object[]{"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"});
-		month_combobox.setBounds(299, 180, 46, 26);
+		month_combobox.setBounds(299, 180, 62, 26);
 		contentPane.add(month_combobox);
 		
 		year_combobox = new JComboBox(new Object[]{"2021", "2022", "2023", "2024", "2025"});
-		year_combobox.setBounds(373, 180, 56, 26);
+		year_combobox.setBounds(373, 180, 84, 26);
 		contentPane.add(year_combobox);
 		
 		security_code_text.setBounds(299, 211, 140, 26);
 		contentPane.add(security_code_text);
+		panel_pay.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				FinishPayment view_payment = new FinishPayment(price);
+				view_payment.setVisible(true);
+				dispose();
+			}
+		});
 		panel_pay.setForeground(new Color(0, 0, 0));
 		panel_pay.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 255)));
 		panel_pay.setBackground(new Color(255, 255, 255));

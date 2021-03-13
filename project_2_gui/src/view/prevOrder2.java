@@ -1,15 +1,25 @@
 package view;
 
-import java.sql.*;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.util.Vector;
-
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.sql.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPasswordField;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.ListSelectionModel;
 
 public class prevOrder2 extends JFrame {
 
@@ -26,6 +36,8 @@ public class prevOrder2 extends JFrame {
 	protected static String last;
 	protected static String user;
 	protected static String pass;
+	protected static double price;
+	private final JButton btnBack = new JButton("Back");
 
 	/**
 	 * Launch the application.
@@ -55,6 +67,7 @@ public class prevOrder2 extends JFrame {
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initGUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Connection conn = null;
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -72,12 +85,11 @@ public class prevOrder2 extends JFrame {
 		Vector<String> sides = new Vector<String>();
 		Vector<String> beverages = new Vector<String>();
 		Vector<String> desserts = new Vector<String>();
-		
+
 		try { 
 			Statement stmnt = conn.createStatement();
-
-			String where = "WHERE customer.lastname LIKE '" + "SMITH" + "%' ";
-			String and_str = "AND customer.firstname LIKE '" + "MARY"+ "%' ";
+			String where = "WHERE customer.lastname LIKE '" + last.toUpperCase() + "%' ";
+			String and_str = "AND customer.firstname LIKE '" + first.toUpperCase() + "%' ";
 			String sqlStatement = 
 					"SELECT m1.name AS entree, m2.name AS side, m3.name AS beverage, m4.name AS dessert " + 
 					"FROM orders " + 
@@ -124,29 +136,41 @@ public class prevOrder2 extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		lblEntrees.setBounds(71, 12, 70, 15);
+		lblEntrees.setBounds(71, 36, 70, 15);
 		
 		contentPane.add(lblEntrees);
-		lblSides.setBounds(283, 12, 70, 15);
+		lblSides.setBounds(283, 36, 70, 15);
 		
 		contentPane.add(lblSides);
-		lblBeverage.setBounds(71, 199, 70, 15);
+		lblBeverage.setBounds(71, 214, 70, 15);
 		
 		contentPane.add(lblBeverage);
-		lblDesserts.setBounds(283, 199, 70, 15);
+		lblDesserts.setBounds(283, 214, 70, 15);
 		
 		contentPane.add(lblDesserts);
-		entreeList.setBounds(12, 29, 188, 139);
+		entreeList.setBounds(12, 63, 188, 139);
 		
 		contentPane.add(entreeList);
-		bevList.setBounds(12, 226, 188, 139);
+		bevList.setBounds(12, 254, 188, 139);
 		
 		contentPane.add(bevList);
-		sideList.setBounds(233, 29, 175, 139);
+		sideList.setBounds(233, 63, 175, 139);
 		
 		contentPane.add(sideList);
-		dessList.setBounds(233, 224, 175, 141);
+		dessList.setBounds(233, 254, 175, 141);
 		
 		contentPane.add(dessList);
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(arg0.getSource() == btnBack) {
+					customerOptionMenu view_cust_option = new customerOptionMenu(first, last, user, pass, price);
+					view_cust_option.setVisible(true);
+					dispose();
+				}
+			}
+		});
+		btnBack.setBounds(161, 0, 117, 25);
+		
+		contentPane.add(btnBack);
 	}
 }

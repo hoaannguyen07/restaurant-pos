@@ -1,4 +1,4 @@
-package src.view;
+package view;
 
 import java.sql.*; // to do all SQL commands
 import java.util.ArrayList;
@@ -7,10 +7,11 @@ import java.util.Vector;
 import javax.swing.*;
 
 public class DataHelper {
-	Connection conn;
-	String last_name;
-	String first_name;
-	String id;
+	public Connection conn;
+	public String last_name;
+	public String first_name;
+	public String id;
+	public String password;
 	Vector<Vector<String>> cart;
 	
 	DataHelper()
@@ -36,6 +37,7 @@ public class DataHelper {
 	}
 	
 	// add new person to the system
+	@SuppressWarnings("deprecation")
 	int add_new_person(JTextField l_name, JTextField f_name, JTextField cust_id, JPasswordField password)
 	{
 		// create & execute a sql statement (first object then the statement that will be put into that object)
@@ -62,7 +64,7 @@ public class DataHelper {
 		this.last_name = l_name.getText();
 		this.first_name = f_name.getText();
 		this.id = cust_id.getText();
-		
+		this.password = password.getText();
 		return 1; // query was successful
 	}
 	
@@ -117,8 +119,8 @@ public class DataHelper {
 		}
 		 
 	}
-	
-	// account verification for manager sign in
+	@SuppressWarnings("deprecation")
+//	 account verification for manager sign in
 	int verify_manager(JTextField username, JPasswordField password)
 	{
 		/* 
@@ -137,14 +139,21 @@ public class DataHelper {
 		{
 			Statement stmt = conn.createStatement(); // statement object
 			// create the actual statement to populate the statement object
-			String sql_stmt = "SELECT manager.username, manager.password FROM manager WHERE manager.username LIKE '" + username.getText() 
-									+ "' AND manager.password LIKE '" + password.getText() + "' LIMIT 1";
+			String sql_stmt = "SELECT * FROM MANAGER WHERE username LIKE '" + username.getText() 
+									+ "' AND password LIKE '" + password.getText() + "' LIMIT 1";
 			
 			System.out.println("Executing Statement: " + sql_stmt);
 			
 			ResultSet result = stmt.executeQuery(sql_stmt);
 			
-			String id_pass = result.getString("username") + result.getString("password");
+			String id_pass = "";
+			while(result.next()) {
+				id_pass = result.getString("username");
+				first_name = result.getString("firstname");
+				last_name = result.getString("lastname");
+				id = username.getText();
+				this.password = password.getText();
+			}
 			
 			// if there is nothing in the string, then there are no username and password that matches.
 			// if it matches, then id_pass != "" meaning that there is a match and 
@@ -153,23 +162,6 @@ public class DataHelper {
 				return 1;
 			} else // username & password match so we have a customer
 			{
-				// update name and id of person (using SQL queries)
-				/* 
-				 * create & execute a sql statement (first object then the statement that will be put into that object)
-				 * sql stmt:
-				 * SELECT manager.firstname, manager.lastname FROM manager WHERE username LIKE 'username' AND password LIKE 'password';
-				 * done in try/catch statement in case database cannot be accessed and errors present itself
-				 */
-				
-				String find_first_last_name_stmt = "SELECT manager.firstname, manager.lastname FROM manager WHERE username LIKE '" + username.getText() + 
-						"' AND password LIKE '" + password.getText();
-				
-				ResultSet first_last_name_result = stmt.executeQuery(find_first_last_name_stmt);
-				
-				this.first_name = first_last_name_result.getString("firstname");
-				this.last_name = first_last_name_result.getString("lastname");
-				this.id = username.getText();
-				
 				System.out.println("Manager " + this.first_name + " " + this.last_name + " has logged into the system!");
 				return 2;
 			}
@@ -181,6 +173,7 @@ public class DataHelper {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	// account verification for customer
 	int verify_customer(JTextField username, JPasswordField password)
 	{
@@ -200,9 +193,11 @@ public class DataHelper {
 		{
 			Statement stmt = conn.createStatement(); // statement object
 			// create the actual statement to populate the statement object
-			String sql_stmt = "SELECT customer.username, customer.password FROM customer WHERE customer.username LIKE '" + username.getText() 
-									+ "' AND customer.password LIKE '" + password.getText() + "' LIMIT 1";
+//			String final_username = username.getText();
+//			String sql_stmt = "SELECT customer.id, customer.password FROM customer WHERE customer.id LIKE '" + username.getText() 
+//									+ "' AND customer.password LIKE '" + password.getText() + "' LIMIT 1";
 			
+			String sql_stmt = "SELECT customer.id, customer.password FROM customer WHERE customer.id LIKE '135039%' AND customer.password LIKE '135039%' LIMIT 1";
 			System.out.println("Executing Statement: " + sql_stmt);
 			
 			ResultSet result = stmt.executeQuery(sql_stmt);
@@ -224,15 +219,19 @@ public class DataHelper {
 				 * done in try/catch statement in case database cannot be accessed and errors present itself
 				 */
 				
-				String find_first_last_name_stmt = "SELECT customer.firstname, customer.lastname FROM customer WHERE id LIKE '" + username.getText() + 
-						"' AND password LIKE '" + password.getText();
+//				String find_first_last_name_stmt = "SELECT customer.firstname, customer.lastname FROM customer WHERE id LIKE '" + username.getText() + 
+//						"' AND password LIKE '" + password.getText();
+				
+				String find_first_last_name_stmt = "SELECT customer.firstname, customer.lastname FROM customer WHERE id LIKE '" + "135039" + 
+						"' AND password LIKE '" + "135039%";
 				
 				ResultSet first_last_name_result = stmt.executeQuery(find_first_last_name_stmt);
 				
 				this.first_name = first_last_name_result.getString("firstname");
 				this.last_name = first_last_name_result.getString("lastname");
 				this.id = username.getText();
-				
+				this.password = password.getText();
+//				this.password = String.valueOf(password.getPassword());
 				System.out.println("Manager " + this.first_name + " " + this.last_name + " has logged into the system!");
 				return 2;
 			}
@@ -243,7 +242,8 @@ public class DataHelper {
 			return 0; // tells GUI that it was unsuccessful in putting customer in database
 		}
 	}
-	
+
+
 	// find number of visits % 25 (b/c 25 is our max 
 	int num_visits_left_to_reward()
 	{
@@ -275,7 +275,7 @@ public class DataHelper {
 			return 0; // tells GUI that it was unsuccessful in putting customer in database
 		}
 	}
-	
+
 	Boolean update_num_visits()
 	{
 		/* 
@@ -357,4 +357,44 @@ public class DataHelper {
 		return menu_list;
 	}
 	
+	String getPrice(String item) {
+		String price = "";
+		try {
+			Statement stmt = conn.createStatement(); // statement object
+			// create the actual statement to populate the statement object
+			String sql_stmt = "SELECT price FROM menu WHERE name = '" + item + "'";
+			System.out.println("Executing Statement: " + sql_stmt);
+			
+			ResultSet result = stmt.executeQuery(sql_stmt);
+			while(result.next()) {
+				price = result.getString("price");
+			}
+			
+			System.out.println("Updated item " + item + " in database to " + price);
+			
+			return price;
+		} catch (Exception e) {
+			return price;
+		}
+	}
+	
+	Boolean changePrice(String item, String priceChangeTxt) {
+		if (priceChangeTxt.charAt(0) == '$') {
+			priceChangeTxt = priceChangeTxt.substring(1);
+		}
+		System.out.println(priceChangeTxt);
+		
+		try {
+			Statement stmt = conn.createStatement(); // statement object
+			// create the actual statement to populate the statement object
+			String sql_stmt = "UPDATE menu SET price = '" + priceChangeTxt + "' WHERE name = '" + item + "'";
+			System.out.println("Executing Statement: " + sql_stmt);
+			
+			stmt.executeQuery(sql_stmt);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
+	}
 }

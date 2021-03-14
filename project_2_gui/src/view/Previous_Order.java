@@ -87,10 +87,18 @@ public class Previous_Order extends JFrame {
 		//previous order map
 		Map<String, Vector<String>> PrevOrderMap = api_connection.prevOrder();
 		Vector<String> orders = new Vector<String>();
-		orders.addElement(PrevOrderMap.get("Entrees").elementAt(0));
-		orders.addElement(PrevOrderMap.get("Sides").elementAt(0));
-		orders.addElement(PrevOrderMap.get("Beverages").elementAt(0));
-		orders.addElement(PrevOrderMap.get("Desserts").elementAt(0));
+		if (PrevOrderMap.get("Entrees").size() > 0) {
+			orders.addElement(PrevOrderMap.get("Entrees").elementAt(0));
+		}//end if
+		if (PrevOrderMap.get("Sides").size() > 0) {
+			orders.addElement(PrevOrderMap.get("Sides").elementAt(0));
+		}//end if
+		if (PrevOrderMap.get("Beverages").size() > 0) {
+			orders.addElement(PrevOrderMap.get("Beverages").elementAt(0));
+		}//end if
+		if (PrevOrderMap.get("Desserts").size() > 0) {
+			orders.addElement(PrevOrderMap.get("Desserts").elementAt(0));
+		}//end if
 		System.out.println(orders);
 
 		//second order, if applicable

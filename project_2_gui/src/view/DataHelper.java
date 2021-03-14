@@ -746,15 +746,15 @@ public class DataHelper {
 				card_type_sql = true;
 			}
 			
-			String sql_stmt = "SELECT * FROM CardInfo WHERE CardInfo.credit_debit IS '" 
+			String sql_stmt = "SELECT * FROM cardinfo WHERE cardinfo.credit_debit IS '" 
 					+ card_type_sql
-					+ "' AND CardInfo.cardnumber LIKE '" 
+					+ "' AND cardinfo.cardnumber LIKE '" 
 					+ card_num.getText() 
-					+ "' AND CardInfo.type LIKE '"
+					+ "' AND cardinfo.type LIKE '"
 					+ card_carrier.toUpperCase()
-					+ "' AND CardInfo.expiration LIKE'"
+					+ "' AND cardinfo.expiration LIKE'"
 					+ expiration_date
-					+ "' AND CardInfo.securitycode LIKE '"
+					+ "' AND cardinfo.securitycode LIKE '"
 					+ security_code.getText() + "'";
 			System.out.println("Executing Statement: " + sql_stmt);
 			ResultSet result = stmt.executeQuery(sql_stmt);
@@ -792,10 +792,10 @@ public class DataHelper {
 				card_type_sql = false;
 			}
 			
-			//INSERT INTO card(credit_debit, cardnumber, type, expiration, securitycode, customerid)
+			//INSERT INTO cardinfo(credit_debit, cardnumber, type, expiration, securitycode, customerid)
 			//VALUES ('<T/F>', '<card_num>', '<type>', '<expiration>', <security_code_int>, '<customerid>');
 			
-			String sql_stmt = "INSERT INTO CardInfo VALUES (" 
+			String sql_stmt = "INSERT INTO cardinfo(credit_debit, cardnumber, type, expiration, securitycode, customerid) VALUES (" 
 					+ card_type_sql
 					+ ", '" 
 					+ card_num.getText() 
@@ -803,13 +803,12 @@ public class DataHelper {
 					+ card_carrier.toUpperCase()
 					+ "', '"
 					+ expiration_date
-					+ "', '"
+					+ "', "
 					+ security_code.getText() 
-					+ "', '"
+					+ ", '"
 					+ getId()
 					+ "')";
 			System.out.println("Executing Statement: " + sql_stmt);
-//			ResultSet result = 
 			stmt.executeQuery(sql_stmt);	
 			System.out.println("Finished Executing Statement: " + sql_stmt);
 			
@@ -1322,9 +1321,13 @@ public class DataHelper {
 				desserts += "'";
 			} 
 			
-			sqlStatement = "INSERT INTO orders VALUES (" + order_id + "," + getId() + "," + date + "," 
-			+ cart_helper.get_total_cost() + "," + cart_map.size() + "," + entrees + "," + sides + "," 
-			+ bev + "," + desserts + ")";
+			//INSERT INTO orders VALUES (<order_id>, <customer_id>, <date>, <total_cost>,
+				//<number_of_ordered_items>, <entrees>, <sides>, <beverages>, <desserts>)
+			
+			sqlStatement = "INSERT INTO orders VALUES (" + order_id + ", '" + getId() + "' ," + date + "," 
+					+ cart_helper.get_total_cost() + "," + cart_map.size() + "," + entrees + "," + sides + "," 
+					+ bev + "," + desserts + ")";
+			System.out.println("I hope this works: " + sqlStatement);
 			stmt.execute(sqlStatement);
 			
 		} catch (SQLException e) {

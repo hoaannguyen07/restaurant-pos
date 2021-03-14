@@ -14,25 +14,29 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class rewards extends JFrame {
+public class Rewards extends JFrame {
 	private static final long serialVersionUID = 1L;
+	
+	//query variables
 	DataHelper api_connection;		
 	public static String first;
 	public static String last;
 	public static String user;
 	public static String pass;
 	public static double price;
+	
+	//JLabel
+	private final JLabel eligible_text = new JLabel("Possible reward:");
+	private final JLabel visits_5_text = new JLabel("5 visits");
+	private final JLabel free_entree_text = new JLabel("Free medium fries");
+	private final JLabel earn_reward_with = new JLabel("Earn a reward with");
+	private final JLabel more_visits_label = new JLabel("more visit(s).");
+	private final JLabel label_zero = new JLabel("0");
+	private final JLabel lblReward = new JLabel("You have a reward!");
 
 	private JPanel contentPane;
-	private final JLabel eligible_text = new JLabel("Possible reward:");
-	private final JLabel visits_25_text = new JLabel("5 visits");
-	private final JLabel free_entree_text = new JLabel("Free medium fries");
-	private final JPanel panel_3 = new JPanel();
-	private final JLabel lblNewLabel = new JLabel("Earn a reward with");
-	private final JLabel lblNewLabel_1 = new JLabel("more visit(s).");
-	private final JLabel lblNewLabel_2 = new JLabel("0");
+	private final JPanel visit_5_label = new JPanel();
 	private final JButton btnBack = new JButton("Back");
-	private final JLabel lblReward = new JLabel("You have a reward!");
 	private final JButton btnAddToCart = new JButton("Add to cart");
 	
 	private static final int REWARDS_MENU_ID = 6;
@@ -44,20 +48,20 @@ public class rewards extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					rewards frame = new rewards();
+					Rewards frame = new Rewards();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
-			}
-		});
-	}
+				}//end try catch
+			}//end run
+		});//end invoke later
+	}//end main
 	
 
 	/**
 	 * Create the frame.
 	 */
-	public rewards(DataHelper api) {
+	public Rewards(DataHelper api) {
 		api_connection = api;
 		
 		first = api.getFirst_name();
@@ -66,14 +70,15 @@ public class rewards extends JFrame {
 		pass = api.getPassword();
 		
 		initGUI();
-	}
+	}//end constructor
 	
 	//Default constructor for testing purposes
-	public rewards() {
+	public Rewards() {
 		initGUI();
-	}
+	}//end empty constructor
 	
 	private void initGUI() {
+		//panel
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -82,42 +87,45 @@ public class rewards extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		//eligible text
 		eligible_text.setBounds(24, 109, 116, 26);
 		free_entree_text.setFont(new Font("Arial", Font.BOLD, 15));
-		
 		free_entree_text.setBounds(158, 145, 141, 26);
 		contentPane.add(free_entree_text);
 		
-//		String[] visits = {"0", "1", "2", "3", "4"};
-//		SpinnerListModel visitslist = new SpinnerListModel(visits);
-		panel_3.setBackground(new Color(204, 0, 0));
-		panel_3.setBounds(24, 145, 104, 33);
+		//five visits label
+		visit_5_label.setBackground(new Color(204, 0, 0));
+		visit_5_label.setBounds(24, 145, 104, 33);
+		contentPane.add(visit_5_label);
+		visits_5_text.setForeground(new Color(255, 255, 255));
+		visits_5_text.setFont(new Font("Arial", Font.BOLD, 15));
+		visit_5_label.add(visits_5_text);
 		
-		contentPane.add(panel_3);
-		visits_25_text.setForeground(new Color(255, 255, 255));
-		visits_25_text.setFont(new Font("Arial", Font.BOLD, 15));
-		panel_3.add(visits_25_text);
-		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 15));
-		lblNewLabel.setBounds(24, 38, 139, 22);
+		//earn reward with label
+		earn_reward_with.setFont(new Font("Arial", Font.BOLD, 15));
+		earn_reward_with.setBounds(24, 38, 139, 22);
+		contentPane.add(earn_reward_with);
 		
-		contentPane.add(lblNewLabel);
-		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 15));
-		lblNewLabel_1.setBounds(263, 42, 116, 16);
+		//more visits label
+		more_visits_label.setFont(new Font("Arial", Font.BOLD, 15));
+		more_visits_label.setBounds(263, 42, 116, 16);
+		contentPane.add(more_visits_label);
 		
-		contentPane.add(lblNewLabel_1);
-		lblNewLabel_2.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(173, 34, 23, 26);
+		//default value label
+		label_zero.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
+		label_zero.setHorizontalAlignment(SwingConstants.CENTER);
+		label_zero.setBounds(173, 34, 23, 26);
+
+		//back button label
 		btnBack.setForeground(new Color(255, 255, 255));
 		btnBack.setBackground(new Color(153, 0, 0));
 		btnBack.setFont(new Font("Arial", Font.BOLD, 15));
-		
 		btnBack.setBounds(24, 4, 117, 25);
-		
 		contentPane.add(btnBack);
 		
 		lblReward.setBounds(24, 120, 116, 16);
 		
+		//add to cart button
 		btnAddToCart.setBackground(new Color(0, 102, 255));
 		btnAddToCart.setBounds(318, 145, 110, 33);
 		
@@ -128,43 +136,41 @@ public class rewards extends JFrame {
 		
 		int num_visits = api_connection.get_num_visits();
 		
-		lblNewLabel_2.setText(String.valueOf(5 - (num_visits % 5)));
-		contentPane.add(lblNewLabel_2);
+		label_zero.setText(String.valueOf(5 - (num_visits % 5)));
+		contentPane.add(label_zero);
 		
 		/* Determine if customer is eligible for reward, and  if so show add to cart button */
-		if (num_visits % 5 == 0 && num_visits != 0)
-		{
+		if (num_visits % 5 == 0 && num_visits != 0) {
 			contentPane.add(lblReward);
 			contentPane.add(btnAddToCart);
 		} else {
 			contentPane.add(eligible_text);
-		}
+		}//end if/else
 		
 		/* Back button functionality */
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnBack) { 
-					customerOptionMenu view_cust = new customerOptionMenu(api_connection);
+					Customer_Option_Menu view_cust = new Customer_Option_Menu(api_connection);
 					view_cust.setVisible(true);
 					dispose();
-				}
-			}
-		});
+				}//end if
+			}//end action performed
+		});//end add action listener
 		
 		/* Add to cart button functionality */
 		btnAddToCart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnAddToCart) { 
 					// Must update menu first
-//					Vector<Vector<String>> menu_list = api_connection.get_menu_data();
 					
 					// Add medium fries to order
 					api_connection.add_free_item_to_cart("S2");
 					Ingredients ingr_frame = new Ingredients(api_connection, REWARDS_MENU_ID);
 					ingr_frame.setVisible(true);
 					dispose();
-				}
-			}
-		});	
-	}
-}
+				}//end if
+			}//end action performed
+		});	//end add action listener
+	}//end init gui
+}//end class

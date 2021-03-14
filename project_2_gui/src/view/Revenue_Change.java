@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -14,7 +13,6 @@ import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -28,40 +26,51 @@ import javax.swing.JButton;
 import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
 
-public class revenueChange extends JFrame {
+public class Revenue_Change extends JFrame {
 	
+	private static final long serialVersionUID = 1L;
+
 	DataHelper api_connection;
 	
 	Vector<Vector<String>> orders; // [[price, entrees, sides, beverages, desserts]]
+	Vector<Vector<String>> menu_list;
+	Vector<Vector<String>> order_list;
+	
+	//Calendar
+	private Calendar startDate = Calendar.getInstance();
+    private Calendar endDate = Calendar.getInstance();
 
+    //model
 	private JPanel contentPane;
 	private JTable table;
+    public static final Vector<String> MENU_HEADER = new Vector<String>();
+	public static final Vector<Vector<String>> NULL_DATA = new Vector<Vector<String>>();
+	
+	//JComboBox
 	private JComboBox<String> startYear;
 	private JComboBox<Integer> startMonth;
 	private JComboBox<String> startDay;
 	private JComboBox<Integer> endMonth;
 	private JComboBox<String> endYear;
 	private JComboBox<String> endDay;
-	private Calendar startDate = Calendar.getInstance();
-    private Calendar endDate = Calendar.getInstance();
-    public static final Vector<String> MENU_HEADER = new Vector<String>();
-	public static final Vector<Vector<String>> NULL_DATA = new Vector<Vector<String>>();
-	public DefaultTableModel model;
-	Vector<Vector<String>> menu_list;
-	Vector<Vector<String>> order_list;
-	private JLabel lblNewLabel_2;
-	private JLabel lblNewLabel_3;
-	private JLabel lblNewLabel_4;
-	private JLabel lblNewLabel_5;
-	private JTextField priceField;
+	
+	//JLabel
+	private JLabel price_change_label;
+	private JLabel month_label;
+	private JLabel day_label;
+	private JLabel year_label;
 	private JLabel lblRevenue;
 	private JLabel lblOrderAmount;
+	private JLabel lblRevenue_adjusted;
+	private JLabel adjusted_revenue_label;
 	
 	double base_revenue = 0;
 	double new_revenue = 0;
-	private JLabel lblRevenue_adjusted;
-	private JLabel lblNewLabel_7;
+	
+	//misc.
 	private JButton btnBack;
+	public DefaultTableModel model;
+	private JTextField priceField;
 
 	/**
 	 * Launch the application.
@@ -70,31 +79,31 @@ public class revenueChange extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					revenueChange frame = new revenueChange(new DataHelper());
+					Revenue_Change frame = new Revenue_Change(new DataHelper());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
-			}
-		});
-	}
+				}//end try catch
+			}//end run
+		});//end invoke later
+	}//end main
 
 	/**
 	 * Create the frame.
 	 */
-	public revenueChange(DataHelper api) {
-		if (MENU_HEADER.size() == 0)
-		{
+	public Revenue_Change(DataHelper api) {
+		if (MENU_HEADER.size() == 0) {
 			MENU_HEADER.addElement("ID");
 			MENU_HEADER.addElement("Name");
 			MENU_HEADER.addElement("Price");
-		}
+		}//end if
 		api_connection = api;
 		initGUI();
 		show_data_in_table();
-	}
+	}//end constructor
 	
 	void initGUI() {
+		//panel
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 468, 593);
 		contentPane = new JPanel();
@@ -103,12 +112,14 @@ public class revenueChange extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Order Statistics");
-		lblNewLabel.setBounds(69, 11, 314, 30);
-		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 17));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblNewLabel);
+		//order stats label
+		JLabel order_stats_label = new JLabel("Order Statistics");
+		order_stats_label.setBounds(69, 11, 314, 30);
+		order_stats_label.setFont(new Font("Arial", Font.BOLD, 17));
+		order_stats_label.setHorizontalAlignment(SwingConstants.CENTER);
+		contentPane.add(order_stats_label);
 		
+		//table
 		table = new JTable(NULL_DATA, MENU_HEADER);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -124,13 +135,16 @@ public class revenueChange extends JFrame {
 				priceField.setText(price);
 				
 				System.out.println(name + "\t" + price);
-			}
-		});
+			}//end mouse clicked
+		});//end add mouse listener
+		
+		//pane menu
 		JScrollPane pane_menu = new JScrollPane(table);
 		pane_menu.setBounds(24, 52, 402, 196);
 		model = (DefaultTableModel)table.getModel();
 		contentPane.add(pane_menu);
 		
+		//month start
 		startMonth = new JComboBox<Integer>();
 		startMonth.setBounds(24, 299, 58, 22);
 		buildMonthsList(startMonth);
@@ -138,21 +152,24 @@ public class revenueChange extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == startMonth) { 
 					buildDaysList(startDate, startDay, startMonth);
-				}
-			}
-		});
+				}//end if
+			}//end action performed
+		});//end add action listener
 		contentPane.add(startMonth);
 		
+		//year start
 		startYear = new JComboBox<String>();
 		startYear.setBounds(160, 299, 72, 22);
 		buildYearsList(startYear);
 		contentPane.add(startYear);
 		
+		//day start
 		startDay = new JComboBox<String>();
 		startDay.setBounds(92, 299, 58, 22);
 		buildDaysList(startDate, startDay, startMonth);
 		contentPane.add(startDay);
 		
+		//month end
 		endMonth = new JComboBox<Integer>();
 		endMonth.setBounds(24, 372, 58, 22);
 		buildMonthsList(endMonth);
@@ -160,53 +177,62 @@ public class revenueChange extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == endMonth) { 
 					buildDaysList(endDate, endDay, endMonth);
-				}
-			}
-		});
+				}//end if
+			}//end action performed
+		});//end add action listener
 		contentPane.add(endMonth);
 		
+		//day end
 		endDay = new JComboBox<String>();
 		endDay.setBounds(92, 372, 58, 22);
 		buildDaysList(endDate, endDay, endMonth);
 		contentPane.add(endDay);
 		
+		//year end
 		endYear = new JComboBox<String>();
 		endYear.setBounds(160, 372, 72, 22);
 		buildYearsList(endYear);
 		contentPane.add(endYear);
 		
-		JLabel lblNewLabel_1 = new JLabel("Start Date");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_1.setBounds(69, 259, 117, 22);
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblNewLabel_1);
+		//start date label
+		JLabel start_date_label = new JLabel("Start Date");
+		start_date_label.setFont(new Font("Tahoma", Font.BOLD, 11));
+		start_date_label.setBounds(69, 259, 117, 22);
+		start_date_label.setHorizontalAlignment(SwingConstants.CENTER);
+		contentPane.add(start_date_label);
 		
-		lblNewLabel_2 = new JLabel("Price Change");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(282, 313, 117, 22);
-		contentPane.add(lblNewLabel_2);
+		//price change label
+		price_change_label = new JLabel("Price Change");
+		price_change_label.setFont(new Font("Tahoma", Font.BOLD, 11));
+		price_change_label.setHorizontalAlignment(SwingConstants.CENTER);
+		price_change_label.setBounds(282, 313, 117, 22);
+		contentPane.add(price_change_label);
 		
-		lblNewLabel_3 = new JLabel("Month");
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setBounds(30, 280, 46, 14);
-		contentPane.add(lblNewLabel_3);
+		//month label
+		month_label = new JLabel("Month");
+		month_label.setHorizontalAlignment(SwingConstants.CENTER);
+		month_label.setBounds(30, 280, 46, 14);
+		contentPane.add(month_label);
 		
-		lblNewLabel_4 = new JLabel("Day");
-		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4.setBounds(98, 280, 46, 14);
-		contentPane.add(lblNewLabel_4);
+		//day label
+		day_label = new JLabel("Day");
+		day_label.setHorizontalAlignment(SwingConstants.CENTER);
+		day_label.setBounds(98, 280, 46, 14);
+		contentPane.add(day_label);
 		
-		lblNewLabel_5 = new JLabel("Year");
-		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5.setBounds(173, 280, 46, 14);
-		contentPane.add(lblNewLabel_5);
+		//year label
+		year_label = new JLabel("Year");
+		year_label.setHorizontalAlignment(SwingConstants.CENTER);
+		year_label.setBounds(173, 280, 46, 14);
+		contentPane.add(year_label);
 		
+		//price text field
 		priceField = new JTextField();
 		priceField.setBounds(297, 336, 86, 28);
 		contentPane.add(priceField);
 		priceField.setColumns(10);
 		
+		//calculate button
 		JButton btnCalculate = new JButton("Calculate");
 		btnCalculate.setBounds(181, 504, 89, 23);
 		btnCalculate.addActionListener(new ActionListener() {
@@ -222,8 +248,7 @@ public class revenueChange extends JFrame {
 					month = Integer.parseInt(endMonth.getSelectedItem().toString()) - 1;
 					day = Integer.parseInt(endDay.getSelectedItem().toString());
 				
-					endDate.set(year, month, day);
-					// endDate.add(Calendar.DATE, 6); // properly adds days to to dates, accounting for month and year change
+					endDate.set(year, month, day); // properly adds days to to dates, accounting for month and year change
 					
 					orders = api_connection.getOrders(startDate, endDate);
 					
@@ -243,31 +268,26 @@ public class revenueChange extends JFrame {
 						new_price = priceField.getText().strip();
 						if (new_price.contains("$ ")) {
 							d_new_price = Double.parseDouble(new_price.substring(new_price.lastIndexOf(" "), new_price.length()));
-						}
-						else if (new_price.contains("$")) {
+						} else if (new_price.contains("$")) {
 							d_new_price = Double.parseDouble(new_price.substring(1, new_price.length()));
-						}
-						else {
+						} else {
 							d_new_price = Double.parseDouble(new_price);
-						}
+						}//end if/else
 						
 						id = table_model.getValueAt(index, 0).toString();
-					}
+					}//end if
 					
 					// determines which column in the orders vectors to read from
 					int col = 0;
 					if (id.contains("E")) {
 						col = 1;
-					}
-					else if (id.contains("S")) {
+					} else if (id.contains("S")) {
 						col = 2;
-					}
-					else if (id.contains("B")) {
+					} else if (id.contains("B")) {
 						col = 3;
-					}
-					else if (id.contains("D")) {
+					} else if (id.contains("D")) {
 						col = 4;
-					}
+					}//end if/else
 					
 					base_revenue = 0;
 					new_revenue = 0;
@@ -291,18 +311,16 @@ public class revenueChange extends JFrame {
 								int count = 0;
 								
 								while(lastIndex != -1){
-									
 								    lastIndex = order.indexOf(id,lastIndex);
-		
 								    if(lastIndex != -1){
 								        count++;
 								        lastIndex += id.length();
-								    }
-								}
+								    }//end if
+								}//end while
 								new_revenue += (count * price_delta);
-							}
-						}
-					}
+							}//end if
+						}//end if
+					}//end for
 					new_revenue += base_revenue;
 					
 					System.out.println(new_revenue);
@@ -313,25 +331,25 @@ public class revenueChange extends JFrame {
 					
 					if (out_revenue.contains(".")) {
 						out_revenue = out_revenue.substring(0, out_revenue.indexOf(".") + 3);
-					}
-					
+					}//end if
 					if (out_revenue_adj.contains(".")) {
 						out_revenue_adj = out_revenue_adj.substring(0, out_revenue_adj.indexOf(".") + 3);
-					}
+					}//end if
 					
 					String ave_items = Double.toString(sum_items / orders.size());
 					if (ave_items.contains(".")) {
 						ave_items = ave_items.substring(0, ave_items.indexOf(".") + 3);
-					}
+					}//end if
 					
 					lblRevenue.setText(out_revenue);
 					lblRevenue_adjusted.setText(out_revenue_adj);
 					lblOrderAmount.setText(ave_items);
-				}
-			}
-		});
+				}//end if
+			}//end action performed
+		});//end add action listener
 		contentPane.add(btnCalculate);
 		
+		//revenue label
 		lblRevenue = new JLabel("");
 		lblRevenue.setFont(new Font("Arial", Font.BOLD, 14));
 		lblRevenue.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -340,12 +358,14 @@ public class revenueChange extends JFrame {
 		lblRevenue.setBounds(24, 452, 126, 30);
 		contentPane.add(lblRevenue);
 		
-		JLabel lblNewLabel_6 = new JLabel("Revenue");
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_6.setBounds(55, 432, 64, 20);
-		contentPane.add(lblNewLabel_6);
+		//secondary revenue label
+		JLabel secondary_revenue_label = new JLabel("Revenue");
+		secondary_revenue_label.setFont(new Font("Tahoma", Font.BOLD, 11));
+		secondary_revenue_label.setHorizontalAlignment(SwingConstants.CENTER);
+		secondary_revenue_label.setBounds(55, 432, 64, 20);
+		contentPane.add(secondary_revenue_label);
 		
+		//adjusted label revenue
 		lblRevenue_adjusted = new JLabel("");
 		lblRevenue_adjusted.setFont(new Font("Arial", Font.BOLD, 14));
 		lblRevenue_adjusted.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -353,46 +373,53 @@ public class revenueChange extends JFrame {
 		lblRevenue_adjusted.setBounds(160, 452, 142, 30);
 		contentPane.add(lblRevenue_adjusted);
 		
-		lblNewLabel_7 = new JLabel("Adjusted Revenue");
-		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_7.setBounds(179, 432, 105, 20);
-		contentPane.add(lblNewLabel_7);
+		//adjusted revenue label
+		adjusted_revenue_label = new JLabel("Adjusted Revenue");
+		adjusted_revenue_label.setHorizontalAlignment(SwingConstants.CENTER);
+		adjusted_revenue_label.setFont(new Font("Tahoma", Font.BOLD, 11));
+		adjusted_revenue_label.setBounds(179, 432, 105, 20);
+		contentPane.add(adjusted_revenue_label);
 		
+		//back button
 		btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnBack) {
-					managerOptionMenu manager_menu = new managerOptionMenu(api_connection);
+					Manager_Option_Menu manager_menu = new Manager_Option_Menu(api_connection);
 					manager_menu.setVisible(true);
 					dispose();
-				}
-			}
-		});
+				} //end if
+			}//end action performed
+		});//end add action listener
 		btnBack.setBounds(10, 520, 72, 23);
 		contentPane.add(btnBack);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("End Date");
-		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_1_1.setBounds(69, 332, 117, 22);
-		contentPane.add(lblNewLabel_1_1);
+		//end date label
+		JLabel end_date_label = new JLabel("End Date");
+		end_date_label.setHorizontalAlignment(SwingConstants.CENTER);
+		end_date_label.setFont(new Font("Tahoma", Font.BOLD, 11));
+		end_date_label.setBounds(69, 332, 117, 22);
+		contentPane.add(end_date_label);
 		
-		JLabel lblNewLabel_3_1 = new JLabel("Month");
-		lblNewLabel_3_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3_1.setBounds(30, 353, 46, 14);
-		contentPane.add(lblNewLabel_3_1);
+		//month label
+		JLabel month_label = new JLabel("Month");
+		month_label.setHorizontalAlignment(SwingConstants.CENTER);
+		month_label.setBounds(30, 353, 46, 14);
+		contentPane.add(month_label);
 		
-		JLabel lblNewLabel_4_1 = new JLabel("Day");
-		lblNewLabel_4_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4_1.setBounds(98, 353, 46, 14);
-		contentPane.add(lblNewLabel_4_1);
+		//day label
+		JLabel day_label = new JLabel("Day");
+		day_label.setHorizontalAlignment(SwingConstants.CENTER);
+		day_label.setBounds(98, 353, 46, 14);
+		contentPane.add(day_label);
 		
-		JLabel lblNewLabel_5_1 = new JLabel("Year");
-		lblNewLabel_5_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_1.setBounds(173, 353, 46, 14);
-		contentPane.add(lblNewLabel_5_1);
+		//year label
+		JLabel year_label = new JLabel("Year");
+		year_label.setHorizontalAlignment(SwingConstants.CENTER);
+		year_label.setBounds(173, 353, 46, 14);
+		contentPane.add(year_label);
 		
+		//order amount label
 		lblOrderAmount = new JLabel("");
 		lblOrderAmount.setHorizontalAlignment(SwingConstants.CENTER);
 		lblOrderAmount.setFont(new Font("Arial", Font.BOLD, 14));
@@ -400,26 +427,27 @@ public class revenueChange extends JFrame {
 		lblOrderAmount.setBounds(330, 452, 86, 30);
 		contentPane.add(lblOrderAmount);
 		
-		JLabel lblNewLabel_7_1 = new JLabel("Average Number");
-		lblNewLabel_7_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_7_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_7_1.setBounds(297, 415, 154, 22);
-		contentPane.add(lblNewLabel_7_1);
+		//average number label
+		JLabel avg_number_label = new JLabel("Average Number");
+		avg_number_label.setHorizontalAlignment(SwingConstants.CENTER);
+		avg_number_label.setFont(new Font("Tahoma", Font.BOLD, 11));
+		avg_number_label.setBounds(297, 415, 154, 22);
+		contentPane.add(avg_number_label);
 		
-		JLabel lblNewLabel_7_1_1 = new JLabel("of Items per Order");
-		lblNewLabel_7_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_7_1_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_7_1_1.setBounds(297, 431, 154, 22);
-		contentPane.add(lblNewLabel_7_1_1);
-	}
+		//items per order label
+		JLabel items_per_order_label = new JLabel("of Items per Order");
+		items_per_order_label.setHorizontalAlignment(SwingConstants.CENTER);
+		items_per_order_label.setFont(new Font("Tahoma", Font.BOLD, 11));
+		items_per_order_label.setBounds(297, 431, 154, 22);
+		contentPane.add(items_per_order_label);
+	}//end init gui
 	
     private void buildYearsList(JComboBox<String> yearsList) {
-
         int currentYear = startDate.get(Calendar.YEAR);
-
-        for (int yearCount = currentYear - 5; yearCount <= currentYear; yearCount++)
+        for (int yearCount = currentYear - 5; yearCount <= currentYear; yearCount++) {
             yearsList.addItem(Integer.toString(yearCount));
-    }
+        } //end for
+    } //end build year list
 
     /**
      * This method builds the list of months for the start
@@ -427,11 +455,10 @@ public class revenueChange extends JFrame {
      * @param monthsList The combo box containing the months
      */
     private void buildMonthsList(JComboBox<Integer> monthsList) {
-
         monthsList.removeAllItems();
         for (int monthCount = 1; monthCount <= 12; monthCount++)
             monthsList.addItem(monthCount);
-    }
+    } //end build months list
 
     /**
      * This method builds the list of years for the start
@@ -442,31 +469,28 @@ public class revenueChange extends JFrame {
      * @param monthsList The combo box that will contain the months
      */
     private void buildDaysList(Calendar dateIn, JComboBox<String> daysList, JComboBox<Integer> monthsList) {
-
         daysList.removeAllItems();
         dateIn.set(Calendar.MONTH, monthsList.getSelectedIndex());
         int lastDay = startDate.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        for (int dayCount = 1; dayCount <= lastDay; dayCount++)
+        for (int dayCount = 1; dayCount <= lastDay; dayCount++) {
             daysList.addItem(Integer.toString(dayCount));
-    }
+        } //end for
+    }//end build days list
     
-    void delete_all_rows_in_table()
-	{
+    void delete_all_rows_in_table() {
 		int row_count = model.getRowCount();
 		// remove one row at a time
-		for(int i = row_count - 1; i >= 0; i--)
-		{
+		for(int i = row_count - 1; i >= 0; i--) {
 			model.removeRow(i);
-		}
-	}
+		}//end for
+	}//end delete all rows in table
 	
 	
 	/**
 	 * get menu data from api and add it to table to be showed on the frame
 	 */
-	void show_data_in_table()
-	{
+	void show_data_in_table() {
 		// first make sure there is nothing in the table before adding stuff in
 		this.delete_all_rows_in_table();
 		
@@ -476,8 +500,7 @@ public class revenueChange extends JFrame {
 		String name = "";
 		String price = "";
 		
-		for(int i = 0; i < menu_list.size(); i++)
-		{
+		for(int i = 0; i < menu_list.size(); i++) {
 			Vector<String> displaying_list = new Vector<String>();
 			
 			id = menu_list.elementAt(i).elementAt(0);
@@ -488,6 +511,6 @@ public class revenueChange extends JFrame {
 			displaying_list.addElement(name);
 			displaying_list.addElement(price);
 			model.addRow(displaying_list);
-		}
-	}
-}
+		}//end for
+	}//end snow data in table
+}//end class

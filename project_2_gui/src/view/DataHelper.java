@@ -24,7 +24,7 @@ public class DataHelper {
 	public String password;
 	Vector<Vector<String>> menu_list; // [0] = id || [1] = name || [2] = price || [3] = availability
 	Vector<Vector<String>> ingredients_list; // [0] = key || [1] = name || [2] = price
-	CartHelper cart_helper;
+	Cart_Helper cart_helper;
 	
 	DataHelper()
 	{
@@ -47,7 +47,7 @@ public class DataHelper {
 	     password = "";
 	     menu_list = new Vector<Vector<String>>();
 	     ingredients_list = new Vector<Vector<String>>();
-	     cart_helper = new CartHelper();
+	     cart_helper = new Cart_Helper();
 	}
 	
 	DataHelper (Connection conn)
@@ -61,7 +61,7 @@ public class DataHelper {
 		password = "";
 		menu_list = new Vector<Vector<String>>();
 		ingredients_list = new Vector<Vector<String>>();
-		cart_helper = new CartHelper();
+		cart_helper = new Cart_Helper();
 	}
 	
 	
@@ -97,7 +97,7 @@ public class DataHelper {
 	/**
 	 * @return the cart_helper
 	 */
-	public CartHelper getCart_helper() {
+	public Cart_Helper getCart_helper() {
 		return cart_helper;
 	}
 
@@ -175,7 +175,7 @@ public class DataHelper {
 			
 			System.out.println("Executing Statement: " + sql_stmt);
 			
-			ResultSet result = stmt.executeQuery(sql_stmt);
+			stmt.executeQuery(sql_stmt);
 			
 			System.out.println("Successfully retrieved " + this.first_name + " " + this.last_name + "'s 5 most recent orders!");
 		} catch (Exception e)
@@ -827,16 +827,14 @@ public class DataHelper {
 	 * set current menu item key to param to know which menu item the added ingredients will belong to
 	 * reset the current item price to 0.0 before adding in the item to the cart along with its customizations
 	 */
-	void choose_menu_item_to_customize(String menu_item_id)
-	{
-		cart_helper.setCur_menu_item_key(menu_item_id);
-		cart_helper.setCur_customizing_item_price(0.0);
+	void choose_menu_item_to_customize(String menu_item_id) {
+		cart_helper.set_cur_menu_item_key(menu_item_id);
+		cart_helper.set_cur_customizing_item_price(0.0);
 		cart_helper.add_cur_menu_item();
-	}
+	}//end choose menu item to customize
 	
-	void choose_ingredient_item_to_customize(String ingredient_item_id)
-	{
-		cart_helper.setCur_ingredient_item_key(ingredient_item_id);
+	void choose_ingredient_item_to_customize(String ingredient_item_id) {
+		cart_helper.set_cur_ingredient_item_key(ingredient_item_id);
 	}
 	
 	void delete_cur_menu_item()
@@ -850,26 +848,23 @@ public class DataHelper {
 		cart_helper.delete_menu_item_from_cart(menu_item_id);
 	}
 	
-	void reset_cart_ingredient_id()
-	{
-		cart_helper.setCur_ingredient_item_key("");
+	void reset_cart_ingredient_id() {
+		cart_helper.set_cur_ingredient_item_key("");
 	}
 	
 	// add ingredient into cart and delete ingredient key because this is used right before
 	// going to ingredient screen for the customer to choose another customization
-	void add_cur_ingredient_as_customization(int option)
-	{
+	void add_cur_ingredient_as_customization(int option) {
 		cart_helper.add_cur_ingredient(option);
 		reset_cart_ingredient_id();
 	}
 	
-	void add_free_item_to_cart(String menu_item_id)
-	{
-		cart_helper.setCur_menu_item_key(menu_item_id);
-		cart_helper.setCur_customizing_item_price(0.0);
+	void add_free_item_to_cart(String menu_item_id) {
+		cart_helper.set_cur_menu_item_key(menu_item_id);
+		cart_helper.set_cur_customizing_item_price(0.0);
 		cart_helper.add_menu_item_as_free(menu_item_id);
 		reset_cart_ingredient_id();
-	}
+	}//end add free item to cart
 	
 	/**
 	 * everything has been added to cart previously. to finalize the customized item,
@@ -881,7 +876,7 @@ public class DataHelper {
 	{
 		cart_helper.add_item_cost_to_tot_cost();
 		cart_helper.prep_for_next_menu_item();
-		System.out.println("Current Cart:\n" + cart_helper.getCart());
+		System.out.println("Current Cart:\n" + cart_helper.get_cart());
 	}
 	
 	Map<String, Vector<String>> convertOrder(String order) 
@@ -1025,7 +1020,7 @@ public class DataHelper {
 	{
 		Vector<Vector<String>> cart_vector = new Vector<Vector<String>>();
 		
-		Map<String, Vector<String>> cart_map = cart_helper.getCart();
+		Map<String, Vector<String>> cart_map = cart_helper.get_cart();
 		
 		// put entrees first, then sides, dessert, and beverages
 		for(Map.Entry<String, Vector<String>> item : cart_map.entrySet())
@@ -1242,7 +1237,7 @@ public class DataHelper {
 			while(rs.next()) { 
 				order_id = rs.getInt("count") + 1;
 			}
-			Map<String, Vector<String>> cart_map = cart_helper.getCart();
+			Map<String, Vector<String>> cart_map = cart_helper.get_cart();
 			String date = "'";
 			date += java.time.LocalDate.now().toString() + "'";
 			// Need to parse the string for the entrees and stuff still
@@ -1328,7 +1323,7 @@ public class DataHelper {
 			} 
 			
 			sqlStatement = "INSERT INTO orders VALUES (" + order_id + "," + getId() + "," + date + "," 
-			+ cart_helper.getTotal_cost() + "," + cart_map.size() + "," + entrees + "," + sides + "," 
+			+ cart_helper.get_total_cost() + "," + cart_map.size() + "," + entrees + "," + sides + "," 
 			+ bev + "," + desserts + ")";
 			stmt.execute(sqlStatement);
 			

@@ -92,7 +92,7 @@ public class Payment_Info extends JFrame {
 		card_num_entry.setColumns(16);
 		
 		this.api_connection = api;
-		total_cost = this.api_connection.cart_helper.getTotal_cost();
+		total_cost = this.api_connection.cart_helper.get_total_cost();
 		
 		System.out.println("API name in cardtype constructor: " + this.api_connection.getFirst_name());
 		
@@ -202,7 +202,7 @@ public class Payment_Info extends JFrame {
         button_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == button_back) {
-					customerOptionMenu view_cust_option = new customerOptionMenu(api_connection);
+					Customer_Option_Menu view_cust_option = new Customer_Option_Menu(api_connection);
 					view_cust_option.setVisible(true);
 					dispose();
 				}//endif
@@ -263,7 +263,7 @@ public class Payment_Info extends JFrame {
 					} if (sign_in_status == true) { //the user does exist in the system
 						card_verify_text.setText("Security code: " + security_code.getText() 
 							+ " and card number: " + card_num_entry.getText());
-						FinishPayment view_payment = new FinishPayment(total_cost, api_connection);
+						Finish_Payment view_payment = new Finish_Payment(total_cost, api_connection);
 						view_payment.setVisible(true);
 						dispose();
 					}//end if

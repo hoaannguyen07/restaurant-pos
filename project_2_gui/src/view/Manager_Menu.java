@@ -1,17 +1,12 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -28,17 +23,22 @@ import javax.swing.JButton;
 
 public class Manager_Menu extends JFrame {
 	
+	private static final long serialVersionUID = 1L;
+
 	DataHelper api_connection;
 	
+	Vector<Vector<String>> menu_list; // save all items on menu 
+	
+	//model
 	private JPanel contentPane;
 	public static final Vector<String> MENU_HEADER = new Vector<String>();
 	public static final Vector<Vector<String>> NULL_DATA = new Vector<Vector<String>>();
 	public DefaultTableModel model;
 	
-	Vector<Vector<String>> menu_list; // save all items on menu 
-	
 	JTable table_menu;
 	JScrollPane pane_menu;
+	
+	//misc Swing functionality
 	private final JLabel lblManagerMenu = new JLabel("MANAGER MENU");
 	private JButton btnBack;
 
@@ -53,29 +53,13 @@ public class Manager_Menu extends JFrame {
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public Manager_Menu() {
-		if (MENU_HEADER.size() == 0)
-		{
-			MENU_HEADER.addElement("ID");
-			MENU_HEADER.addElement("Name");
-			MENU_HEADER.addElement("Price");
-			MENU_HEADER.addElement("Availability");
-		}
-		initGUI();
-		show_data_in_table();
-	}
+				}//end try catch
+			}//end run
+		});//end invoke later
+	}//end main
 	
 	public Manager_Menu(DataHelper api) {
-		if (MENU_HEADER.size() == 0)
-		{
+		if (MENU_HEADER.size() == 0) {
 			MENU_HEADER.addElement("ID");
 			MENU_HEADER.addElement("Name");
 			MENU_HEADER.addElement("Price");
@@ -84,9 +68,10 @@ public class Manager_Menu extends JFrame {
 		this.api_connection = api;
 		initGUI();
 		show_data_in_table();
-	}
+	}//end constructor
 	
 	private void initGUI() {
+		//set up panel
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 515);
 		contentPane = new JPanel();
@@ -95,7 +80,7 @@ public class Manager_Menu extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		
+		//table menu
 		table_menu = new JTable(NULL_DATA, MENU_HEADER);
 		table_menu.addMouseListener(new MouseAdapter() {
 			@Override
@@ -110,53 +95,52 @@ public class Manager_Menu extends JFrame {
 				
 				System.out.println(name + "\t" + price);
 				
-				EditItem openItem = new EditItem(api_connection, name);
+				Edit_Item openItem = new Edit_Item(api_connection, name);
 				openItem.setVisible(true);
 				dispose();
-			}
-		});
+			}//end mouse clicked
+		});//end add mouse listener
+		
+		//pane menu
 		JScrollPane pane_menu = new JScrollPane(table_menu);
 		model = (DefaultTableModel)table_menu.getModel();
 		pane_menu.setBounds(10, 95, 568, 338);
-//		table_menu.setPreferredSize(568,374)
 		contentPane.add(pane_menu);
 		pane_menu.setViewportView(table_menu);
+		
+		//manager menu label
 		lblManagerMenu.setFont(new Font("Segoe UI Black", Font.PLAIN, 55));
 		lblManagerMenu.setHorizontalAlignment(SwingConstants.CENTER);
 		lblManagerMenu.setBounds(43, 11, 501, 73);
-		
 		contentPane.add(lblManagerMenu);
 		
+		//back button
 		btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnBack) {
-					managerOptionMenu manager_menu = new managerOptionMenu(api_connection);
+					Manager_Option_Menu manager_menu = new Manager_Option_Menu(api_connection);
 					manager_menu.setVisible(true);
 					dispose();
-				}
-			}
-		});
+				}//end if
+			}//end action performed
+		});//end add action listener
 		btnBack.setBounds(10, 442, 89, 23);
 		contentPane.add(btnBack);
-	}
+	}//end init gui
 	
-	void delete_all_rows_in_table()
-	{
+	void delete_all_rows_in_table() {
 		int row_count = model.getRowCount();
 		// remove one row at a time
-		for(int i = row_count - 1; i >= 0; i--)
-		{
+		for(int i = row_count - 1; i >= 0; i--) {
 			model.removeRow(i);
-		}
-	}
-	
+		}//end for
+	}//end delete all rows in table
 	
 	/**
 	 * get menu data from api and add it to table to be showed on the frame
 	 */
-	void show_data_in_table()
-	{
+	void show_data_in_table() {
 		// first make sure there is nothing in the table before adding stuff in
 		this.delete_all_rows_in_table();
 		
@@ -167,9 +151,8 @@ public class Manager_Menu extends JFrame {
 		String price = "";
 		String available = "";
 		
-		for(int i = 0; i < menu_list.size(); i++)
-		{
-Vector<String> displaying_list = new Vector<String>();
+		for(int i = 0; i < menu_list.size(); i++) {
+			Vector<String> displaying_list = new Vector<String>();
 			
 			id = menu_list.elementAt(i).elementAt(0);
 			name = menu_list.elementAt(i).elementAt(1);
@@ -177,10 +160,9 @@ Vector<String> displaying_list = new Vector<String>();
 			
 			if (menu_list.elementAt(i).elementAt(3).equals("t")) {
 				available = "Available";
-			}
-			else {
+			} else {
 				available = "Not Available";
-			}
+			}//end if/else
 			
 			displaying_list.addElement(id);
 			displaying_list.addElement(name);
@@ -188,7 +170,6 @@ Vector<String> displaying_list = new Vector<String>();
 			displaying_list.addElement(available);
 			model.addRow(displaying_list);
 			//model.addRow(menu_list.elementAt(i));
-		}
-		
-	}
-}
+		}//end for	
+	}//end show data in table
+}//end class

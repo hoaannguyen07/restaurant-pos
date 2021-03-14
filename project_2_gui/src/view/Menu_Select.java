@@ -15,7 +15,7 @@ import java.util.Vector;
 
 import javax.swing.JButton;
 
-public class menuSelect extends JFrame {
+public class Menu_Select extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	DataHelper api_connection;
@@ -25,7 +25,6 @@ public class menuSelect extends JFrame {
 	
 	private JPanel contentPane;
 	
-
 	/**
 	 * Launch the application.
 	 */
@@ -33,29 +32,28 @@ public class menuSelect extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					menuSelect frame = new menuSelect(new DataHelper());
+					Menu_Select frame = new Menu_Select(new DataHelper());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
-			}
-		});
-	}
+				}//end try catch
+			}//end run
+		});//end invoke later
+	}//end main
 
 	/**
 	 * Create the frame.
 	 * @wbp.parser.constructor
 	 */
-	public menuSelect(DataHelper api) {
+	public Menu_Select(DataHelper api) {
 		this.api_connection = api;
-		for(int i = 0; i < 4; i++)
-		{
+		for(int i = 0; i < 4; i++) {
 			orders.addElement("");
-		}
+		}//end for
 		initGUI();
-	}
+	}//end menu select constructor
 	
-	public menuSelect(DataHelper api, Vector<String> all_orders, double price) {
+	public Menu_Select(DataHelper api, Vector<String> all_orders, double price) {
 		this.api_connection = api;
 		this.orders = all_orders;
 		this.total_price = price;
@@ -66,9 +64,10 @@ public class menuSelect extends JFrame {
 		System.out.println(orders.elementAt(3));
 		System.out.println("Price: " + total_price);
 		initGUI();
-	}
+	}//end full constructor
 	
 	void initGUI() {
+		//panel
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 308);
 		contentPane = new JPanel();
@@ -77,12 +76,14 @@ public class menuSelect extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Select a Menu");
-		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 25));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(125, 38, 184, 26);
-		contentPane.add(lblNewLabel);
+		//select menu label
+		JLabel select_menu_label = new JLabel("Select a Menu");
+		select_menu_label.setFont(new Font("Arial", Font.BOLD, 25));
+		select_menu_label.setHorizontalAlignment(SwingConstants.CENTER);
+		select_menu_label.setBounds(125, 38, 184, 26);
+		contentPane.add(select_menu_label);
 		
+		//button for the full menu
 		JButton btnFullMenu = new JButton("Full Menu");
 		btnFullMenu.setForeground(new Color(255, 255, 255));
 		btnFullMenu.setBackground(new Color(153, 0, 0));
@@ -94,11 +95,12 @@ public class menuSelect extends JFrame {
 					Customer_Menu view_cust = new Customer_Menu(api_connection, orders, total_price);
 					view_cust.setVisible(true);
 					dispose();
-				}
-			}
-		});
+				}//end if
+			}//end action performed
+		});//end add action listener
 		contentPane.add(btnFullMenu);
 		
+		//end entrees button
 		JButton btnEntrees = new JButton("Entrees");
 		btnEntrees.setBackground(new Color(153, 0, 0));
 		btnEntrees.setForeground(new Color(255, 255, 255));
@@ -107,14 +109,15 @@ public class menuSelect extends JFrame {
 		btnEntrees.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnEntrees) { 
-					entreeMenu view_cust = new entreeMenu(api_connection, orders, total_price);
+					Entree_Menu view_cust = new Entree_Menu(api_connection, orders, total_price);
 					view_cust.setVisible(true);
 					dispose();
-				}
-			}
-		});
+				}//end if
+			}//end action performed
+		});//end add action listener
 		contentPane.add(btnEntrees);
 		
+		//beverages button
 		JButton btnBeverages = new JButton("Beverages");
 		btnBeverages.setBackground(new Color(153, 0, 0));
 		btnBeverages.setForeground(new Color(255, 255, 255));
@@ -123,14 +126,15 @@ public class menuSelect extends JFrame {
 		btnBeverages.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnBeverages) { 
-					beverageMenu view_cust = new beverageMenu(api_connection, orders, total_price);
+					Beverage_Menu view_cust = new Beverage_Menu(api_connection, orders, total_price);
 					view_cust.setVisible(true);
 					dispose();
-				}
-			}
-		});
+				}//end if
+			}//end action performed
+		});//end add action listener
 		contentPane.add(btnBeverages);
 		
+		//sides button
 		JButton btnSides = new JButton("Sides");
 		btnSides.setForeground(new Color(255, 255, 255));
 		btnSides.setBackground(new Color(153, 0, 0));
@@ -139,14 +143,15 @@ public class menuSelect extends JFrame {
 		btnSides.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnSides) { 
-					sideMenu view_cust = new sideMenu(api_connection, orders, total_price);
+					Side_Menu view_cust = new Side_Menu(api_connection, orders, total_price);
 					view_cust.setVisible(true);
 					dispose();
-				}
-			}
-		});
+				}//end if
+			}//end action performed
+		});//end add action listener
 		contentPane.add(btnSides);
 		
+		//desserts button
 		JButton btnDesserts = new JButton("Desserts");
 		btnDesserts.setForeground(new Color(255, 255, 255));
 		btnDesserts.setBackground(new Color(153, 0, 0));
@@ -155,14 +160,15 @@ public class menuSelect extends JFrame {
 		btnDesserts.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnDesserts) { 
-					dessertMenu view_cust = new dessertMenu(api_connection, orders, total_price);
+					Dessert_Menu view_cust = new Dessert_Menu(api_connection, orders, total_price);
 					view_cust.setVisible(true);
 					dispose();
-				}
-			}
-		});
+				}//end if
+			}//end action performed
+		});//end add action listener
 		contentPane.add(btnDesserts);
 		
+		//back button
 		JButton btnBack = new JButton("Back");
 		btnBack.setForeground(new Color(255, 255, 255));
 		btnBack.setBackground(new Color(153, 0, 0));
@@ -171,12 +177,12 @@ public class menuSelect extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnBack) { 
-					customerOptionMenu customer_options = new customerOptionMenu(api_connection, orders, total_price);
+					Customer_Option_Menu customer_options = new Customer_Option_Menu(api_connection, orders, total_price);
 					customer_options.setVisible(true);
 					dispose();
-				}
-			}
-		});
+				}//end if
+			}//end action performed
+		});//end add action listener
 		contentPane.add(btnBack);
-	}
-}
+	}//end init gui
+}//end class

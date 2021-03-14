@@ -1,0 +1,77 @@
+package view;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import javax.swing.JButton;
+
+public class menuSelect extends JFrame {
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					menuSelect frame = new menuSelect();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public menuSelect() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 139, 139));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Order");
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(169, 11, 96, 26);
+		contentPane.add(lblNewLabel);
+		
+		JButton btnFullMenu = new JButton("Full Menu");
+		btnFullMenu.setBounds(162, 62, 109, 31);
+		contentPane.add(btnFullMenu);
+		
+		JButton btnEntrees = new JButton("Entrees");
+		btnEntrees.setBounds(81, 119, 109, 31);
+		contentPane.add(btnEntrees);
+		
+		JButton btnBeverages = new JButton("Beverages");
+		btnBeverages.setBounds(81, 183, 109, 31);
+		contentPane.add(btnBeverages);
+		
+		JButton btnSides = new JButton("Sides");
+		btnSides.setBounds(243, 119, 109, 31);
+		contentPane.add(btnSides);
+		
+		JButton btnDesserts = new JButton("Desserts");
+		btnDesserts.setBounds(243, 183, 109, 31);
+		contentPane.add(btnDesserts);
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.setBounds(10, 14, 72, 23);
+		contentPane.add(btnBack);
+	}
+}

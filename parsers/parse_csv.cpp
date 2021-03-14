@@ -201,9 +201,50 @@ void create_visitation_csv (std::string filename, std::map<std::string, int> &vi
     output_csv_file.close();
 }
 
+// orders start from index 3 onwards from each row.
+// note how many times a specific item on the menu has been ordered
+std::map<std::string, int> create_menu_item_ordered_count(std::vector<std::vector<std::string>> &csv_data)
+{
+    std::map<std::string, int> menu_item_ordered_count;
+
+    for(int i = 0; i < csv_data.size(); i++)
+    {
+        for(int j = 3; j < csv_data[i].size(); j++)
+        {
+            if (menu_item_ordered_count.find(csv_data[i][j]) != menu_item_ordered_count.end())
+            {
+                menu_item_ordered_count[csv_data[i][j]]++; // increment by 1 after the visit
+            }
+            else 
+            {
+                menu_item_ordered_count[csv_data[i][j]] = 1;
+            }
+        }       
+    }
+    return menu_item_ordered_count;
+}
+
+void create_menu_item_ordered_count_csv(std::string filename, std::map<std::string, int> &menu_item_ordered_count)
+{
+    // create a stream for the output file and make sure that it is created
+    std::ofstream output_csv_file(filename);
+    if (!output_csv_file.is_open())
+    {
+        std::cerr << "Could not open file '" << filename << "'";
+        exit(1);
+    }
+
+    for(auto i = menu_item_ordered_count.begin(); i != menu_item_ordered_count.end(); i++)
+    {
+        output_csv_file << i->first << "," << i->second << std::endl;
+    }
+
+    output_csv_file.close();
+}
+
 int main()
 {
-    std::vector<std::vector<std::string>> csv_data = read_csv_to_vector("allNamesDatesOrders.csv");
+    std::vector<std::vector<std::string>> csv_data = read_csv_to_vector("../csvs/allNamesDatesOrders.csv");
 
     std::cout << "There are " << csv_data.size() << " lines in this csv file" << std::endl;
     
@@ -220,15 +261,18 @@ int main()
     //     std::cout << std::endl;
     // }
 
-    // std::string only_names_csv = "onlyNames.csv";
+    // std::string only_names_csv = "../csvs/onlyNames.csv";
     // create_csv_only_names(only_names_csv, csv_data);
 
     // create a customer info csv
-    std::vector<cust_info> customer_data_table = create_customer_vector(csv_data);
-    create_customer_csv("customer.csv", customer_data_table);
+    // std::vector<cust_info> customer_data_table = create_customer_vector(csv_data);
+    // create_customer_csv("../csvs/customer.csv", customer_data_table);
 
     // std::map<std::string, int> cust_visitation_map = create_visitation_map(csv_data);
-    // create_visitation_csv("visitation.csv", cust_visitation_map);
+    // create_visitation_csv("../csvs/visitation.csv", cust_visitation_map);
+
+    std::map<std::string, int> customer_menu_item_ordered_count = create_menu_item_ordered_count(csv_data);
+    create_menu_item_ordered_count_csv("../csvs/menu_item_ordered_count.csv", customer_menu_item_ordered_count);
 
     return 0;
 }
